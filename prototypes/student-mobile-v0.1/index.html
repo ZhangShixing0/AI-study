@@ -5,1871 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>学生端今日学习计划</title>
     <link rel="stylesheet" href="styles/design-tokens.css" />
-    <style>
-      * {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        margin: 0;
-        min-height: 100%;
-      }
-
-      body {
-        background:
-          radial-gradient(circle at 6% 0%, rgba(173, 190, 203, 0.28), transparent 30%),
-          linear-gradient(180deg, #f6f8fa 0%, var(--color-bg-page) 62%, #eef4f5 100%);
-        color: var(--color-text-main);
-        font-family: var(--font-family-base);
-      }
-
-      button {
-        font: inherit;
-      }
-
-      .page {
-        width: min(var(--page-width), 100vw);
-        min-height: 1844px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
-        background: var(--color-bg-page);
-        overflow: hidden;
-      }
-
-      .sidebar {
-        position: sticky;
-        top: 0;
-        height: 100vh;
-        padding: 48px 10px 28px;
-        background: linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%);
-        border-right: 1px solid rgba(224, 232, 238, 0.82);
-        box-shadow: 12px 0 34px rgba(52, 74, 92, 0.08);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 34px;
-        z-index: 4;
-      }
-
-      .brand {
-        width: 76px;
-        height: 76px;
-        border: 0;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        background: linear-gradient(145deg, #08a893 0%, #11c6b0 100%);
-        box-shadow: 0 12px 24px rgba(19, 191, 168, 0.22);
-      }
-
-      .brand img {
-        width: 42px;
-        height: 42px;
-        filter: brightness(0) invert(1);
-      }
-
-      .nav {
-        width: 84px;
-        display: grid;
-        gap: 18px;
-      }
-
-      .nav-item {
-        width: 84px;
-        min-height: 126px;
-        border: 0;
-        border-radius: 24px;
-        background: transparent;
-        color: #5f6e82;
-        display: grid;
-        align-content: center;
-        justify-items: center;
-        gap: 10px;
-        font-size: 24px;
-        font-weight: 800;
-        line-height: 1.16;
-        cursor: pointer;
-      }
-
-      .nav-item img {
-        width: 36px;
-        height: 36px;
-      }
-
-      .nav-item.active {
-        background: #f4f6f8;
-        color: var(--color-primary);
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7);
-      }
-
-      .nav-item.active img {
-        filter: invert(52%) sepia(97%) saturate(448%) hue-rotate(126deg) brightness(92%) contrast(91%);
-      }
-
-      .content {
-        min-width: 0;
-        padding: 80px 24px 38px;
-        background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(246,249,250,0.92));
-        border-radius: var(--radius-page) 0 0 var(--radius-page);
-        box-shadow: var(--shadow-page);
-      }
-
-      .view[hidden] {
-        display: none;
-      }
-
-      .banner {
-        position: relative;
-        width: 100%;
-        height: var(--banner-height);
-        border-radius: var(--radius-banner);
-        overflow: hidden;
-        background: linear-gradient(135deg, #13afa1 0%, #27cdbb 48%, #a8eee7 100%);
-        box-shadow: 0 18px 42px rgba(21, 145, 133, 0.18);
-      }
-
-      .banner::before,
-      .banner::after {
-        content: "";
-        position: absolute;
-        pointer-events: none;
-      }
-
-      .banner::before {
-        left: 42px;
-        bottom: 42px;
-        width: 86px;
-        height: 86px;
-        opacity: 0.12;
-        background:
-          linear-gradient(45deg, transparent 50%, #ffffff 50%) 0 0 / 43px 43px,
-          linear-gradient(135deg, transparent 50%, #ffffff 50%) 0 0 / 43px 43px;
-      }
-
-      .banner::after {
-        inset: 0;
-        background: linear-gradient(90deg, rgba(7, 137, 126, 0.28) 0%, transparent 44%);
-      }
-
-      .banner-text {
-        position: absolute;
-        z-index: 2;
-        left: 39px;
-        top: 50px;
-        color: #fff;
-      }
-
-      h1,
-      h2,
-      h3,
-      p {
-        margin: 0;
-      }
-
-      .banner-title {
-        font-size: var(--font-size-banner-title);
-        line-height: 1.08;
-        font-weight: 850;
-        letter-spacing: 0;
-      }
-
-      .banner-meta {
-        margin-top: 31px;
-        display: flex;
-        align-items: center;
-        gap: 34px;
-        color: rgba(255,255,255,0.94);
-        font-size: 23px;
-        font-weight: 500;
-      }
-
-      .meta-item {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        white-space: nowrap;
-      }
-
-      .meta-item img {
-        width: 22px;
-        height: 22px;
-        filter: brightness(0) invert(1);
-      }
-
-      .status-btn {
-        margin-top: 18px;
-        min-width: 120px;
-        height: 46px;
-        border-radius: var(--radius-pill);
-        border: 0;
-        background: rgba(255,255,255,0.72);
-        color: #176c66;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        font-size: 22px;
-        font-weight: 650;
-      }
-
-      .status-btn img {
-        width: 22px;
-        height: 22px;
-      }
-
-      .banner-student {
-        position: absolute;
-        z-index: 1;
-        right: -3px;
-        bottom: 0;
-        width: 497px;
-        height: 247px;
-        object-fit: cover;
-        object-position: right bottom;
-      }
-
-      .countdown {
-        position: absolute;
-        z-index: 3;
-        top: 30px;
-        right: 30px;
-        width: 110px;
-        height: 128px;
-        border-radius: 24px;
-        background: #fff;
-        color: var(--color-primary-dark);
-        display: grid;
-        place-items: center;
-        text-align: center;
-        box-shadow: 0 12px 26px rgba(20, 50, 70, 0.08);
-        font-weight: 850;
-      }
-
-      .countdown small {
-        display: block;
-        font-size: 21px;
-        line-height: 1.1;
-      }
-
-      .countdown strong {
-        display: block;
-        margin: 4px 0 2px;
-        font-size: 42px;
-        line-height: 1;
-      }
-
-      .countdown span {
-        display: block;
-        font-size: 24px;
-        line-height: 1;
-      }
-
-      .section-head {
-        margin: 42px 4px 24px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
-      }
-
-      .section-title {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-      }
-
-      .section-title img {
-        width: 32px;
-        height: 32px;
-      }
-
-      .section-title h2 {
-        font-size: var(--font-size-section-title);
-        line-height: 1.2;
-        font-weight: 850;
-      }
-
-      .type-count {
-        color: var(--color-text-secondary);
-        font-size: 20px;
-        font-weight: 500;
-        white-space: nowrap;
-      }
-
-      .type-count strong {
-        color: var(--color-primary);
-        font-weight: 850;
-      }
-
-      .type-card {
-        width: 100%;
-        margin-bottom: 24px;
-        padding: 20px;
-        border: 1px solid var(--color-border-soft);
-        border-radius: var(--radius-card);
-        background: var(--color-bg-card);
-        box-shadow: var(--shadow-card);
-      }
-
-      .type-card-head {
-        display: grid;
-        grid-template-columns: auto minmax(0, 1fr) 42px;
-        gap: 16px;
-        align-items: center;
-      }
-
-      .type-label {
-        height: 44px;
-        padding: 0 13px;
-        border-radius: 14px;
-        background: var(--color-primary-light);
-        color: var(--color-primary-dark);
-        display: inline-flex;
-        align-items: center;
-        font-size: 22px;
-        font-weight: 850;
-        white-space: nowrap;
-      }
-
-      .type-title {
-        min-width: 0;
-        color: var(--color-text-main);
-        font-size: var(--font-size-card-title);
-        line-height: 1.2;
-        font-weight: 850;
-      }
-
-      .arrow-circle {
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        border: 1px solid rgba(20, 50, 70, 0.10);
-        background: #fff;
-        display: grid;
-        place-items: center;
-      }
-
-      .arrow-circle img {
-        width: 18px;
-        height: 18px;
-      }
-
-      .lecture {
-        position: relative;
-        margin-top: 20px;
-        width: 100%;
-        height: var(--type-hero-height);
-        border-radius: 16px;
-        overflow: hidden;
-        background: #e8faf7;
-      }
-
-      .lecture img.lecture-img {
-        width: 100%;
-        height: 100%;
-        display: block;
-        object-fit: cover;
-      }
-
-      .play-pill {
-        position: absolute;
-        left: 50%;
-        bottom: 14px;
-        transform: translateX(-50%);
-        height: 44px;
-        padding: 0 18px;
-        border-radius: var(--radius-pill);
-        background: rgba(255,255,255,0.76);
-        color: var(--color-text-main);
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 22px;
-        font-weight: 750;
-        white-space: nowrap;
-      }
-
-      .play-pill img {
-        width: 28px;
-        height: 28px;
-      }
-
-      .source {
-        margin-top: 20px;
-        padding: 16px 18px;
-        border-radius: 18px;
-        border: 1px solid var(--color-border);
-        background: var(--color-primary-light);
-      }
-
-      .type-card.theme-purple .source {
-        background: var(--color-purple-light);
-        border-color: rgba(126,112,242,0.14);
-      }
-
-      .source-head {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 15px;
-        color: var(--color-text-main);
-        font-size: 22px;
-        font-weight: 850;
-      }
-
-      .source-head img {
-        width: 28px;
-        height: 28px;
-      }
-
-      .source-list {
-        display: grid;
-        gap: 11px;
-      }
-
-      .source-row {
-        min-height: 46px;
-        padding: 0 14px 0 18px;
-        border-radius: var(--radius-pill);
-        background: rgba(255,255,255,0.82);
-        border: 1px solid rgba(20, 50, 70, 0.08);
-        display: grid;
-        grid-template-columns: 24px minmax(0, 1fr) 16px;
-        align-items: center;
-        gap: 12px;
-        color: #111827;
-        font-size: 19px;
-        font-weight: 500;
-      }
-
-      .book-dot {
-        width: 24px;
-        height: 24px;
-        border-radius: 6px;
-        background: var(--color-primary);
-        box-shadow: inset 0 0 0 2px rgba(255,255,255,0.35);
-      }
-
-      .book-dot.purple {
-        background: var(--color-purple);
-      }
-
-      .source-row strong {
-        color: var(--color-primary);
-        font-weight: 800;
-      }
-
-      .theme-purple .source-row strong {
-        color: var(--color-purple);
-      }
-
-      .source-row img {
-        width: 16px;
-        height: 16px;
-      }
-
-      .feedback {
-        margin-top: 36px;
-        padding: 20px;
-        border: 1px solid rgba(245, 158, 91, 0.18);
-        border-radius: var(--radius-card);
-        background: rgba(255, 250, 243, 0.96);
-        box-shadow: var(--shadow-card);
-      }
-
-      .feedback-head {
-        display: grid;
-        grid-template-columns: auto auto minmax(0, 1fr) auto;
-        gap: 12px;
-        align-items: center;
-        padding-bottom: 16px;
-        border-bottom: 1px solid rgba(20, 50, 70, 0.08);
-      }
-
-      .feedback-head img {
-        width: 30px;
-        height: 30px;
-      }
-
-      .feedback-head h2 {
-        font-size: 27px;
-        line-height: 1.2;
-        font-weight: 850;
-      }
-
-      .feedback-subtitle {
-        justify-self: center;
-        color: var(--color-text-secondary);
-        font-size: 18px;
-        white-space: nowrap;
-      }
-
-      .all-none {
-        height: 38px;
-        padding: 0 18px;
-        border-radius: var(--radius-pill);
-        border: 1px solid rgba(245, 158, 91, 0.3);
-        background: var(--color-warning-light);
-        color: #f0641f;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-        font-weight: 800;
-        white-space: nowrap;
-      }
-
-      .feedback-list {
-        padding-top: 10px;
-      }
-
-      .feedback-row {
-        min-height: 48px;
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) 88px 88px 88px;
-        gap: 18px;
-        align-items: center;
-        padding: 0 0;
-        border-bottom: 1px solid rgba(20, 50, 70, 0.07);
-      }
-
-      .feedback-row:last-child {
-        border-bottom: 0;
-      }
-
-      .feedback-title {
-        min-width: 0;
-        color: var(--color-text-main);
-        font-size: 19px;
-        font-weight: 520;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      .choice {
-        height: 36px;
-        border-radius: var(--radius-pill);
-        border: 1px solid transparent;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-        font-weight: 800;
-        cursor: pointer;
-      }
-
-      .choice.correct {
-        border-color: rgba(19,168,135,0.20);
-        background: var(--color-success-light);
-        color: var(--color-success);
-      }
-
-      .choice.wrong {
-        border-color: rgba(240,90,90,0.22);
-        background: var(--color-error-light);
-        color: var(--color-error);
-      }
-
-      .choice.none {
-        border-color: rgba(107,120,144,0.18);
-        background: #f7f9fb;
-        color: var(--color-muted);
-      }
-
-      .choice.selected {
-        box-shadow: inset 0 0 0 2px currentColor;
-      }
-
-      .empty-view {
-        min-height: 800px;
-        padding: 40px;
-        border-radius: var(--radius-card);
-        background: #fff;
-        box-shadow: var(--shadow-card);
-      }
-
-      .empty-view h1 {
-        font-size: 34px;
-      }
-
-      .rank-hero {
-        position: relative;
-        height: 350px;
-        border-radius: var(--radius-banner);
-        overflow: hidden;
-        background:
-          linear-gradient(105deg, rgba(255,255,255,0.95) 0%, rgba(239,251,248,0.96) 48%, rgba(229,248,244,0.86) 100%);
-        border: 1px solid rgba(20, 50, 70, 0.06);
-        box-shadow: var(--shadow-card);
-      }
-
-      .rank-hero-text {
-        position: relative;
-        z-index: 2;
-        padding: 33px 0 0 28px;
-        max-width: 445px;
-      }
-
-      .rank-hero h1 {
-        font-size: 40px;
-        line-height: 1.1;
-        font-weight: 900;
-        letter-spacing: 0;
-      }
-
-      .rank-hero-subtitle {
-        margin-top: 16px;
-        color: var(--color-text-secondary);
-        font-size: 20px;
-        line-height: 1.35;
-      }
-
-      .rule-btn {
-        position: absolute;
-        z-index: 4;
-        top: 28px;
-        right: 26px;
-        height: 42px;
-        padding: 0 18px;
-        border-radius: var(--radius-pill);
-        border: 1px solid rgba(20, 50, 70, 0.1);
-        background: rgba(255,255,255,0.74);
-        color: var(--color-text-main);
-        display: inline-flex;
-        align-items: center;
-        gap: 16px;
-        font-size: 19px;
-        font-weight: 600;
-      }
-
-      .rule-btn::before {
-        content: "?";
-        width: 25px;
-        height: 25px;
-        border: 2px solid #64748b;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        color: #64748b;
-        font-size: 17px;
-        font-weight: 800;
-      }
-
-      .rank-stat-card {
-        margin-top: 23px;
-        width: 355px;
-        height: 142px;
-        border-radius: 24px;
-        background: rgba(229,250,246,0.76);
-        border: 1px solid rgba(20, 191, 168, 0.16);
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        align-items: center;
-      }
-
-      .rank-stat {
-        padding-left: 32px;
-        color: var(--color-text-main);
-      }
-
-      .rank-stat + .rank-stat {
-        border-left: 1px solid rgba(20, 50, 70, 0.10);
-      }
-
-      .rank-stat-label {
-        font-size: 19px;
-        font-weight: 600;
-      }
-
-      .rank-stat-value {
-        margin-top: 13px;
-        display: flex;
-        align-items: baseline;
-        gap: 8px;
-        font-weight: 900;
-      }
-
-      .rank-stat-value span:first-child {
-        font-size: 27px;
-      }
-
-      .rank-stat-value strong {
-        color: var(--color-primary-dark);
-        font-size: 58px;
-        line-height: 0.9;
-      }
-
-      .rank-stat-value span:last-child {
-        font-size: 29px;
-      }
-
-      .rank-tip {
-        position: absolute;
-        z-index: 3;
-        left: 36px;
-        bottom: 13px;
-        min-height: 52px;
-        padding: 0 23px;
-        border-radius: var(--radius-pill);
-        background: rgba(255,255,255,0.86);
-        display: inline-flex;
-        align-items: center;
-        gap: 13px;
-        color: var(--color-text-main);
-        font-size: 19px;
-        box-shadow: var(--shadow-soft);
-      }
-
-      .rank-tip strong {
-        color: #f0641f;
-        font-size: 24px;
-      }
-
-      .rank-tip img {
-        width: 30px;
-        height: 30px;
-      }
-
-      .rank-hero-img {
-        position: absolute;
-        right: -16px;
-        bottom: 0;
-        width: 420px;
-        height: 250px;
-        object-fit: cover;
-        object-position: right bottom;
-      }
-
-      .rank-card {
-        margin-top: 22px;
-        padding: 22px 28px;
-        border-radius: var(--radius-card);
-        background: rgba(255,255,255,0.95);
-        border: 1px solid var(--color-border-soft);
-        box-shadow: var(--shadow-card);
-      }
-
-      .rank-card-head {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 16px;
-        margin-bottom: 18px;
-      }
-
-      .rank-card-head h2 {
-        font-size: 28px;
-        line-height: 1.2;
-        font-weight: 900;
-      }
-
-      .rank-card-more {
-        color: var(--color-text-secondary);
-        font-size: 18px;
-      }
-
-      .badge-wall {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 24px;
-        align-items: end;
-      }
-
-      .medal-item {
-        text-align: center;
-        color: var(--color-text-secondary);
-        font-size: 17px;
-      }
-
-      .medal {
-        width: 128px;
-        height: 128px;
-        margin: 0 auto 8px;
-        border-radius: 50%;
-        position: relative;
-        display: grid;
-        place-items: center;
-        font-size: 43px;
-        color: #fff;
-        font-weight: 900;
-        filter: drop-shadow(0 12px 18px rgba(20, 50, 70, 0.16));
-      }
-
-      .medal::before {
-        content: "";
-        position: absolute;
-        inset: 11px;
-        border-radius: 50%;
-        border: 8px solid rgba(255,255,255,0.45);
-      }
-
-      .medal.teal {
-        background: linear-gradient(145deg, #40e0ce, #079a8d);
-      }
-
-      .medal.silver {
-        background: linear-gradient(145deg, #e6eef6, #8fa3ba);
-      }
-
-      .medal.gray {
-        background: linear-gradient(145deg, #dfe2ec, #8d92a3);
-      }
-
-      .medal.bronze {
-        background: linear-gradient(145deg, #f1d8bf, #b78b66);
-      }
-
-      .medal-lock {
-        position: absolute;
-        bottom: 17px;
-        width: 26px;
-        height: 26px;
-        border-radius: 8px;
-        background: rgba(82, 73, 66, 0.72);
-        font-size: 16px;
-        display: grid;
-        place-items: center;
-      }
-
-      .medal-status {
-        position: absolute;
-        bottom: -6px;
-        left: 50%;
-        transform: translateX(-50%);
-        height: 30px;
-        padding: 0 14px;
-        border-radius: var(--radius-pill);
-        background: #079a8d;
-        color: #fff;
-        font-size: 18px;
-        display: inline-flex;
-        align-items: center;
-        white-space: nowrap;
-      }
-
-      .badge-progress {
-        width: 128px;
-        margin: 10px auto 0;
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 9px;
-        align-items: center;
-      }
-
-      .progress-track {
-        height: 10px;
-        border-radius: var(--radius-pill);
-        background: #dce5ea;
-        overflow: hidden;
-      }
-
-      .progress-fill {
-        width: 71%;
-        height: 100%;
-        border-radius: inherit;
-        background: var(--color-primary);
-      }
-
-      .checkin-head {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 18px;
-      }
-
-      .legend {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        color: var(--color-text-secondary);
-        font-size: 17px;
-      }
-
-      .legend span {
-        display: inline-flex;
-        align-items: center;
-        gap: 7px;
-      }
-
-      .legend i {
-        width: 15px;
-        height: 15px;
-        border-radius: 5px;
-        display: inline-block;
-        background: var(--color-primary);
-      }
-
-      .legend i.off {
-        background: #eef2f5;
-        border: 1px solid #d8e1e7;
-      }
-
-      .checkin-grid {
-        display: grid;
-        grid-template-columns: repeat(14, 1fr);
-        gap: 15px;
-      }
-
-      .day-box {
-        height: 34px;
-        border-radius: 8px;
-        background: #eef2f5;
-        border: 1px solid #d8e1e7;
-        display: grid;
-        place-items: center;
-        color: #fff;
-        font-size: 22px;
-        font-weight: 900;
-      }
-
-      .day-box.done {
-        background: linear-gradient(145deg, var(--color-primary), #079a8d);
-        border-color: rgba(19,191,168,0.25);
-      }
-
-      .day-labels {
-        margin-top: 10px;
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        color: var(--color-text-secondary);
-        font-size: 18px;
-      }
-
-      .leader-tabs {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        text-align: center;
-        color: var(--color-text-secondary);
-        font-size: 23px;
-        border-bottom: 1px solid rgba(20, 50, 70, 0.08);
-      }
-
-      .leader-tab {
-        position: relative;
-        padding-bottom: 14px;
-      }
-
-      .leader-tab.active {
-        color: var(--color-primary-dark);
-        font-weight: 850;
-      }
-
-      .leader-tab.active::after {
-        content: "";
-        position: absolute;
-        left: 50%;
-        bottom: -1px;
-        transform: translateX(-50%);
-        width: 58px;
-        height: 4px;
-        border-radius: var(--radius-pill);
-        background: var(--color-primary);
-      }
-
-      .podium {
-        height: 180px;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        align-items: end;
-        gap: 42px;
-        padding: 18px 40px 0;
-      }
-
-      .podium-item {
-        height: 118px;
-        border-radius: 22px 22px 0 0;
-        display: grid;
-        justify-items: center;
-        align-content: start;
-        padding-top: 11px;
-        color: var(--color-text-main);
-        font-size: 17px;
-      }
-
-      .podium-item.first {
-        height: 142px;
-        background: linear-gradient(180deg, #fff3d6, #fffaf0);
-        border: 1px solid rgba(245,158,91,0.24);
-      }
-
-      .podium-item.second {
-        background: linear-gradient(180deg, #eef7ff, #f8fbff);
-        border: 1px solid rgba(140,165,195,0.20);
-      }
-
-      .podium-item.third {
-        background: linear-gradient(180deg, #ecfaf7, #f8fffd);
-        border: 1px solid rgba(19,191,168,0.18);
-      }
-
-      .avatar {
-        width: 54px;
-        height: 54px;
-        border-radius: 50%;
-        background: linear-gradient(145deg, #ffd6b5, #fff1e6);
-        display: grid;
-        place-items: center;
-        font-size: 28px;
-        margin-bottom: 7px;
-      }
-
-      .podium-days strong {
-        color: var(--color-primary);
-        font-size: 24px;
-      }
-
-      .podium-item.first .podium-days strong {
-        color: #f0641f;
-      }
-
-      .ranking-table {
-        border-top: 1px solid rgba(20, 50, 70, 0.08);
-      }
-
-      .rank-table-row {
-        min-height: 55px;
-        display: grid;
-        grid-template-columns: 80px minmax(0, 1fr) 150px 150px;
-        align-items: center;
-        border-bottom: 1px solid rgba(20, 50, 70, 0.07);
-        color: var(--color-text-secondary);
-        font-size: 18px;
-      }
-
-      .rank-table-row.header {
-        min-height: 42px;
-        font-size: 17px;
-      }
-
-      .rank-table-row.me {
-        margin-top: 8px;
-        padding: 0 0;
-        border: 1px solid rgba(19,191,168,0.18);
-        border-radius: 18px;
-        background: var(--color-primary-light);
-        color: var(--color-text-main);
-      }
-
-      .rank-name {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        color: var(--color-text-main);
-      }
-
-      .mini-avatar {
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        background: #ffe3cf;
-        display: grid;
-        place-items: center;
-      }
-
-      .status-ok {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        color: var(--color-primary-dark);
-      }
-
-      .status-ok::before {
-        content: "✓";
-        width: 22px;
-        height: 22px;
-        border-radius: 50%;
-        background: var(--color-primary);
-        color: #fff;
-        display: grid;
-        place-items: center;
-        font-size: 15px;
-        font-weight: 900;
-      }
-
-      .next-goal {
-        position: relative;
-        min-height: 250px;
-        overflow: hidden;
-        background: linear-gradient(105deg, #f1fffb, #ffffff 56%, #e8faf7);
-      }
-
-      .next-goal h2 {
-        font-size: 26px;
-        line-height: 1.2;
-        font-weight: 900;
-      }
-
-      .goal-content {
-        margin-top: 22px;
-        display: grid;
-        grid-template-columns: 175px minmax(0, 1fr) 170px;
-        align-items: center;
-        gap: 26px;
-      }
-
-      .goal-medal .medal {
-        width: 116px;
-        height: 116px;
-      }
-
-      .goal-medal {
-        text-align: center;
-        font-size: 21px;
-        color: var(--color-text-main);
-      }
-
-      .goal-copy {
-        color: var(--color-text-main);
-        font-size: 24px;
-      }
-
-      .goal-copy strong {
-        color: #f0641f;
-        font-size: 34px;
-      }
-
-      .goal-progress {
-        margin-top: 20px;
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 14px;
-        align-items: center;
-        color: var(--color-text-main);
-        font-size: 22px;
-      }
-
-      .continue-btn {
-        margin-top: 24px;
-        width: 100%;
-        height: 56px;
-        border: 0;
-        border-radius: var(--radius-pill);
-        background: linear-gradient(135deg, #13bfa8, #079a8d);
-        color: #fff;
-        font-size: 28px;
-        font-weight: 900;
-        box-shadow: 0 14px 28px rgba(19,191,168,0.22);
-      }
-
-      .calendar-art {
-        height: 142px;
-        border-radius: 22px;
-        background: linear-gradient(145deg, #ddfbf3, #f5fffc);
-        border: 1px solid rgba(19,191,168,0.16);
-        display: grid;
-        place-items: center;
-        color: var(--color-primary-dark);
-        font-size: 72px;
-      }
-
-      .curve-hero {
-        position: relative;
-        min-height: 350px;
-        padding: 38px 34px 0;
-        border-radius: var(--radius-banner);
-        overflow: visible;
-        background:
-          radial-gradient(circle at 73% 8%, rgba(19, 191, 168, 0.12), transparent 28%),
-          linear-gradient(105deg, rgba(255,255,255,0.96) 0%, rgba(238,253,249,0.94) 54%, rgba(223,249,244,0.82) 100%);
-        border: 1px solid rgba(20, 50, 70, 0.06);
-        box-shadow: var(--shadow-card);
-      }
-
-      .curve-hero h1 {
-        font-size: 40px;
-        line-height: 1.1;
-        font-weight: 900;
-        letter-spacing: 0;
-      }
-
-      .curve-hero-subtitle {
-        margin-top: 18px;
-        color: var(--color-text-main);
-        font-size: 22px;
-        line-height: 1.35;
-        font-weight: 520;
-      }
-
-      .radar-art {
-        position: absolute;
-        right: 12px;
-        top: 0;
-        width: 392px;
-        height: 188px;
-        opacity: 0.92;
-      }
-
-      .metrics-panel {
-        position: relative;
-        z-index: 2;
-        margin-top: 50px;
-        padding: 34px 28px 24px;
-        border-radius: 24px;
-        background: rgba(255,255,255,0.95);
-        border: 1px solid rgba(20, 50, 70, 0.07);
-        box-shadow: 0 14px 36px rgba(19,191,168,0.14);
-      }
-
-      .metric-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        align-items: stretch;
-      }
-
-      .metric-item {
-        min-height: 96px;
-        display: grid;
-        grid-template-columns: 56px minmax(0, 1fr);
-        gap: 14px;
-        align-items: center;
-        padding: 0 24px;
-        border-right: 1px solid rgba(20, 50, 70, 0.12);
-      }
-
-      .metric-item:first-child {
-        padding-left: 0;
-      }
-
-      .metric-item:last-child {
-        border-right: 0;
-        padding-right: 0;
-      }
-
-      .metric-icon {
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        color: var(--color-primary);
-        background: var(--color-primary-light);
-        font-size: 35px;
-        font-weight: 900;
-      }
-
-      .metric-icon.warn {
-        color: #f97316;
-        background: #fff4e8;
-      }
-
-      .metric-label {
-        color: var(--color-text-main);
-        font-size: 17px;
-        line-height: 1.2;
-        white-space: nowrap;
-      }
-
-      .metric-value {
-        margin-top: 12px;
-        color: #064f45;
-        font-size: 43px;
-        line-height: 1;
-        font-weight: 900;
-        white-space: nowrap;
-      }
-
-      .metric-value small {
-        font-size: 21px;
-        font-weight: 650;
-      }
-
-      .metric-value.orange {
-        color: #f0641f;
-      }
-
-      .curve-note {
-        margin-top: 26px;
-        padding-top: 22px;
-        border-top: 1px solid rgba(20, 50, 70, 0.12);
-        color: var(--color-text-main);
-        display: flex;
-        gap: 15px;
-        align-items: center;
-        font-size: 20px;
-      }
-
-      .curve-note .info {
-        width: 30px;
-        height: 30px;
-        border: 2px solid #64748b;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        color: #64748b;
-        font-weight: 850;
-      }
-
-      .curve-note strong {
-        color: var(--color-primary);
-      }
-
-      .curve-grid {
-        margin-top: 28px;
-        display: grid;
-        grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-        gap: 16px;
-        align-items: start;
-      }
-
-      .curve-card {
-        border-radius: var(--radius-card);
-        background: rgba(255,255,255,0.95);
-        border: 1px solid rgba(20, 50, 70, 0.06);
-        box-shadow: var(--shadow-card);
-        padding: 26px 22px;
-      }
-
-      .curve-card h2,
-      .priority-card h2 {
-        font-size: 27px;
-        line-height: 1.2;
-        font-weight: 900;
-      }
-
-      .heatmap {
-        margin-top: 28px;
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 24px 13px;
-      }
-
-      .heat-day {
-        display: grid;
-        gap: 10px;
-        justify-items: center;
-        color: var(--color-text-main);
-        font-size: 15px;
-      }
-
-      .heat-box {
-        width: 47px;
-        height: 58px;
-        border-radius: 8px;
-        background: #c9eee7;
-        box-shadow: inset 0 0 0 1px rgba(19,191,168,0.08);
-      }
-
-      .heat-box.high { background: linear-gradient(145deg, #12bfa8, #079a8d); }
-      .heat-box.mid { background: #88dcca; }
-      .heat-box.low { background: #ccefe8; }
-      .heat-box.none { background: #eef2f5; border: 1px solid #d8e1e7; }
-
-      .heat-legend {
-        margin-top: 34px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: var(--color-text-main);
-        font-size: 16px;
-      }
-
-      .heat-legend span {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .legend-square {
-        width: 18px;
-        height: 18px;
-        border-radius: 4px;
-        background: var(--color-primary);
-      }
-
-      .legend-square.mid { background: #88dcca; }
-      .legend-square.low { background: #ccefe8; }
-      .legend-square.none { background: #eef2f5; border: 1px solid #d8e1e7; }
-
-      .mastery-list {
-        margin-top: 28px;
-        display: grid;
-        gap: 22px;
-        max-height: 610px;
-        overflow: hidden;
-        position: relative;
-      }
-
-      .mastery-list::after {
-        content: "";
-        position: absolute;
-        right: 0;
-        top: 54px;
-        width: 8px;
-        height: 132px;
-        border-radius: var(--radius-pill);
-        background: #b8c1ca;
-      }
-
-      .mastery-row {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) 44px;
-        gap: 14px;
-        align-items: center;
-        font-size: 20px;
-        color: var(--color-text-main);
-      }
-
-      .mastery-percent {
-        text-align: right;
-        font-weight: 700;
-      }
-
-      .bar-track {
-        grid-column: 1 / -1;
-        height: 8px;
-        border-radius: var(--radius-pill);
-        background: #eef1f2;
-        overflow: hidden;
-      }
-
-      .bar-fill {
-        height: 100%;
-        border-radius: inherit;
-        background: var(--color-primary);
-      }
-
-      .bar-fill.orange {
-        background: #f97316;
-      }
-
-      .loss-card {
-        margin-top: 16px;
-      }
-
-      .loss-content {
-        margin-top: 24px;
-        display: grid;
-        grid-template-columns: 210px minmax(0, 1fr);
-        gap: 26px;
-        align-items: center;
-      }
-
-      .donut {
-        width: 190px;
-        height: 190px;
-        border-radius: 50%;
-        background: conic-gradient(#13bfa8 0 32%, #42b977 32% 60%, #ffa726 60% 82%, #7e70f2 82% 100%);
-        position: relative;
-        display: grid;
-        place-items: center;
-        color: #fff;
-        font-size: 26px;
-        font-weight: 850;
-      }
-
-      .donut::after {
-        content: "";
-        width: 74px;
-        height: 74px;
-        border-radius: 50%;
-        background: #fff;
-        position: absolute;
-      }
-
-      .loss-legend {
-        display: grid;
-        gap: 24px;
-        font-size: 17px;
-        color: var(--color-text-main);
-      }
-
-      .loss-legend-row {
-        display: grid;
-        grid-template-columns: 12px minmax(0, 1fr) 42px;
-        gap: 12px;
-        align-items: center;
-      }
-
-      .dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: var(--color-primary);
-      }
-
-      .dot.green { background: #42b977; }
-      .dot.orange { background: #ffa726; }
-      .dot.purple { background: #7e70f2; }
-
-      .priority-card {
-        margin-top: 16px;
-        padding: 26px 22px;
-        border-radius: var(--radius-card);
-        background: rgba(255,255,255,0.95);
-        border: 1px solid rgba(20, 50, 70, 0.06);
-        box-shadow: var(--shadow-card);
-      }
-
-      .priority-head {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        margin-bottom: 20px;
-      }
-
-      .priority-icon {
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        color: #fff;
-        background: var(--color-primary);
-        font-size: 23px;
-        font-weight: 900;
-      }
-
-      .priority-list {
-        display: grid;
-      }
-
-      .priority-row {
-        min-height: 62px;
-        display: grid;
-        grid-template-columns: 36px 110px 82px minmax(0, 1fr) 42px;
-        gap: 18px;
-        align-items: center;
-        border-top: 1px solid rgba(20, 50, 70, 0.08);
-        color: var(--color-text-main);
-      }
-
-      .priority-index {
-        width: 36px;
-        height: 36px;
-        border-radius: 8px;
-        display: grid;
-        place-items: center;
-        color: #fff;
-        background: var(--color-primary);
-        font-size: 22px;
-        font-weight: 900;
-      }
-
-      .priority-name {
-        font-size: 22px;
-        font-weight: 850;
-      }
-
-      .tag {
-        min-height: 32px;
-        border-radius: 6px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        color: #f0641f;
-        background: #fff2dd;
-        font-size: 18px;
-        font-weight: 700;
-      }
-
-      .tag.blue {
-        color: #1677ff;
-        background: #eaf4ff;
-      }
-
-      .priority-desc {
-        color: var(--color-text-main);
-        font-size: 17px;
-        line-height: 1.45;
-      }
-
-      .priority-action {
-        color: #5f6e82;
-        font-size: 28px;
-        text-align: center;
-      }
-
-      @media (max-width: 852px) {
-        :root {
-          --page-width: 100vw;
-          --sidebar-width: 13vw;
-          --content-padding-x: 2.8vw;
-          --font-size-banner-title: clamp(24px, 5vw, 42px);
-          --font-size-section-title: clamp(18px, 3.5vw, 30px);
-          --font-size-card-title: clamp(16px, 2.9vw, 25px);
-          --font-size-body: clamp(13px, 2.2vw, 18px);
-          --font-size-small: clamp(11px, 1.9vw, 15px);
-          --banner-height: 39.9vw;
-          --type-hero-height: 20.5vw;
-        }
-
-        .page {
-          grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
-          min-height: auto;
-        }
-
-        .sidebar {
-          padding: 5.6vw 1.1vw 3vw;
-          gap: 4vw;
-        }
-
-        .brand {
-          width: 8.9vw;
-          height: 8.9vw;
-        }
-
-        .brand img {
-          width: 4.9vw;
-          height: 4.9vw;
-        }
-
-        .nav {
-          width: 9.8vw;
-          gap: 2.1vw;
-        }
-
-        .nav-item {
-          width: 9.8vw;
-          min-height: 14.8vw;
-          border-radius: 2.8vw;
-          gap: 1vw;
-          font-size: clamp(11px, 2.8vw, 24px);
-        }
-
-        .nav-item img {
-          width: 4.2vw;
-          height: 4.2vw;
-        }
-
-        .content {
-          padding: 9.4vw 2.8vw 4.5vw;
-        }
-
-        .banner {
-          height: var(--banner-height);
-        }
-
-        .banner-text {
-          left: 4.6vw;
-          top: 5.9vw;
-        }
-
-        .banner-meta {
-          margin-top: 3.6vw;
-          gap: 4vw;
-          font-size: clamp(13px, 2.7vw, 23px);
-        }
-
-        .meta-item img {
-          width: 2.6vw;
-          height: 2.6vw;
-        }
-
-        .status-btn {
-          margin-top: 2.1vw;
-          min-width: 14vw;
-          height: 5.4vw;
-          gap: 1vw;
-          font-size: clamp(12px, 2.6vw, 22px);
-        }
-
-        .status-btn img {
-          width: 2.6vw;
-          height: 2.6vw;
-        }
-
-        .banner-student {
-          width: 58vw;
-          height: 29vw;
-        }
-
-        .countdown {
-          top: 3.5vw;
-          right: 3.5vw;
-          width: 12.9vw;
-          height: 15vw;
-          border-radius: 2.8vw;
-        }
-
-        .countdown small {
-          font-size: clamp(11px, 2.45vw, 21px);
-        }
-
-        .countdown strong {
-          font-size: clamp(22px, 4.9vw, 42px);
-        }
-
-        .countdown span {
-          font-size: clamp(12px, 2.8vw, 24px);
-        }
-
-        .section-head {
-          margin: 4.9vw 0.5vw 2.8vw;
-        }
-
-        .section-title {
-          gap: 1.6vw;
-        }
-
-        .section-title img {
-          width: 3.75vw;
-          height: 3.75vw;
-        }
-
-        .type-count {
-          font-size: clamp(12px, 2.35vw, 20px);
-        }
-
-        .type-card,
-        .feedback {
-          padding: 2.35vw;
-          margin-bottom: 2.8vw;
-        }
-
-        .type-card-head {
-          grid-template-columns: auto minmax(0, 1fr) 4.9vw;
-          gap: 1.9vw;
-        }
-
-        .type-label {
-          height: 5.15vw;
-          border-radius: 1.65vw;
-          padding: 0 1.5vw;
-          font-size: clamp(12px, 2.6vw, 22px);
-        }
-
-        .arrow-circle {
-          width: 4.9vw;
-          height: 4.9vw;
-        }
-
-        .lecture {
-          margin-top: 2.35vw;
-          height: var(--type-hero-height);
-        }
-
-        .play-pill {
-          height: 5.15vw;
-          bottom: 1.65vw;
-          padding: 0 2.1vw;
-          gap: 1.2vw;
-          font-size: clamp(12px, 2.55vw, 22px);
-        }
-
-        .play-pill img {
-          width: 3.3vw;
-          height: 3.3vw;
-        }
-
-        .source {
-          margin-top: 2.35vw;
-          padding: 1.9vw 2.1vw;
-        }
-
-        .source-head {
-          gap: 1.2vw;
-          margin-bottom: 1.75vw;
-          font-size: clamp(13px, 2.6vw, 22px);
-        }
-
-        .source-head img {
-          width: 3.3vw;
-          height: 3.3vw;
-        }
-
-        .source-row {
-          min-height: 5.4vw;
-          grid-template-columns: 2.8vw minmax(0, 1fr) 1.9vw;
-          gap: 1.4vw;
-          font-size: clamp(12px, 2.23vw, 19px);
-        }
-
-        .book-dot {
-          width: 2.8vw;
-          height: 2.8vw;
-        }
-
-        .feedback {
-          margin-top: 4.2vw;
-        }
-
-        .feedback-head {
-          grid-template-columns: auto auto minmax(0, 1fr) auto;
-          gap: 1.4vw;
-          padding-bottom: 1.9vw;
-        }
-
-        .feedback-head img {
-          width: 3.5vw;
-          height: 3.5vw;
-        }
-
-        .feedback-head h2 {
-          font-size: clamp(16px, 3.15vw, 27px);
-        }
-
-        .feedback-subtitle {
-          font-size: clamp(12px, 2.1vw, 18px);
-        }
-
-        .all-none {
-          height: 4.45vw;
-          padding: 0 2.1vw;
-          font-size: clamp(12px, 2.1vw, 18px);
-        }
-
-        .feedback-row {
-          min-height: 5.65vw;
-          grid-template-columns: minmax(0, 1fr) 10.3vw 10.3vw 10.3vw;
-          gap: 2.1vw;
-        }
-
-        .curve-grid {
-          grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-        }
-
-        .metric-item {
-          grid-template-columns: 6.6vw minmax(0, 1fr);
-          gap: 1.3vw;
-          padding: 0 2.1vw;
-        }
-
-        .metric-icon {
-          width: 6.5vw;
-          height: 6.5vw;
-          font-size: clamp(18px, 4vw, 35px);
-        }
-
-        .metric-label {
-          font-size: clamp(11px, 2vw, 17px);
-        }
-
-        .metric-value {
-          font-size: clamp(24px, 5vw, 43px);
-        }
-
-        .feedback-title {
-          font-size: clamp(12px, 2.23vw, 19px);
-        }
-
-        .choice {
-          height: 4.2vw;
-          font-size: clamp(11px, 2.1vw, 18px);
-        }
-      }
-
-      @media (max-width: 430px) {
-        .page {
-          transform-origin: top left;
-        }
-
-        .feedback-subtitle {
-          display: none;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="styles/app.css" />
   </head>
   <body>
-    <div class="page">
+    <header class="scheme-title">方案 A | 清新专注风</header>
+    <section class="login-screen" id="loginScreen">
+      <div class="login-card">
+        <div class="login-brand">
+          <div class="login-logo">A</div>
+          <div>
+            <h1 class="login-title">学生账号登录</h1>
+            <p class="login-subtitle">登录不同学生账号，检查今日计划和反馈状态是否正确</p>
+          </div>
+        </div>
+        <form class="login-form" id="loginForm">
+          <label class="login-field">
+            账号
+            <input id="loginAccount" name="loginAccount" autocomplete="username" placeholder="请输入学生账号" />
+          </label>
+          <label class="login-field">
+            密码
+            <input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="请输入密码" />
+          </label>
+          <button class="login-submit" id="loginSubmit" type="submit">登录并查看今日计划</button>
+          <div class="login-message" id="loginMessage"></div>
+        </form>
+      </div>
+    </section>
+    <div class="current-user-bar" id="currentUserBar">
+      <span id="currentUserText">未登录</span>
+      <button class="logout-btn" id="logoutBtn" type="button">切换账号</button>
+    </div>
+    <div class="page" id="appShell" hidden>
       <aside class="sidebar">
         <div class="brand"><img src="assets/icons/icon-graduation.svg" alt="" /></div>
         <nav class="nav" aria-label="学生端导航">
-          <button class="nav-item active" type="button" data-view="planView">
-            <img src="assets/icons/icon-plan.svg" alt="" />
-            <span>计划</span>
+          <button class="nav-item" type="button" data-view="planView">
+            <img src="assets/icons/icon-calendar.svg" alt="" />
+            <span>今日计划</span>
           </button>
           <button class="nav-item" type="button" data-view="rankView">
             <img src="assets/icons/icon-rank.svg" alt="" />
@@ -1879,11 +52,11 @@
             <img src="assets/icons/icon-chart.svg" alt="" />
             <span>曲线</span>
           </button>
-          <button class="nav-item" type="button" data-view="rankView">
-            <img src="assets/icons/icon-feedback.svg" alt="" />
-            <span>社区</span>
+          <button class="nav-item active" type="button" data-view="studyRoomView">
+            <img src="assets/icons/icon-study-room.svg" alt="" />
+            <span>自习室</span>
           </button>
-          <button class="nav-item" type="button" data-view="rankView">
+          <button class="nav-item" type="button" data-view="myView">
             <img src="assets/icons/icon-graduation.svg" alt="" />
             <span>我的</span>
           </button>
@@ -1891,7 +64,7 @@
       </aside>
 
       <main class="content">
-        <section class="view" id="planView">
+        <section class="view" id="planView" hidden>
           <section class="banner">
             <div class="banner-text">
               <h1 class="banner-title">今日学习计划</h1>
@@ -2014,6 +187,134 @@
           </section>
         </section>
 
+        <section class="view" id="studyRoomView">
+          <div class="study-room">
+            <section class="study-hero">
+              <img class="study-hero-art" src="assets/images/study-room-hero-art.png" alt="自习室学习插画" />
+              <div class="study-hero-copy">
+                <h1>考研自习室</h1>
+                <p class="study-hero-subtitle">专注当下，未来可期</p>
+                <div class="study-room-name">
+                  <svg class="study-home-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M3 10.7 12 3l9 7.7v9.1a1.2 1.2 0 0 1-1.2 1.2h-5.1v-6.2H9.3V21H4.2A1.2 1.2 0 0 1 3 19.8v-9.1z"/>
+                  </svg>
+                  数学二冲刺自习室
+                </div>
+                <div class="study-online">在线 <strong>128</strong> 人</div>
+                <div class="quiet-pill">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M11 5 6 9H3v6h3l5 4V5z"/>
+                    <path d="m19 9-6 6"/>
+                    <path d="m13 9 6 6"/>
+                  </svg>
+                  安静模式
+                </div>
+              </div>
+            </section>
+
+            <section class="study-focus-card">
+              <div class="focus-label">本轮专注</div>
+              <div class="focus-time">45:00</div>
+              <div class="task-label">当前任务</div>
+              <div class="current-task">
+                <span class="task-book"><img src="assets/icons/icon-book.svg" alt="" /></span>
+                高数｜极限与连续
+              </div>
+              <div class="focus-actions">
+                <button class="focus-start" type="button">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M8 5.6v12.8a1 1 0 0 0 1.55.84l9.85-6.4a1 1 0 0 0 0-1.68L9.55 4.76A1 1 0 0 0 8 5.6z"/>
+                  </svg>
+                  开始专注
+                </button>
+                <button class="focus-exit" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M10 17H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h4"/>
+                    <path d="M15 7l5 5-5 5"/>
+                    <path d="M20 12H9"/>
+                  </svg>
+                  退出房间
+                </button>
+              </div>
+            </section>
+
+            <section class="study-goal-card">
+              <div class="study-card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="8"/>
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="m16 8 4-4"/>
+                  <path d="m18 4h2v2"/>
+                </svg>
+                今日自习目标
+              </div>
+              <div class="goal-stats">
+                <div class="goal-stat">
+                  <div class="goal-stat-label">目标时长</div>
+                  <div class="goal-stat-value">3.0<span>小时</span></div>
+                </div>
+                <div class="goal-stat">
+                  <div class="goal-stat-label">已完成</div>
+                  <div class="goal-stat-value">1.5<span>小时</span></div>
+                </div>
+              </div>
+              <div class="goal-progress-row">
+                <div class="study-progress-track"><div class="study-progress-fill"></div></div>
+                <div class="progress-percent">50%</div>
+              </div>
+            </section>
+
+            <section class="study-peer-card">
+              <div class="peer-head">
+                <div class="study-card-title">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M8.5 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM2 21a6.5 6.5 0 0 1 13 0H2zM17 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM16.2 13.2A5.7 5.7 0 0 1 22 18.8V21h-4.8a8.4 8.4 0 0 0-2.1-5.5 6.4 6.4 0 0 0 1.1-2.3z"/>
+                  </svg>
+                  同桌陪伴
+                </div>
+                <div class="peer-more">查看全部 <img src="assets/icons/icon-arrow-right.svg" alt="" /></div>
+              </div>
+              <div class="peer-list">
+                <div class="peer">
+                  <img src="assets/images/study-room-avatar-1.png" alt="" />
+                  <div class="peer-status">正在做线代</div>
+                  <div class="peer-time">已专注 62 分钟</div>
+                </div>
+                <div class="peer">
+                  <img src="assets/images/study-room-avatar-2.png" alt="" />
+                  <div class="peer-status">正在做高数</div>
+                  <div class="peer-time">已专注 48 分钟</div>
+                </div>
+                <div class="peer">
+                  <img src="assets/images/study-room-avatar-3.png" alt="" />
+                  <div class="peer-status">正在做概率论</div>
+                  <div class="peer-time">已专注 55 分钟</div>
+                </div>
+                <div class="peer">
+                  <img src="assets/images/study-room-avatar-4.png" alt="" />
+                  <div class="peer-status">正在做线代</div>
+                  <div class="peer-time">已专注 35 分钟</div>
+                </div>
+                <div class="peer">
+                  <img src="assets/images/study-room-avatar-5.png" alt="" />
+                  <div class="peer-status">正在做高数</div>
+                  <div class="peer-time">已专注 28 分钟</div>
+                </div>
+              </div>
+            </section>
+
+            <section class="study-rule-card">
+              <svg class="rule-shield" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2.5 4 5.8v5.8c0 5 3.3 8.2 8 9.9 4.7-1.7 8-4.9 8-9.9V5.8l-8-3.3z"/>
+                <path d="m10.4 13.3 4.7-4.7 1.3 1.3-6 6-3-3 1.3-1.3 1.7 1.7z" fill="#fff"/>
+              </svg>
+              <h2>房间规则</h2>
+              <p>不开麦、不聊天、按计划专注</p>
+              <img class="rule-art" src="assets/images/study-room-rule-art.png" alt="" />
+            </section>
+          </div>
+        </section>
+
         <section class="view" id="rankView" hidden>
           <section class="rank-hero">
             <button class="rule-btn" type="button">规则说明</button>
@@ -2059,20 +360,6 @@
                 <div>30天连续学习</div>
               </div>
             </div>
-          </section>
-
-          <section class="rank-card">
-            <div class="checkin-head">
-              <h2>近14天学习打卡</h2>
-              <div class="legend"><span><i></i>已学</span><span><i class="off"></i>未学</span></div>
-            </div>
-            <div class="checkin-grid">
-              <div class="day-box"></div><div class="day-box"></div><div class="day-box done">✓</div><div class="day-box done">✓</div>
-              <div class="day-box done">✓</div><div class="day-box done">✓</div><div class="day-box"></div><div class="day-box"></div>
-              <div class="day-box done">✓</div><div class="day-box done">✓</div><div class="day-box done">✓</div><div class="day-box done">✓</div>
-              <div class="day-box done">✓</div><div class="day-box"></div>
-            </div>
-            <div class="day-labels"><span>13天前</span><span>11天前</span><span>9天前</span><span>7天前</span><span>5天前</span><span>3天前</span><span>今天</span></div>
           </section>
 
           <section class="rank-card">
@@ -2154,23 +441,29 @@
           <div class="curve-grid">
             <section class="curve-card">
               <h2>最近14天学习热力图 <span style="font-size:20px;color:#64748b">?</span></h2>
+              <div class="heat-summary">
+                <div class="heat-stat"><span>累计自习</span><strong>31.5h</strong></div>
+                <div class="heat-stat"><span>最高单日</span><strong>4.0h</strong></div>
+                <div class="heat-stat"><span>连续学习</span><strong>5天</strong></div>
+              </div>
               <div class="heatmap">
-                <div class="heat-day"><span>05.16</span><div class="heat-box low"></div></div>
-                <div class="heat-day"><span>05.17</span><div class="heat-box mid"></div></div>
-                <div class="heat-day"><span>05.18</span><div class="heat-box low"></div></div>
-                <div class="heat-day"><span>05.19</span><div class="heat-box high"></div></div>
-                <div class="heat-day"><span>05.20</span><div class="heat-box low"></div></div>
-                <div class="heat-day"><span>05.21</span><div class="heat-box mid"></div></div>
-                <div class="heat-day"><span>05.22</span><div class="heat-box low"></div></div>
-                <div class="heat-day"><span>05.23</span><div class="heat-box high"></div></div>
-                <div class="heat-day"><span>05.24</span><div class="heat-box low"></div></div>
-                <div class="heat-day"><span>05.25</span><div class="heat-box high"></div></div>
-                <div class="heat-day"><span>05.26</span><div class="heat-box mid"></div></div>
-                <div class="heat-day"><span>05.27</span><div class="heat-box low"></div></div>
-                <div class="heat-day"><span>05.28</span><div class="heat-box mid"></div></div>
-                <div class="heat-day"><span>05.29</span><div class="heat-box none"></div></div>
+                <div class="heat-day"><span>05.29</span><div class="heat-box low"></div><div class="heat-meta">1.0h</div></div>
+                <div class="heat-day"><span>05.30</span><div class="heat-box mid"></div><div class="heat-meta">2.0h</div></div>
+                <div class="heat-day"><span>05.31</span><div class="heat-box none"></div><div class="heat-meta">休息</div></div>
+                <div class="heat-day"><span>06.01</span><div class="heat-box high"></div><div class="heat-meta">3.0h</div></div>
+                <div class="heat-day"><span>06.02</span><div class="heat-box low"></div><div class="heat-meta">1.5h</div></div>
+                <div class="heat-day"><span>06.03</span><div class="heat-box mid"></div><div class="heat-meta">2.5h</div></div>
+                <div class="heat-day"><span>06.04</span><div class="heat-box high"></div><div class="heat-meta">3.5h</div></div>
+                <div class="heat-day"><span>06.05</span><div class="heat-box low"></div><div class="heat-meta">1.0h</div></div>
+                <div class="heat-day"><span>06.06</span><div class="heat-box high"></div><div class="heat-meta">3.0h</div></div>
+                <div class="heat-day"><span>06.07</span><div class="heat-box peak"></div><div class="heat-meta">4.0h</div></div>
+                <div class="heat-day"><span>06.08</span><div class="heat-box mid"></div><div class="heat-meta">2.0h</div></div>
+                <div class="heat-day"><span>06.09</span><div class="heat-box low"></div><div class="heat-meta">1.5h</div></div>
+                <div class="heat-day"><span>06.10</span><div class="heat-box high"></div><div class="heat-meta">3.0h</div></div>
+                <div class="heat-day"><span>06.11</span><div class="heat-box mid"></div><div class="heat-meta">2.5h</div></div>
               </div>
               <div class="heat-legend">
+                <span><i class="legend-square peak"></i>超高</span>
                 <span><i class="legend-square"></i>高强度</span>
                 <span><i class="legend-square mid"></i>中等</span>
                 <span><i class="legend-square low"></i>低强度</span>
@@ -2178,9 +471,9 @@
               </div>
             </section>
 
-            <section class="curve-card" style="grid-row: span 2;">
-              <h2>题型掌握度</h2>
-              <div class="mastery-list">
+            <section class="curve-card mastery-card">
+              <h2>章节掌握度</h2>
+              <div class="mastery-list mastery-scroll">
                 <div class="mastery-row"><div>极限与连续</div><div class="mastery-percent">84%</div><div class="bar-track"><div class="bar-fill" style="width:84%"></div></div></div>
                 <div class="mastery-row"><div>导数应用</div><div class="mastery-percent">76%</div><div class="bar-track"><div class="bar-fill" style="width:76%"></div></div></div>
                 <div class="mastery-row"><div>定积分</div><div class="mastery-percent">63%</div><div class="bar-track"><div class="bar-fill" style="width:63%"></div></div></div>
@@ -2194,14 +487,30 @@
             </section>
 
             <section class="curve-card loss-card">
-              <h2>失分原因分析</h2>
+              <h2>失分原因比例</h2>
               <div class="loss-content">
                 <div class="donut"></div>
                 <div class="loss-legend">
-                  <div class="loss-legend-row"><i class="dot"></i><span>方法选择错误</span><strong>32%</strong></div>
-                  <div class="loss-legend-row"><i class="dot green"></i><span>计算失误</span><strong>28%</strong></div>
-                  <div class="loss-legend-row"><i class="dot orange"></i><span>概念混淆</span><strong>22%</strong></div>
-                  <div class="loss-legend-row"><i class="dot purple"></i><span>漏条件</span><strong>18%</strong></div>
+                  <div class="loss-legend-row">
+                    <i class="dot"></i><span>方法选择错误</span><strong>34%</strong>
+                    <div class="loss-bar"><i style="--value:34%;--bar-color:#13bfa8"></i></div>
+                  </div>
+                  <div class="loss-legend-row">
+                    <i class="dot green"></i><span>计算失误</span><strong>26%</strong>
+                    <div class="loss-bar"><i style="--value:26%;--bar-color:#42b977"></i></div>
+                  </div>
+                  <div class="loss-legend-row">
+                    <i class="dot orange"></i><span>概念混淆</span><strong>22%</strong>
+                    <div class="loss-bar"><i style="--value:22%;--bar-color:#ffa726"></i></div>
+                  </div>
+                  <div class="loss-legend-row">
+                    <i class="dot purple"></i><span>漏条件</span><strong>12%</strong>
+                    <div class="loss-bar"><i style="--value:12%;--bar-color:#7e70f2"></i></div>
+                  </div>
+                  <div class="loss-legend-row">
+                    <i class="dot gray"></i><span>审题粗心</span><strong>6%</strong>
+                    <div class="loss-bar"><i style="--value:6%;--bar-color:#94a3b8"></i></div>
+                  </div>
                 </div>
               </div>
             </section>
@@ -2216,50 +525,17 @@
             </div>
           </section>
         </section>
+
+        <section class="view" id="myView" hidden></section>
       </main>
     </div>
 
-    <script>
-      const navButtons = document.querySelectorAll(".nav-item");
-      const views = document.querySelectorAll(".view");
-      const rows = document.querySelectorAll(".feedback-row");
-      const allNone = document.querySelector("#allNone");
-
-      function showView(viewId) {
-        const targetButton = [...navButtons].find((item) => item.dataset.view === viewId);
-        if (!targetButton) return;
-        navButtons.forEach((item) => item.classList.toggle("active", item === targetButton));
-        views.forEach((view) => {
-          view.hidden = view.id !== viewId;
-        });
-      }
-
-      navButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          showView(button.dataset.view);
-          window.scrollTo({ top: 0, behavior: "instant" });
-        });
-      });
-
-      const requestedView = new URLSearchParams(window.location.search).get("view");
-      if (requestedView === "rank") showView("rankView");
-      if (requestedView === "curve") showView("curveView");
-
-      rows.forEach((row) => {
-        row.addEventListener("click", (event) => {
-          const choice = event.target.closest(".choice");
-          if (!choice) return;
-          row.querySelectorAll(".choice").forEach((item) => item.classList.remove("selected"));
-          choice.classList.add("selected");
-        });
-      });
-
-      allNone.addEventListener("click", () => {
-        rows.forEach((row) => {
-          row.querySelectorAll(".choice").forEach((item) => item.classList.remove("selected"));
-          row.querySelector(".choice.none").classList.add("selected");
-        });
-      });
-    </script>
+    <script src="data/app-data.js"></script>
+    <script src="assets/js/pages/plan.js"></script>
+    <script src="assets/js/pages/rank.js"></script>
+    <script src="assets/js/pages/curve.js"></script>
+    <script src="assets/js/pages/study-room.js"></script>
+    <script src="assets/js/pages/profile.js"></script>
+    <script src="assets/js/app.js"></script>
   </body>
 </html>
