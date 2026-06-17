@@ -54,6 +54,367 @@ def level_matches(applicable_levels: str, level: str) -> bool:
     return not levels or level in levels
 
 
+DEFAULT_TEST_ACCESS_CODES = [
+    ("demo-a01", "10001", "claimed"),
+    ("demo-b01", "10002", "claimed"),
+    ("new-a01", "", "unused"),
+    ("new-b01", "", "unused"),
+]
+
+WRONG_REASON_LABELS = {
+    "method_error": "方法选择错误",
+    "calculation_error": "计算失误",
+    "knowledge_gap": "知识点不熟/概念混淆",
+    "condition_missed": "条件或边界漏考虑",
+}
+
+
+def normalize_test_code(code: str) -> str:
+    return str(code or "").strip().lower()
+
+
+def ensure_question_feedbacks_reason_columns(conn) -> None:
+    columns = {
+        row["name"]
+        for row in conn.execute("PRAGMA table_info(question_feedbacks)").fetchall()
+    }
+    if "wrong_reason_code" not in columns:
+        conn.execute("ALTER TABLE question_feedbacks ADD COLUMN wrong_reason_code TEXT NOT NULL DEFAULT ''")
+    if "wrong_reason_name" not in columns:
+        conn.execute("ALTER TABLE question_feedbacks ADD COLUMN wrong_reason_name TEXT NOT NULL DEFAULT ''")
+    if "unattempted_action" not in columns:
+        conn.execute("ALTER TABLE question_feedbacks ADD COLUMN unattempted_action TEXT NOT NULL DEFAULT ''")
+
+
+def ensure_student_progress_tracking_columns(conn) -> None:
+    columns = {
+        row["name"]
+        for row in conn.execute("PRAGMA table_info(student_progress)").fetchall()
+    }
+    if "current_type_status" not in columns:
+        conn.execute("ALTER TABLE student_progress ADD COLUMN current_type_status TEXT NOT NULL DEFAULT 'active'")
+
+
+def ensure_test_access_codes_table(conn) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS test_access_codes (
+          code TEXT PRIMARY KEY,
+          user_id TEXT NOT NULL DEFAULT '',
+          status TEXT NOT NULL DEFAULT 'unused',
+          created_at TEXT NOT NULL,
+          claimed_at TEXT NOT NULL DEFAULT '',
+          updated_at TEXT NOT NULL
+        )
+        """
+    )
+    created_at = now_text()
+    for code, user_id, status in DEFAULT_TEST_ACCESS_CODES:
+        conn.execute(
+            """
+            INSERT OR IGNORE INTO test_access_codes (
+              code, user_id, status, created_at, claimed_at, updated_at
+            ) VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (code, user_id, status, created_at, created_at if user_id else "", created_at),
+        )
+
+
+def ensure_test_user_dates_table(conn) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS test_user_dates (
+          user_id TEXT PRIMARY KEY,
+          current_test_date TEXT NOT NULL,
+          created_at TEXT NOT NULL,
+          updated_at TEXT NOT NULL
+        )
+        """
+    )
+
+
+def get_current_test_date(conn, user_id: str) -> str:
+    ensure_test_user_dates_table(conn)
+    row = row_to_dict(
+        conn.execute(
+            "SELECT current_test_date FROM test_user_dates WHERE user_id = ?",
+            (user_id,),
+        ).fetchone()
+    )
+    if row:
+        return row["current_test_date"]
+
+    created_at = now_text()
+    conn.execute(
+        """
+        INSERT INTO test_user_dates (user_id, current_test_date, created_at, updated_at)
+        VALUES (?, ?, ?, ?)
+        """,
+        (user_id, CURRENT_DATE, created_at, created_at),
+    )
+    return CURRENT_DATE
+
+
+def next_numeric_user_id(conn) -> str:
+    row = conn.execute(
+        """
+        SELECT MAX(CAST(user_id AS INTEGER)) AS max_user_id
+        FROM users
+        WHERE user_id GLOB '[0-9]*'
+        """
+    ).fetchone()
+    return str(as_int(row["max_user_id"]) + 1)
+
+
+def create_test_user(conn, code: str) -> dict[str, Any]:
+    user_id = next_numeric_user_id(conn)
+    created_at = now_text()
+    nickname = f"Test {user_id}"
+    conn.execute(
+        """
+        INSERT INTO users (
+          user_id, login_account, password_hash, login_password, role, nickname,
+          avatar_url, QQ, account_status, current_session_id, last_login_at,
+          created_at, updated_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            user_id,
+            code,
+            "",
+            "123456",
+            "student",
+            nickname,
+            "",
+            "",
+            "active",
+            "",
+            "",
+            created_at,
+            created_at,
+        ),
+    )
+    return row_to_dict(conn.execute("SELECT * FROM users WHERE user_id = ?", (user_id,)).fetchone())
+
+
+def user_needs_onboarding(conn, user_id: str) -> bool:
+    return (
+        conn.execute("SELECT 1 FROM student_profiles WHERE user_id = ?", (user_id,)).fetchone()
+        is None
+    )
+
+
+def start_auth_session(conn, user: dict[str, Any], credential: str) -> dict[str, str]:
+    session_id = f"S-{user['user_id']}-{uuid.uuid4().hex[:12].upper()}"
+    token = hashlib.sha256(f"{session_id}:{credential}:{now_text()}".encode("utf-8")).hexdigest()
+    if user.get("current_session_id"):
+        conn.execute(
+            "UPDATE user_sessions SET revoked_at = ?, updated_at = ? WHERE session_id = ?",
+            (now_text(), now_text(), user["current_session_id"]),
+        )
+    conn.execute(
+        """
+        INSERT INTO user_sessions (
+          session_id, user_id, refresh_token_hash, device_id, device_name,
+          ip_address, user_agent, expires_at, revoked_at, created_at, updated_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            session_id,
+            user["user_id"],
+            f"$sha256${token}",
+            "LOCAL-DEV",
+            "Local API Client",
+            "127.0.0.1",
+            "FastAPI Test Client",
+            "2026-12-31 23:59:59",
+            "",
+            now_text(),
+            now_text(),
+        ),
+    )
+    conn.execute(
+        "UPDATE users SET current_session_id = ?, last_login_at = ?, updated_at = ? WHERE user_id = ?",
+        (session_id, now_text(), now_text(), user["user_id"]),
+    )
+    return {"token": token, "sessionId": session_id}
+
+
+def auth_payload(conn, user: dict[str, Any], token: str, session_id: str) -> dict[str, Any]:
+    current_test_date = get_current_test_date(conn, user["user_id"])
+    return {
+        "token": token,
+        "sessionId": session_id,
+        "needsOnboarding": user_needs_onboarding(conn, user["user_id"]),
+        "user": {
+            "userId": user["user_id"],
+            "nickname": user["nickname"],
+            "role": user["role"],
+            "currentTestDate": current_test_date,
+        },
+    }
+
+
+def login_with_test_code(code: str) -> dict[str, Any]:
+    normalized_code = normalize_test_code(code)
+    if not normalized_code:
+        raise ValueError("test code is required")
+
+    with get_connection() as conn:
+        ensure_test_access_codes_table(conn)
+        access_code = row_to_dict(
+            conn.execute(
+                "SELECT * FROM test_access_codes WHERE code = ?",
+                (normalized_code,),
+            ).fetchone()
+        )
+        if not access_code or access_code["status"] == "disabled":
+            raise ValueError("invalid test code")
+
+        user_id = access_code.get("user_id") or ""
+        user = None
+        if user_id:
+            user = row_to_dict(conn.execute("SELECT * FROM users WHERE user_id = ?", (user_id,)).fetchone())
+            if not user or user["account_status"] != "active":
+                raise ValueError("test code is not linked to an active user")
+        else:
+            user = create_test_user(conn, normalized_code)
+            claimed_at = now_text()
+            conn.execute(
+                """
+                UPDATE test_access_codes
+                SET user_id = ?, status = 'claimed', claimed_at = ?, updated_at = ?
+                WHERE code = ?
+                """,
+                (user["user_id"], claimed_at, claimed_at, normalized_code),
+            )
+
+        session = start_auth_session(conn, user, normalized_code)
+        conn.commit()
+        return auth_payload(conn, user, session["token"], session["sessionId"])
+
+
+def complete_onboarding(
+    user_id: str,
+    target_score: int,
+    level: str,
+    primary_books: list[str],
+    backup_book: str,
+    daily_target_minutes: int = 180,
+) -> dict[str, Any]:
+    level = str(level or "").strip().upper()
+    if level not in {"A", "B", "C", "D"}:
+        raise ValueError("level must be one of A, B, C, D")
+    target_score = as_int(target_score)
+    if target_score <= 0 or target_score > 150:
+        raise ValueError("targetScore must be between 1 and 150")
+    books = [str(book or "").strip() for book in primary_books if str(book or "").strip()]
+    if len(books) != 2:
+        raise ValueError("primaryBooks must contain exactly two books")
+    backup_book = str(backup_book or "").strip() or "660"
+    daily_target_minutes = str(clamp(as_int(daily_target_minutes, 180), 120, 480))
+    updated_at = now_text()
+
+    with get_connection() as conn:
+        ensure_student_progress_tracking_columns(conn)
+        user = row_to_dict(conn.execute("SELECT * FROM users WHERE user_id = ?", (user_id,)).fetchone())
+        if not user or user["account_status"] != "active":
+            raise ValueError("student not found")
+        first_type = next_assignable_type(conn, "")
+        if not first_type:
+            raise ValueError("no assignable question type found")
+        class_id = f"{level}201"
+        conn.execute(
+            """
+            INSERT OR REPLACE INTO student_profiles (
+              user_id, math_type, target_exam_year, target_exam_date, target_score,
+              class_id, level, plan_enabled, paid_until, primary_book_1, primary_book_2,
+              backup_book, current_type_id, current_stage, last_plan_date, created_at,
+              updated_at, target_school_id, target_school_name
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                user_id,
+                "数学二",
+                "2026",
+                "2026-12-19",
+                str(target_score),
+                class_id,
+                level,
+                "1",
+                "2026-12-31",
+                books[0],
+                books[1],
+                backup_book,
+                first_type["type_id"],
+                "强化",
+                "",
+                updated_at,
+                updated_at,
+                "",
+                "",
+            ),
+        )
+        conn.execute(
+            """
+            INSERT OR REPLACE INTO student_progress (
+              progress_id, user_id, math_type, plan_stage, current_type_id,
+              current_type_sort_code, progress_status, current_type_status, last_generated_plan_date,
+              last_completed_type_id, unfinished_type_id, unfinished_question_ids,
+              created_at, updated_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                f"PR-{user_id}",
+                user_id,
+                "数学二",
+                "强化",
+                first_type["type_id"],
+                first_type["sort_code"],
+                "active",
+                "active",
+                "",
+                "",
+                "",
+                "[]",
+                updated_at,
+                updated_at,
+            ),
+        )
+        room = study_room_for_profile(conn, {"math_type": "数学二", "target_exam_year": "2026"})
+        if room:
+            conn.execute(
+                """
+                INSERT OR REPLACE INTO student_study_goals (
+                  goal_id, user_id, study_date, room_id, target_minutes,
+                  completed_minutes, completion_rate, current_focus_minutes,
+                  current_task_type_id, current_task_name, focus_status,
+                  current_round_started_at, created_at, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    f"SG-{user_id}-{CURRENT_DATE.replace('-', '')}",
+                    user_id,
+                    CURRENT_DATE,
+                    room["room_id"],
+                    daily_target_minutes,
+                    "0",
+                    "0.0000",
+                    "45",
+                    first_type["type_id"],
+                    first_type["type_name"],
+                    "idle",
+                    "",
+                    updated_at,
+                    updated_at,
+                ),
+            )
+        session = start_auth_session(conn, user, "onboarding")
+        conn.commit()
+        user = row_to_dict(conn.execute("SELECT * FROM users WHERE user_id = ?", (user_id,)).fetchone())
+        return auth_payload(conn, user, session["token"], session["sessionId"])
+
+
 def next_assignable_type(
     conn,
     current_type_id: str,
@@ -153,7 +514,14 @@ def generate_daily_plan(
 
     target_load = 1.0
     plan_stage = progress.get("plan_stage") or profile.get("current_stage") or "强化"
-    current_type_id = progress.get("unfinished_type_id") or progress.get("current_type_id")
+    current_type_status = progress.get("current_type_status") or (
+        "unfinished" if progress.get("unfinished_type_id") else "active"
+    )
+    current_type_id = (
+        progress.get("unfinished_type_id")
+        if current_type_status == "unfinished" and progress.get("unfinished_type_id")
+        else progress.get("current_type_id")
+    )
     current_type = row_to_dict(
         conn.execute("SELECT * FROM question_types WHERE type_id = ?", (current_type_id,)).fetchone()
     ) or next_assignable_type(conn, "")
@@ -161,7 +529,7 @@ def generate_daily_plan(
         raise ValueError("题型表中没有可布置题型")
 
     unfinished_ids: set[str] = set()
-    if progress.get("unfinished_type_id") == current_type["type_id"]:
+    if current_type_status == "unfinished" and progress.get("unfinished_type_id") == current_type["type_id"]:
         try:
             unfinished_ids = set(json.loads(progress.get("unfinished_question_ids") or "[]"))
         except json.JSONDecodeError:
@@ -264,6 +632,219 @@ def generate_daily_plan(
             """,
             (user["user_id"], plan_date),
         ).fetchall()
+    )
+
+
+def table_columns(conn, table_name: str) -> list[str]:
+    return [row["name"] for row in conn.execute(f"PRAGMA table_info({table_name})").fetchall()]
+
+
+def insert_table_row(conn, table_name: str, values: dict[str, Any]) -> None:
+    columns = [column for column in table_columns(conn, table_name) if column in values]
+    placeholders = ", ".join("?" for _ in columns)
+    column_clause = ", ".join(columns)
+    conn.execute(
+        f"INSERT INTO {table_name} ({column_clause}) VALUES ({placeholders})",
+        [values[column] for column in columns],
+    )
+
+
+def copy_latest_user_date_rows(
+    conn,
+    table_name: str,
+    user_id: str,
+    date_column: str,
+    target_date: str,
+    id_column: str,
+    id_prefix: str,
+    overrides: dict[str, Any] | None = None,
+) -> bool:
+    existing_count = row_to_dict(
+        conn.execute(
+            f"SELECT COUNT(*) AS row_count FROM {table_name} WHERE user_id = ? AND {date_column} = ?",
+            (user_id, target_date),
+        ).fetchone()
+    )
+    if as_int(existing_count.get("row_count") if existing_count else 0) > 0:
+        return True
+
+    source = row_to_dict(
+        conn.execute(
+            f"""
+            SELECT MAX({date_column}) AS source_date
+            FROM {table_name}
+            WHERE user_id = ? AND {date_column} < ?
+            """,
+            (user_id, target_date),
+        ).fetchone()
+    )
+    source_date = source.get("source_date") if source else ""
+    if not source_date:
+        return False
+
+    rows = rows_to_dicts(
+        conn.execute(
+            f"SELECT * FROM {table_name} WHERE user_id = ? AND {date_column} = ?",
+            (user_id, source_date),
+        ).fetchall()
+    )
+    if not rows:
+        return False
+
+    columns = table_columns(conn, table_name)
+    updated_at = now_text()
+    for index, row in enumerate(rows, start=1):
+        values = {column: row.get(column, "") for column in columns}
+        values[date_column] = target_date
+        if id_column in values:
+            values[id_column] = f"{id_prefix}-{user_id}-{target_date.replace('-', '')}-{index}"
+        if "updated_at" in values:
+            values["updated_at"] = updated_at
+        if overrides:
+            values.update(overrides)
+        insert_table_row(conn, table_name, values)
+    return True
+
+
+def ensure_student_stats_for_date(conn, user_id: str, plan_date: str) -> None:
+    copied = copy_latest_user_date_rows(
+        conn,
+        "student_stats",
+        user_id,
+        "stat_date",
+        plan_date,
+        "",
+        "SS",
+        {
+            "today_completion_rate": "0.0000",
+            "today_checkin_order": "0",
+            "today_checkin_at": "",
+            "updated_at": now_text(),
+        },
+    )
+    if copied:
+        return
+
+    values = {column: "" for column in table_columns(conn, "student_stats")}
+    values.update(
+        {
+            "user_id": user_id,
+            "stat_date": plan_date,
+            "continuous_days": "0",
+            "today_completion_rate": "0.0000",
+            "today_checkin_order": "0",
+            "today_checkin_at": "",
+            "weekly_completion_rate": "0.0000",
+            "weekly_study_days": "0",
+            "overall_accuracy": "0.0000",
+            "repeat_wrong_rate": "0.0000",
+            "current_badge_name": "暂无勋章",
+            "next_badge_target": "7天连续学习",
+            "badge_progress_value": "0",
+            "badge_progress_rate": "0.0000",
+            "rank_in_class": "0",
+            "updated_at": now_text(),
+        }
+    )
+    insert_table_row(conn, "student_stats", values)
+
+
+def ensure_daily_activity_for_date(conn, user_id: str, plan_date: str) -> None:
+    existing = row_to_dict(
+        conn.execute(
+            "SELECT activity_id FROM student_daily_activity WHERE user_id = ? AND activity_date = ?",
+            (user_id, plan_date),
+        ).fetchone()
+    )
+    if existing:
+        return
+
+    created_at = now_text()
+    values = {column: "" for column in table_columns(conn, "student_daily_activity")}
+    values.update(
+        {
+            "activity_id": f"ACT-{user_id}-{plan_date.replace('-', '')}",
+            "user_id": user_id,
+            "activity_date": plan_date,
+            "is_studied": "0",
+            "intensity_level": "0",
+            "target_minutes": "180",
+            "completed_minutes": "0",
+            "completed_questions": "0",
+            "submitted_type_count": "0",
+            "checkin_status": "pending",
+            "created_at": created_at,
+            "updated_at": created_at,
+        }
+    )
+    insert_table_row(conn, "student_daily_activity", values)
+
+
+def ensure_study_goal_for_date(
+    conn,
+    user_id: str,
+    plan_date: str,
+    profile: dict[str, Any],
+    daily_plan: dict[str, Any],
+) -> None:
+    existing = row_to_dict(
+        conn.execute(
+            "SELECT goal_id FROM student_study_goals WHERE user_id = ? AND study_date = ?",
+            (user_id, plan_date),
+        ).fetchone()
+    )
+    if existing:
+        return
+
+    room = study_room_for_profile(conn, profile)
+    task_options = [
+        {"typeId": item["typeId"], "typeName": item["typeName"]}
+        for item in daily_plan["plan"]["types"]
+    ]
+    if room:
+        ensure_study_goal(conn, user_id, plan_date, room["room_id"], task_options)
+
+
+def ensure_test_day_supporting_rows(conn, user_id: str, plan_date: str, daily_plan: dict[str, Any]) -> None:
+    user = row_to_dict(conn.execute("SELECT * FROM users WHERE user_id = ?", (user_id,)).fetchone())
+    profile = row_to_dict(
+        conn.execute("SELECT * FROM student_profiles WHERE user_id = ?", (user_id,)).fetchone()
+    )
+    if not user or not profile:
+        raise ValueError("未找到该学生")
+
+    ensure_student_stats_for_date(conn, user_id, plan_date)
+    ensure_daily_activity_for_date(conn, user_id, plan_date)
+    ensure_study_goal_for_date(conn, user_id, plan_date, profile, daily_plan)
+    copy_latest_user_date_rows(
+        conn,
+        "type_mastery_stats",
+        user_id,
+        "stat_date",
+        plan_date,
+        "mastery_id",
+        "MS",
+        {"updated_at": now_text()},
+    )
+    copy_latest_user_date_rows(
+        conn,
+        "loss_reason_stats",
+        user_id,
+        "stat_date",
+        plan_date,
+        "loss_reason_id",
+        "LR",
+        {"updated_at": now_text()},
+    )
+    copy_latest_user_date_rows(
+        conn,
+        "priority_recommendations",
+        user_id,
+        "stat_date",
+        plan_date,
+        "recommendation_id",
+        "PRIO",
+        {"updated_at": now_text()},
     )
 
 
@@ -1091,55 +1672,14 @@ def login(login_account: str, password: str) -> dict[str, Any]:
         if password != expected_password:
             raise ValueError("账号或密码错误")
 
-        session_id = f"S-{user['user_id']}-{uuid.uuid4().hex[:12].upper()}"
-        token = hashlib.sha256(f"{session_id}:{password}:{now_text()}".encode("utf-8")).hexdigest()
-
-        if user.get("current_session_id"):
-            conn.execute(
-                "UPDATE user_sessions SET revoked_at = ?, updated_at = ? WHERE session_id = ?",
-                (now_text(), now_text(), user["current_session_id"]),
-            )
-
-        conn.execute(
-            """
-            INSERT INTO user_sessions (
-              session_id, user_id, refresh_token_hash, device_id, device_name,
-              ip_address, user_agent, expires_at, revoked_at, created_at, updated_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """,
-            (
-                session_id,
-                user["user_id"],
-                f"$sha256${token}",
-                "LOCAL-DEV",
-                "Local API Client",
-                "127.0.0.1",
-                "FastAPI Test Client",
-                "2026-12-31 23:59:59",
-                "",
-                now_text(),
-                now_text(),
-            ),
-        )
-        conn.execute(
-            "UPDATE users SET current_session_id = ?, last_login_at = ?, updated_at = ? WHERE user_id = ?",
-            (session_id, now_text(), now_text(), user["user_id"]),
-        )
+        session = start_auth_session(conn, user, password)
         conn.commit()
-
-        return {
-            "token": token,
-            "sessionId": session_id,
-            "user": {
-                "userId": user["user_id"],
-                "nickname": user["nickname"],
-                "role": user["role"],
-            },
-        }
+        return auth_payload(conn, user, session["token"], session["sessionId"])
 
 
 def get_daily_plan(user_id: str, plan_date: str = CURRENT_DATE) -> dict[str, Any]:
     with get_connection() as conn:
+        ensure_student_progress_tracking_columns(conn)
         user = row_to_dict(conn.execute("SELECT * FROM users WHERE user_id = ?", (user_id,)).fetchone())
         profile = row_to_dict(
             conn.execute("SELECT * FROM student_profiles WHERE user_id = ?", (user_id,)).fetchone()
@@ -1247,16 +1787,63 @@ def get_daily_plan(user_id: str, plan_date: str = CURRENT_DATE) -> dict[str, Any
     }
 
 
+def advance_test_day(user_id: str) -> dict[str, Any]:
+    with get_connection() as conn:
+        ensure_test_user_dates_table(conn)
+        ensure_student_progress_tracking_columns(conn)
+        user = row_to_dict(conn.execute("SELECT * FROM users WHERE user_id = ?", (user_id,)).fetchone())
+        profile = row_to_dict(
+            conn.execute("SELECT * FROM student_profiles WHERE user_id = ?", (user_id,)).fetchone()
+        )
+        progress = row_to_dict(
+            conn.execute("SELECT * FROM student_progress WHERE user_id = ?", (user_id,)).fetchone()
+        )
+        if not user or not profile or not progress:
+            raise ValueError("未找到该学生测试进度")
+
+        current_test_date = get_current_test_date(conn, user_id)
+        try:
+            next_test_date = (date.fromisoformat(current_test_date) + timedelta(days=1)).isoformat()
+        except ValueError as exc:
+            raise ValueError("测试日期格式应为 YYYY-MM-DD") from exc
+
+        updated_at = now_text()
+        conn.execute(
+            """
+            INSERT INTO test_user_dates (user_id, current_test_date, created_at, updated_at)
+            VALUES (?, ?, ?, ?)
+            ON CONFLICT(user_id) DO UPDATE SET
+              current_test_date = excluded.current_test_date,
+              updated_at = excluded.updated_at
+            """,
+            (user_id, next_test_date, updated_at, updated_at),
+        )
+        conn.commit()
+
+    daily_plan = get_daily_plan(user_id, next_test_date)
+    with get_connection() as conn:
+        ensure_test_day_supporting_rows(conn, user_id, next_test_date, daily_plan)
+        conn.commit()
+
+    return {
+        "currentTestDate": next_test_date,
+        "dailyPlan": get_daily_plan(user_id, next_test_date),
+    }
+
+
 def submit_feedback(
     user_id: str,
     plan_date: str,
     type_id: str,
-    answers: list[dict[str, str]],
+    answers: list[dict[str, Any]],
+    unattempted_action: str | None = None,
 ) -> dict[str, Any]:
     if not answers:
         raise ValueError("answers 不能为空")
 
     with get_connection() as conn:
+        ensure_question_feedbacks_reason_columns(conn)
+        ensure_student_progress_tracking_columns(conn)
         plan_rows = rows_to_dicts(
             conn.execute(
                 """
@@ -1281,6 +1868,24 @@ def submit_feedback(
         if any(result not in valid_results for result in answer_by_id.values()):
             raise ValueError("result 只能是 correct、wrong、unattempted")
 
+        has_unattempted = any(result == "unattempted" for result in answer_by_id.values())
+        unattempted_action = str(unattempted_action or "").strip()
+        if has_unattempted and unattempted_action not in {"skip", "defer"}:
+            raise ValueError("unattemptedAction must be skip or defer when answers contain unattempted")
+        if not has_unattempted and unattempted_action:
+            raise ValueError("unattemptedAction is only allowed when answers contain unattempted")
+
+        reason_by_id = {
+            item["questionId"]: str(item.get("wrongReason") or "").strip()
+            for item in answers
+        }
+        for question_id, result in answer_by_id.items():
+            reason_code = reason_by_id.get(question_id, "")
+            if result == "wrong" and reason_code not in WRONG_REASON_LABELS:
+                raise ValueError("wrongReason must be one of method_error, calculation_error, knowledge_gap, condition_missed")
+            if result != "wrong" and reason_code:
+                raise ValueError("wrongReason is only allowed when result is wrong")
+
         conn.execute(
             "DELETE FROM question_feedbacks WHERE user_id = ? AND plan_date = ? AND type_id = ?",
             (user_id, plan_date, type_id),
@@ -1289,15 +1894,19 @@ def submit_feedback(
         submitted_at = now_text()
         for index, row in enumerate(plan_rows, start=1):
             result = answer_by_id[row["question_id"]]
+            wrong_reason_code = reason_by_id.get(row["question_id"], "") if result == "wrong" else ""
+            wrong_reason_name = WRONG_REASON_LABELS.get(wrong_reason_code, "")
             is_wrong = "1" if result in {"wrong", "unattempted"} else "0"
-            is_blocker = "1" if result == "unattempted" else "0"
+            is_blocker = "1" if result == "unattempted" and unattempted_action == "defer" else "0"
+            row_unattempted_action = unattempted_action if result == "unattempted" else ""
             conn.execute(
                 """
                 INSERT INTO question_feedbacks (
                   feedback_id, plan_id, user_id, plan_date, type_id, question_id,
-                  result, is_wrong_record, is_unfinished_blocker, submitted_at,
-                  created_at, updated_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                  result, wrong_reason_code, wrong_reason_name,
+                  is_wrong_record, is_unfinished_blocker, submitted_at,
+                  created_at, updated_at, unattempted_action
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     f"F-{plan_date.replace('-', '')}-{user_id}-{type_id}-{index}",
@@ -1307,15 +1916,17 @@ def submit_feedback(
                     type_id,
                     row["question_id"],
                     result,
+                    wrong_reason_code,
+                    wrong_reason_name,
                     is_wrong,
                     is_blocker,
                     submitted_at,
                     submitted_at,
                     submitted_at,
+                    row_unattempted_action,
                 ),
             )
 
-        has_unattempted = any(result == "unattempted" for result in answer_by_id.values())
         correct_count = sum(1 for result in answer_by_id.values() if result == "correct")
         accuracy = correct_count / len(answer_by_id)
 
@@ -1330,15 +1941,19 @@ def submit_feedback(
 
         progress_type_id = type_id
         progress_status = "active"
+        current_type_status = "active"
         last_completed_type_id = ""
-        unfinished_type_id = type_id if has_unattempted else ""
-        unfinished_question_ids = json.dumps(
-            [question_id for question_id, result in answer_by_id.items() if result == "unattempted"],
-            ensure_ascii=False,
-        )
+        unfinished_type_id = ""
+        unfinished_question_ids = "[]"
 
-        if has_unattempted:
+        if has_unattempted and unattempted_action == "defer":
             new_status = "blocked_by_unfinished"
+            current_type_status = "unfinished"
+            unfinished_type_id = type_id
+            unfinished_question_ids = json.dumps(
+                [question_id for question_id, result in answer_by_id.items() if result == "unattempted"],
+                ensure_ascii=False,
+            )
         else:
             last_completed_type_id = type_id
             next_row = row_to_dict(
@@ -1387,6 +2002,7 @@ def submit_feedback(
             """
             UPDATE student_progress
             SET current_type_id = ?, current_type_sort_code = ?, progress_status = ?,
+                current_type_status = ?,
                 last_completed_type_id = COALESCE(NULLIF(?, ''), last_completed_type_id),
                 unfinished_type_id = ?, unfinished_question_ids = ?, updated_at = ?
             WHERE user_id = ?
@@ -1395,6 +2011,7 @@ def submit_feedback(
                 progress_type_id,
                 progress_type.get("sort_code") if progress_type else "",
                 progress_status,
+                current_type_status,
                 last_completed_type_id,
                 unfinished_type_id,
                 unfinished_question_ids,
@@ -1469,5 +2086,6 @@ def submit_feedback(
         "submittedTypeId": type_id,
         "accuracy": round(accuracy, 4),
         "hasUnattempted": has_unattempted,
+        "unattemptedAction": unattempted_action or None,
         "dailyPlan": get_daily_plan(user_id, plan_date),
     }

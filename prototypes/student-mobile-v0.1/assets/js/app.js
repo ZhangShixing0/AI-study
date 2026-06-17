@@ -8,6 +8,7 @@ const appData = window.APP_DATA;
       let activeRankBoard = "today";
       let activeStudyRoom = appData;
       let activeProfile = appData;
+      let pendingOnboardingUser = null;
       let schoolSearchTimer = null;
       let activeFocusSession = null;
       let focusTimerId = null;
@@ -143,7 +144,60 @@ const appData = window.APP_DATA;
           method: "POST",
           body: JSON.stringify({ loginAccount, password }),
         });
+        pendingOnboardingUser = null;
         await loadStudentPlan(loginData.user);
+      }
+
+      function showOnboardingForm(user) {
+        pendingOnboardingUser = user;
+        document.querySelector("#testCodeForm").hidden = true;
+        document.querySelector("#onboardingForm").hidden = false;
+        document.querySelector("#targetScore").focus();
+        setLoginMessage(`测试码已确认，请先为 ${user.nickname} 完成学习档案。`, true);
+      }
+
+      async function loginWithTestCode(code) {
+        const loginData = await apiRequest("/auth/test-code", {
+          method: "POST",
+          body: JSON.stringify({ code }),
+        });
+        if (loginData.needsOnboarding) {
+          showOnboardingForm(loginData.user);
+          return;
+        }
+        pendingOnboardingUser = null;
+        await loadStudentPlan(loginData.user);
+      }
+
+      function collectPrimaryBooks() {
+        return [...document.querySelectorAll('input[name="primaryBooks"]:checked')]
+          .map((item) => item.value);
+      }
+
+      async function submitOnboarding() {
+        if (!pendingOnboardingUser) {
+          throw new Error("请先输入有效测试码");
+        }
+        const targetScore = Number(document.querySelector("#targetScore").value);
+        const level = document.querySelector("#classLevel").value;
+        const primaryBooks = collectPrimaryBooks();
+        const backupBook = document.querySelector("#backupBook").value.trim() || "660";
+        const dailyTargetMinutes = Number(document.querySelector("#dailyTargetMinutes").value || 180);
+        if (primaryBooks.length !== 2) {
+          throw new Error("请选择两本核心习题册");
+        }
+        const result = await apiRequest(`/students/${pendingOnboardingUser.userId}/onboarding`, {
+          method: "POST",
+          body: JSON.stringify({
+            targetScore,
+            level,
+            primaryBooks,
+            backupBook,
+            dailyTargetMinutes,
+          }),
+        });
+        pendingOnboardingUser = null;
+        await loadStudentPlan(result.user);
       }
 
       function collectFeedbackAnswers() {
@@ -458,7 +512,42 @@ const appData = window.APP_DATA;
       if (requestedView === "studyRoom") showView("studyRoomView");
       if (requestedView === "my") showView("myView");
 
-      document.querySelector("#loginForm").addEventListener("submit", async (event) => {
+      document.querySelector("#testCodeForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const testCode = document.querySelector("#testCode").value.trim();
+        const submitButton = document.querySelector("#testCodeSubmit");
+        if (!testCode) {
+          setLoginMessage("请输入测试码");
+          return;
+        }
+        submitButton.disabled = true;
+        setLoginMessage("正在进入内测空间...", true);
+        try {
+          await loginWithTestCode(testCode);
+        } catch (error) {
+          const apiHint = API_BASE ? "请确认后端服务已启动在 http://127.0.0.1:8000。" : "请确认后端服务正在运行。";
+          setLoginMessage(`${error.message || "测试码无效"} ${apiHint}`);
+        } finally {
+          submitButton.disabled = false;
+        }
+      });
+
+      document.querySelector("#onboardingForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const submitButton = document.querySelector("#onboardingSubmit");
+        submitButton.disabled = true;
+        setLoginMessage("正在保存档案并生成今日计划...", true);
+        try {
+          await submitOnboarding();
+          setLoginMessage("");
+        } catch (error) {
+          setLoginMessage(error.message || "建档失败");
+        } finally {
+          submitButton.disabled = false;
+        }
+      });
+
+      document.querySelector("#legacyLoginForm").addEventListener("submit", async (event) => {
         event.preventDefault();
         const loginAccount = document.querySelector("#loginAccount").value.trim();
         const password = document.querySelector("#loginPassword").value;
@@ -488,8 +577,11 @@ const appData = window.APP_DATA;
         document.querySelector("#appShell").hidden = true;
         document.querySelector("#loginScreen").hidden = false;
         document.querySelector("#currentUserBar").classList.remove("visible");
+        document.querySelector("#testCodeForm").hidden = false;
+        document.querySelector("#onboardingForm").hidden = true;
+        document.querySelector("#testCode").value = "";
         document.querySelector("#loginPassword").value = "";
-        document.querySelector("#loginAccount").focus();
+        document.querySelector("#testCode").focus();
         setLoginMessage("");
       });
 
@@ -648,4 +740,3 @@ const appData = window.APP_DATA;
           }
         }
       });
-

@@ -22,7 +22,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-PROTOTYPE_DIR = ROOT_DIR / "prototypes" / "student-mobile-v0.1"
+PROTOTYPE_DIR = ROOT_DIR / "prototypes" / "student-mobile-v1.2"
 app.mount("/prototype", StaticFiles(directory=PROTOTYPE_DIR, html=True), name="prototype")
 app.mount("/assets", StaticFiles(directory=PROTOTYPE_DIR / "assets"), name="prototype-assets")
 app.mount("/styles", StaticFiles(directory=PROTOTYPE_DIR / "styles"), name="prototype-styles")
@@ -34,9 +34,22 @@ class LoginRequest(BaseModel):
     password: str
 
 
+class TestCodeRequest(BaseModel):
+    code: str
+
+
+class OnboardingRequest(BaseModel):
+    targetScore: int
+    level: Literal["A", "B", "C", "D"]
+    primaryBooks: list[str] = ["880", "1000"]
+    backupBook: str = "660"
+    dailyTargetMinutes: int = 180
+
+
 class FeedbackAnswer(BaseModel):
     questionId: str
     result: Literal["correct", "wrong", "unattempted"]
+    wrongReason: str | None = None
 
 
 class SubmitFeedbackRequest(BaseModel):
@@ -44,6 +57,7 @@ class SubmitFeedbackRequest(BaseModel):
     planDate: str
     typeId: str
     answers: list[FeedbackAnswer]
+    unattemptedAction: Literal["skip", "defer"] | None = None
 
 
 class StartFocusRequest(BaseModel):
@@ -80,12 +94,43 @@ def login(payload: LoginRequest) -> dict:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
+@app.post("/auth/test-code")
+def test_code_login(payload: TestCodeRequest) -> dict:
+    try:
+        return services.login_with_test_code(payload.code)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.post("/students/{user_id}/onboarding")
+def complete_onboarding(user_id: str, payload: OnboardingRequest) -> dict:
+    try:
+        return services.complete_onboarding(
+            user_id,
+            payload.targetScore,
+            payload.level,
+            payload.primaryBooks,
+            payload.backupBook,
+            payload.dailyTargetMinutes,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
 @app.get("/students/{user_id}/daily-plan")
 def daily_plan(user_id: str, date: str = services.CURRENT_DATE) -> dict:
     try:
         return services.get_daily_plan(user_id, date)
     except ValueError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.post("/students/{user_id}/test-day/advance")
+def advance_test_day(user_id: str) -> dict:
+    try:
+        return services.advance_test_day(user_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @app.get("/students/{user_id}/rankings")
@@ -141,6 +186,7 @@ def submit_feedback(payload: SubmitFeedbackRequest) -> dict:
             payload.planDate,
             payload.typeId,
             [answer.model_dump() for answer in payload.answers],
+            payload.unattemptedAction,
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc

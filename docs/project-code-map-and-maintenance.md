@@ -99,6 +99,22 @@
 | `assets/reference/` | 参考设计图 | 保存你给我的参考图，方便以后照图还原页面 |
 | `assets/annotations/` | 设计标注说明 | 记录设计尺寸、间距、视觉说明时 |
 
+### 3.6 设计稿、Figma 预览图和生成插画存放规则
+
+| 路径 | 负责内容 | 使用规则 |
+| --- | --- | --- |
+| `docs/design-mockups/figma-previews/` | 从 Figma 导出的预览图、检查图、对比截图 | 以后所有 `*-check.png`、Figma 画板预览、阶段性视觉检查图统一放这里，不再散放在项目根目录 |
+| `docs/design-mockups/generated-assets/` | AI 生成的插画、Banner 人物、候选视觉资产 | 以后所有未正式进入前端页面的生成插画先放这里，例如 `student-study-banner-character-v1.png` |
+| `prototypes/student-mobile-v*/assets/images/` | 前端原型实际引用的图片 | 只有当某张插画确定要被页面代码使用时，才从 `docs/design-mockups/generated-assets/` 复制到这里 |
+
+当前已约定：
+
+- Figma 预览/检查图目录：`docs/design-mockups/figma-previews/`
+- AI 生成插画目录：`docs/design-mockups/generated-assets/`
+- 当前学习计划 Banner 人物候选图：`docs/design-mockups/generated-assets/student-study-banner-character-v1.png`
+
+注意：`docs/design-mockups/generated-assets/` 是设计资产沉淀区，不等于前端运行资源目录。前端页面不能直接依赖这里的图片；需要上线到原型时，复制到对应 `prototypes/student-mobile-v*/assets/images/` 并在代码中引用。
+
 ## 4. 后端文件说明
 
 后端主目录是：
@@ -268,5 +284,5 @@ node scripts/verify-prototype-data.mjs
 
 | 日期 | 更新内容 |
 | --- | --- |
+| 2026-06-14 | 新增设计资产存放规则：Figma 预览/检查图统一放 `docs/design-mockups/figma-previews/`，AI 生成插画统一放 `docs/design-mockups/generated-assets/`，正式进入前端原型时再复制到 `prototypes/student-mobile-v*/assets/images/`。 |
 | 2026-06-12 | 首次建立代码地图；记录当前前端拆分后的五页面结构、后端 API、数据表、验证命令和维护方法。 |
-

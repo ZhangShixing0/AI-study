@@ -92,6 +92,33 @@
         gap: 16px;
       }
 
+      .login-form[hidden] {
+        display: none;
+      }
+
+      .onboarding-form,
+      .legacy-login-form {
+        margin-top: 16px;
+      }
+
+      .login-divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 20px 0 4px;
+        color: var(--color-text-secondary);
+        font-size: 13px;
+        font-weight: 750;
+      }
+
+      .login-divider::before,
+      .login-divider::after {
+        content: "";
+        height: 1px;
+        flex: 1;
+        background: rgba(20, 50, 70, 0.1);
+      }
+
       .login-field {
         display: grid;
         gap: 8px;
@@ -100,7 +127,8 @@
         font-weight: 750;
       }
 
-      .login-field input {
+      .login-field input,
+      .login-field select {
         height: 50px;
         border-radius: 14px;
         border: 1px solid rgba(20, 50, 70, 0.12);
@@ -111,9 +139,33 @@
         outline: none;
       }
 
-      .login-field input:focus {
+      .login-field input:focus,
+      .login-field select:focus {
         border-color: rgba(19, 191, 168, 0.55);
         box-shadow: 0 0 0 4px rgba(19, 191, 168, 0.12);
+      }
+
+      .book-options {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .book-options label {
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(20, 50, 70, 0.12);
+        background: #f9fbfb;
+        font-size: 15px;
+      }
+
+      .book-options input {
+        width: 16px;
+        height: 16px;
       }
 
       .login-submit {
@@ -3392,4 +3444,3 @@
           display: none;
         }
       }
-

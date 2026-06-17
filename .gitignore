@@ -1,4 +1,6 @@
 .venv/
+dist/
+.codex-remote-attachments/
 __pycache__/
 *.pyc
 *.log

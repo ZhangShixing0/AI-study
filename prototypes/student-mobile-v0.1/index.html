@@ -18,7 +18,47 @@
             <p class="login-subtitle">登录不同学生账号，检查今日计划和反馈状态是否正确</p>
           </div>
         </div>
-        <form class="login-form" id="loginForm">
+        <form class="login-form" id="testCodeForm">
+          <label class="login-field">
+            测试码
+            <input id="testCode" name="testCode" autocomplete="one-time-code" placeholder="例如 demo-a01 或 new-a01" />
+          </label>
+          <button class="login-submit" id="testCodeSubmit" type="submit">进入我的内测空间</button>
+          <div class="login-message" id="loginMessage"></div>
+        </form>
+        <form class="login-form onboarding-form" id="onboardingForm" hidden>
+          <label class="login-field">
+            目标分数
+            <input id="targetScore" name="targetScore" type="number" min="1" max="150" value="120" />
+          </label>
+          <label class="login-field">
+            班型
+            <select id="classLevel" name="classLevel">
+              <option value="A">A 班型</option>
+              <option value="B">B 班型</option>
+              <option value="C">C 班型</option>
+              <option value="D">D 班型</option>
+            </select>
+          </label>
+          <div class="login-field">
+            核心习题册
+            <div class="book-options">
+              <label><input type="checkbox" name="primaryBooks" value="880" checked />《880》</label>
+              <label><input type="checkbox" name="primaryBooks" value="1000" checked />《1000》</label>
+            </div>
+          </div>
+          <label class="login-field">
+            备选习题册
+            <input id="backupBook" name="backupBook" value="660" />
+          </label>
+          <label class="login-field">
+            每日学习分钟数
+            <input id="dailyTargetMinutes" name="dailyTargetMinutes" type="number" min="120" max="480" value="180" />
+          </label>
+          <button class="login-submit" id="onboardingSubmit" type="submit">保存档案并生成计划</button>
+        </form>
+        <div class="login-divider">已有样例账号</div>
+        <form class="login-form legacy-login-form" id="legacyLoginForm">
           <label class="login-field">
             账号
             <input id="loginAccount" name="loginAccount" autocomplete="username" placeholder="请输入学生账号" />
@@ -28,7 +68,6 @@
             <input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="请输入密码" />
           </label>
           <button class="login-submit" id="loginSubmit" type="submit">登录并查看今日计划</button>
-          <div class="login-message" id="loginMessage"></div>
         </form>
       </div>
     </section>

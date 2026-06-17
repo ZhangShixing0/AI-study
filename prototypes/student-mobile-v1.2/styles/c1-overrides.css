@@ -1,0 +1,563 @@
+/* C1 Figma alignment overrides for the Today Plan page. */
+
+html body .page {
+  width: min(390px, 100vw);
+  background: #f3f8f8;
+}
+
+html body .content {
+  width: 100%;
+  max-width: 390px;
+  padding: 48px 18px 96px;
+  background: #f3f8f8;
+  border-radius: 0;
+}
+
+#planView {
+  display: grid;
+  gap: 12px;
+}
+
+#planView .banner {
+  width: 100%;
+  height: 154px;
+  min-height: 154px;
+  border-radius: 24px;
+  box-shadow: 0 10px 24px rgba(36, 65, 86, 0.12);
+}
+
+#planView .banner::after {
+  background: linear-gradient(90deg, rgba(5, 137, 125, 0.28) 0%, rgba(5, 137, 125, 0.08) 46%, transparent 72%);
+}
+
+#planView .banner-text {
+  left: 20px;
+  top: 25px;
+  max-width: 210px;
+}
+
+#planView .banner-title {
+  font-size: 29px;
+  line-height: 36px;
+  font-weight: 700;
+  text-shadow: 0 2px 5px rgba(0, 56, 51, 0.18);
+}
+
+#planView .banner-meta {
+  margin-top: 5px;
+  gap: 9px;
+  color: #effffb;
+  font-size: 12px;
+  line-height: 18px;
+  text-shadow: 0 2px 5px rgba(0, 56, 51, 0.18);
+}
+
+#planView .banner-meta .meta-item {
+  gap: 4px;
+}
+
+#planView .meta-item img {
+  width: 12px;
+  height: 12px;
+}
+
+#planView .status-btn {
+  min-width: 78px;
+  height: 28px;
+  margin-top: 10px;
+  padding: 0 15px;
+  gap: 3px;
+  background: rgba(255, 255, 255, 0.96);
+  color: #0f8f84;
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 500;
+  box-shadow: none;
+}
+
+#planView .status-btn img {
+  width: 11px;
+  height: 11px;
+}
+
+#planView .countdown {
+  top: 24px;
+  right: 18px;
+  width: 62px;
+  height: 74px;
+  border-radius: 18px;
+  color: #087c73;
+  box-shadow: 0 6px 16px rgba(36, 65, 86, 0.08);
+}
+
+#planView .countdown small,
+#planView .countdown span {
+  font-size: 10px;
+  line-height: 14px;
+  font-weight: 500;
+}
+
+#planView .countdown strong {
+  margin: 2px 0 0;
+  font-size: 25px;
+  line-height: 29px;
+  font-weight: 700;
+}
+
+#planView .section-head {
+  margin: 8px 0 20px;
+}
+
+#planView .section-title {
+  gap: 10px;
+}
+
+#planView .section-title img {
+  width: 30px;
+  height: 30px;
+}
+
+#planView .section-title h2 {
+  color: #142033;
+  font-size: 26px;
+  line-height: 34px;
+  font-weight: 700;
+}
+
+#planView .type-count {
+  min-width: 92px;
+  height: 28px;
+  padding: 0 14px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(232, 250, 247, 0.95);
+  color: #142033;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+#planView .type-count strong {
+  margin: 0 2px;
+  color: #078a7d;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+#planView .type-card {
+  width: 100%;
+  min-height: 0;
+  margin-bottom: 12px;
+  padding: 24px;
+  border: 1px solid #eaf3f1;
+  border-radius: 28px;
+  background: #fbfffd;
+  box-shadow: 0 10px 28px rgba(15, 46, 43, 0.08);
+}
+
+#planView .type-card-head {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+}
+
+#planView .type-label {
+  width: 72px;
+  height: 28px;
+  justify-content: center;
+  padding: 0 16px;
+  border: 1px solid rgba(8, 124, 112, 0.28);
+  border-radius: 14px;
+  background: #0e9f8f;
+  color: #fff;
+  box-shadow: 0 6px 14px rgba(5, 102, 87, 0.18);
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 700;
+}
+
+#planView .theme-purple .type-label {
+  border-color: rgba(93, 78, 227, 0.25);
+  background: #6d5df2;
+  box-shadow: 0 6px 14px rgba(64, 51, 191, 0.18);
+}
+
+#planView .type-title {
+  color: #0f2137;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+#planView .type-summary {
+  width: 100%;
+  min-height: 94px;
+  padding: 16px 18px;
+  border: 1px solid #c9f0ea;
+  border-radius: 22px;
+  background: #e8faf6;
+  display: grid;
+  gap: 6px;
+}
+
+#planView .theme-purple .type-summary {
+  border-color: #e0d6ff;
+  background: #f5f0ff;
+}
+
+#planView .type-summary-title {
+  color: #087f74;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+#planView .theme-purple .type-summary-title {
+  color: #6657e4;
+}
+
+#planView .type-summary-body {
+  color: #315e5a;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+}
+
+#planView .theme-purple .type-summary-body {
+  color: #5b5487;
+}
+
+#planView .source {
+  width: 100%;
+  min-height: 176px;
+  margin-top: 0;
+  padding: 14px 12px;
+  border: 1.2px solid #bfefe8;
+  border-radius: 24px;
+  background: #f2fffc;
+  display: grid;
+  gap: 10px;
+}
+
+#planView .theme-purple .source {
+  border-color: #e0d6ff;
+  background: #f5f0ff;
+}
+
+#planView .source-head {
+  margin: 0;
+  gap: 6px;
+  color: #0b8278;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+}
+
+#planView .theme-purple .source-head {
+  color: #6657e4;
+}
+
+#planView .source-head img {
+  width: 20px;
+  height: 20px;
+}
+
+#planView .source-list {
+  gap: 8px;
+}
+
+#planView .source-row {
+  min-height: 54px;
+  padding: 10px 14px 10px 18px;
+  grid-template-columns: 25px minmax(0, 1fr);
+  gap: 11px;
+  align-items: start;
+  text-align: left;
+  border: 1.2px solid #cbefea;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(13, 71, 64, 0.04);
+  color: #142238;
+  font-size: 12.5px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+#planView .source-row > img {
+  display: none;
+}
+
+#planView .book-dot {
+  position: relative;
+  margin-top: 2px;
+  width: 25px;
+  height: 25px;
+  border-radius: 4px 6px 6px 4px;
+  background: linear-gradient(136deg, #56dcd0 3%, #2ecabe 59%, #17aea3 99%);
+  box-shadow: inset 4px 0 0 rgba(13, 137, 129, 0.34), inset -3px 0 0 rgba(11, 146, 137, 0.16);
+}
+
+#planView .book-dot::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 6px;
+  height: 11px;
+  border-left: 2px solid rgba(255, 255, 255, 0.82);
+}
+
+#planView .book-dot::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  right: 4px;
+  bottom: 4px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+#planView .book-dot.purple,
+#planView .theme-purple .book-dot {
+  background: linear-gradient(136deg, #8e82ff 1%, #6657e4 97%);
+  box-shadow: inset 4px 0 0 rgba(123, 109, 244, 0.7), inset -2px 0 0 rgba(90, 77, 206, 0.18);
+}
+
+#planView .source-group-copy {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+#planView .source-group-title {
+  display: block;
+}
+
+#planView .source-entry-continuation .source-group-title {
+  padding-left: 3.95em;
+}
+
+#planView .source-book-label {
+  color: #142238;
+  font-weight: 600;
+}
+
+#planView .source-group-title .source-book-label {
+  display: inline;
+  padding-right: 0;
+}
+
+#planView .source-question-line {
+  display: block;
+  padding-left: 5.3em;
+}
+
+#planView .source-question-line > .source-book-label {
+  display: none;
+}
+
+#planView .source-question-content {
+  display: grid;
+  grid-template-columns: 3.45em minmax(0, 1fr);
+  padding-left: 0;
+  color: #5f6e82;
+}
+
+#planView .source-question-numbers {
+  display: block;
+  min-width: 0;
+  color: #142238;
+  font-weight: 500;
+}
+
+#planView .source-question-number {
+  display: inline;
+  white-space: nowrap;
+}
+
+#planView .feedback {
+  margin-top: 4px;
+  padding: 10px 16px 14px;
+  border: 1px solid #e8f0f0;
+  border-radius: 20px;
+  background: #fff9f0;
+  box-shadow: 0 8px 22px rgba(36, 65, 86, 0.075);
+}
+
+#planView .feedback-head {
+  display: grid;
+  grid-template-columns: 28px auto minmax(0, 1fr) 100px;
+  gap: 2px;
+  align-items: center;
+  padding: 0 0 10px;
+  border-bottom: 0;
+}
+
+#planView .feedback-head img {
+  width: 28px;
+  height: 28px;
+}
+
+#planView .feedback-head h2 {
+  color: #142033;
+  font-size: 17px;
+  line-height: 23px;
+  font-weight: 700;
+}
+
+#planView .feedback-subtitle {
+  justify-self: start;
+  color: #8190a2;
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+#planView .all-none {
+  width: 100px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid #d8e2ed;
+  border-radius: 14px;
+  background: #f7fafd;
+  color: #667895;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+#planView .feedback-list {
+  display: grid;
+  gap: 0;
+}
+
+#planView .feedback-row {
+  min-height: 58px;
+  padding: 0 2px 8px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 6px;
+  border-bottom: 1px solid #eadfce;
+}
+
+#planView .feedback-row:last-child {
+  border-bottom: 0;
+}
+
+#planView .feedback-title {
+  padding-top: 2px;
+  color: #253246;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#planView .feedback-choices {
+  width: 272px;
+  max-width: 100%;
+  justify-self: center;
+  display: grid;
+  grid-template-columns: repeat(3, 72px);
+  justify-content: center;
+  gap: 25px;
+}
+
+#planView .feedback-row .choice,
+#planView .choice {
+  width: 72px;
+  min-width: 0;
+  height: 24px;
+  padding: 0;
+  border-radius: 18px;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 500;
+}
+
+#planView .choice.correct {
+  border-color: #b5efe3;
+  background: #e4faf5;
+  color: #00a88f;
+}
+
+#planView .choice.wrong {
+  border-color: #ffcacc;
+  background: #fff0f1;
+  color: #f0525c;
+}
+
+#planView .choice.none {
+  border-color: #d8e2ed;
+  background: #f7fafd;
+  color: #667895;
+}
+
+#planView .choice.selected {
+  box-shadow: inset 0 0 0 2px currentColor;
+}
+
+#planView .wrong-reasons {
+  padding: 2px 0 8px;
+  gap: 6px;
+}
+
+#planView .feedback-actions {
+  margin-top: 12px;
+}
+
+.bottom-app-nav {
+  width: min(390px, 100vw);
+}
+
+.bottom-app-nav .nav {
+  gap: 4px;
+}
+
+.bottom-app-nav .nav-item {
+  min-height: 56px;
+  border-radius: 18px;
+  color: #5f6e82;
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 500;
+}
+
+.bottom-app-nav .nav-item.active {
+  background: #e9f8f4;
+  color: #07937f;
+}
+
+.bottom-app-nav .nav-item img {
+  width: 22px;
+  height: 22px;
+}
+
+@media (max-width: 390px) {
+  html body .content {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  #planView .section-title h2 {
+    font-size: 24px;
+  }
+
+  #planView .type-count {
+    min-width: 86px;
+    padding: 0 10px;
+    font-size: 14px;
+  }
+
+  #planView .feedback-choices {
+    grid-template-columns: repeat(3, minmax(64px, 72px));
+    gap: 12px;
+  }
+}

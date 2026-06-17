@@ -1,0 +1,1024 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>自习室 UI 多方案概念稿</title>
+    <style>
+      :root {
+        --teal: #13bfa8;
+        --teal-dark: #087c73;
+        --mint: #e8faf7;
+        --ink: #142033;
+        --muted: #6b7a90;
+        --line: rgba(20, 50, 70, 0.09);
+        --orange: #ff8a24;
+        --purple: #7e70f2;
+        --blue: #3b82f6;
+        --paper: #f4f8f7;
+        --shadow: 0 18px 44px rgba(20, 50, 70, 0.14);
+        font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: #f1f5f4;
+      }
+
+      .board {
+        width: 1780px;
+        min-height: 1010px;
+        padding: 28px 34px 40px;
+      }
+
+      .board-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        margin-bottom: 24px;
+      }
+
+      .board-title {
+        margin: 0;
+        font-size: 30px;
+        line-height: 1.1;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      .board-subtitle {
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      .board-note {
+        color: #5e706c;
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .concept-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 390px);
+        gap: 34px;
+      }
+
+      .concept {
+        display: grid;
+        gap: 12px;
+      }
+
+      .concept-label {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        min-height: 46px;
+      }
+
+      .concept-label strong {
+        font-size: 18px;
+        font-weight: 950;
+      }
+
+      .concept-label span {
+        max-width: 188px;
+        color: var(--muted);
+        text-align: right;
+        font-size: 12px;
+        line-height: 1.35;
+        font-weight: 750;
+      }
+
+      .phone {
+        position: relative;
+        width: 390px;
+        height: 844px;
+        overflow: hidden;
+        border-radius: 34px;
+        background: var(--paper);
+        box-shadow: var(--shadow);
+      }
+
+      .phone.dark {
+        color: #edf8f6;
+        background: #151d1d;
+      }
+
+      .status {
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+        color: currentColor;
+        font-size: 13px;
+        font-weight: 900;
+      }
+
+      .signal {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .signal i {
+        display: block;
+        width: 18px;
+        height: 9px;
+        border: 2px solid currentColor;
+        border-radius: 4px;
+      }
+
+      .screen {
+        height: calc(100% - 42px);
+        padding: 0 18px 78px;
+        overflow: hidden;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 4px 0 14px;
+      }
+
+      .topbar h1 {
+        margin: 0;
+        font-size: 28px;
+        line-height: 1.05;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      .topbar p {
+        margin: 5px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 750;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 30px;
+        padding: 0 12px;
+        border-radius: 999px;
+        color: #0b8879;
+        background: rgba(19, 191, 168, 0.12);
+        font-size: 12px;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: #fff;
+        box-shadow: 0 10px 26px rgba(20, 50, 70, 0.06);
+      }
+
+      .bottom-nav {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 66px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        align-items: center;
+        padding: 6px 18px 10px;
+        border-top: 1px solid rgba(20, 50, 70, 0.07);
+        background: rgba(255, 255, 255, 0.92);
+      }
+
+      .nav-item {
+        display: grid;
+        justify-items: center;
+        gap: 4px;
+        color: #617082;
+        font-size: 11px;
+        font-weight: 850;
+      }
+
+      .nav-item img {
+        width: 21px;
+        height: 21px;
+      }
+
+      .nav-item.active {
+        min-height: 48px;
+        border-radius: 17px;
+        color: #0b9c89;
+        background: #dff6f1;
+      }
+
+      .nav-item.active img { margin-top: 5px; }
+
+      .hero {
+        position: relative;
+        min-height: 184px;
+        overflow: hidden;
+        padding: 20px;
+        border-radius: 26px;
+        background:
+          linear-gradient(90deg, rgba(232, 250, 247, 0.96) 0%, rgba(244, 251, 247, 0.9) 48%, rgba(255, 246, 229, 0.5) 100%),
+          #eef9f6;
+      }
+
+      .hero h2 {
+        margin: 0;
+        max-width: 178px;
+        color: #0c4c45;
+        font-size: 26px;
+        line-height: 1.12;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      .hero p {
+        margin: 8px 0 0;
+        max-width: 162px;
+        color: #5e7773;
+        font-size: 12px;
+        line-height: 1.45;
+        font-weight: 750;
+      }
+
+      .hero img {
+        position: absolute;
+        width: 190px;
+        right: -16px;
+        bottom: -6px;
+      }
+
+      .room-row {
+        position: absolute;
+        left: 20px;
+        bottom: 18px;
+        display: grid;
+        justify-items: start;
+        gap: 6px;
+        max-width: 166px;
+      }
+
+      .room-row .pill {
+        min-height: 28px;
+        padding: 0 10px;
+        font-size: 11px;
+      }
+
+      .timer-card {
+        margin-top: 14px;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .timer-card .eyebrow,
+      .section-eyebrow {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 850;
+      }
+
+      .time {
+        margin-top: 4px;
+        font-size: 58px;
+        line-height: 1;
+        font-weight: 950;
+        color: #0c3f3a;
+        letter-spacing: 0;
+      }
+
+      .task-chip {
+        width: 100%;
+        min-height: 44px;
+        margin-top: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border-radius: 14px;
+        background: #eef8f5;
+        color: #173f3a;
+        font-size: 15px;
+        font-weight: 900;
+      }
+
+      .task-chip img {
+        width: 22px;
+        height: 22px;
+      }
+
+      .primary-btn {
+        width: 100%;
+        height: 52px;
+        margin-top: 16px;
+        border: 0;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #13bfa8, #089783);
+        color: #fff;
+        font-size: 16px;
+        font-weight: 950;
+        box-shadow: 0 12px 24px rgba(19, 191, 168, 0.2);
+      }
+
+      .goal-mini {
+        margin-top: 12px;
+        padding: 16px;
+      }
+
+      .mini-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .mini-stat {
+        min-height: 66px;
+        padding: 10px 8px;
+        border-radius: 16px;
+        background: #f6faf9;
+      }
+
+      .mini-stat span {
+        display: block;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 800;
+      }
+
+      .mini-stat strong {
+        display: block;
+        margin-top: 6px;
+        color: #0d796e;
+        font-size: 22px;
+        line-height: 1;
+        font-weight: 950;
+      }
+
+      .peers-strip {
+        margin-top: 12px;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+      }
+
+      .peer {
+        text-align: center;
+        color: #5e706c;
+        font-size: 9px;
+        line-height: 1.25;
+        font-weight: 800;
+      }
+
+      .peer img {
+        display: block;
+        width: 45px;
+        height: 45px;
+        margin: 0 auto 5px;
+        border-radius: 50%;
+      }
+
+      .room-stage {
+        padding: 16px;
+        background: #fdfefe;
+      }
+
+      .stage-head {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+
+      .stage-head h2,
+      .card-title {
+        margin: 0;
+        font-size: 19px;
+        font-weight: 950;
+        line-height: 1.2;
+      }
+
+      .stage-head p {
+        margin: 5px 0 0;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 750;
+      }
+
+      .seat-map {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+
+      .seat {
+        min-height: 78px;
+        padding: 9px 7px;
+        border-radius: 18px;
+        background: #f2f7f6;
+        text-align: center;
+        border: 1px solid rgba(20, 50, 70, 0.06);
+      }
+
+      .seat.me {
+        background: #e5faf5;
+        border-color: rgba(19, 191, 168, 0.35);
+        box-shadow: inset 0 0 0 1px rgba(19, 191, 168, 0.22);
+      }
+
+      .seat.empty {
+        display: grid;
+        place-items: center;
+        color: #9aa9a6;
+        border-style: dashed;
+      }
+
+      .seat img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+      }
+
+      .seat strong {
+        display: block;
+        margin-top: 5px;
+        color: #173f3a;
+        font-size: 11px;
+        font-weight: 950;
+      }
+
+      .seat span {
+        display: block;
+        margin-top: 3px;
+        color: var(--muted);
+        font-size: 9px;
+        font-weight: 800;
+      }
+
+      .focus-stack {
+        margin-top: 12px;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 10px;
+      }
+
+      .dial-panel,
+      .rank-panel {
+        min-height: 136px;
+        padding: 14px;
+      }
+
+      .dial {
+        width: 104px;
+        height: 104px;
+        margin: 9px auto 0;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle closest-side, #fff 67%, transparent 69%),
+          conic-gradient(#13bfa8 0 54%, #e4ecea 54% 100%);
+        color: #0c4c45;
+        font-size: 24px;
+        font-weight: 950;
+      }
+
+      .rank-list {
+        margin-top: 9px;
+        display: grid;
+        gap: 8px;
+      }
+
+      .rank-list div {
+        display: flex;
+        justify-content: space-between;
+        color: #47615c;
+        font-size: 11px;
+        font-weight: 850;
+      }
+
+      .heat-mini {
+        margin-top: 12px;
+        padding: 15px;
+      }
+
+      .heat-row {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 7px;
+        margin-top: 12px;
+      }
+
+      .heat-row i {
+        height: 29px;
+        border-radius: 9px;
+        background: #d6f4ee;
+      }
+
+      .heat-row i:nth-child(2),
+      .heat-row i:nth-child(5) { background: #80dcca; }
+      .heat-row i:nth-child(3) { background: #18bda6; }
+      .heat-row i:nth-child(4) { background: #f5e1bc; }
+      .heat-row i:nth-child(7) { background: #e7eeec; }
+
+      .mission-hero {
+        padding: 18px;
+        color: #083f3b;
+        background: #fff;
+      }
+
+      .mission-band {
+        min-height: 132px;
+        padding: 18px;
+        border-radius: 24px;
+        background:
+          linear-gradient(135deg, #d9f8ef 0%, #fff5e6 100%);
+      }
+
+      .mission-band h2 {
+        margin: 0;
+        max-width: 230px;
+        font-size: 25px;
+        line-height: 1.12;
+        font-weight: 950;
+      }
+
+      .mission-band p {
+        margin: 8px 0 0;
+        color: #60736f;
+        font-size: 12px;
+        line-height: 1.45;
+        font-weight: 800;
+      }
+
+      .today-command {
+        margin-top: -28px;
+        display: grid;
+        grid-template-columns: 128px minmax(0, 1fr);
+        gap: 10px;
+      }
+
+      .big-target,
+      .task-queue,
+      .ai-tip,
+      .completion-line {
+        padding: 15px;
+      }
+
+      .big-target strong {
+        display: block;
+        margin-top: 9px;
+        color: #0a8277;
+        font-size: 38px;
+        line-height: 1;
+        font-weight: 950;
+      }
+
+      .big-target span {
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 850;
+      }
+
+      .queue-item {
+        min-height: 38px;
+        display: grid;
+        grid-template-columns: 22px minmax(0, 1fr) 38px;
+        align-items: center;
+        gap: 8px;
+        border-bottom: 1px solid rgba(20, 50, 70, 0.07);
+        font-size: 12px;
+        font-weight: 850;
+      }
+
+      .queue-item:last-child { border-bottom: 0; }
+
+      .queue-item i {
+        width: 22px;
+        height: 22px;
+        border-radius: 8px;
+        background: #dff6f1;
+      }
+
+      .queue-item b {
+        color: var(--orange);
+        font-size: 11px;
+      }
+
+      .completion-line {
+        margin-top: 12px;
+      }
+
+      .bar {
+        height: 9px;
+        margin-top: 12px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: #e9efee;
+      }
+
+      .bar i {
+        display: block;
+        width: var(--value);
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #13bfa8, #34d399);
+      }
+
+      .ai-tip {
+        margin-top: 12px;
+        background: #fffaf2;
+        border-color: rgba(255, 138, 36, 0.18);
+      }
+
+      .tip-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .tip-grid div {
+        min-height: 46px;
+        padding: 9px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.7);
+        color: #8a5a17;
+        font-size: 11px;
+        line-height: 1.25;
+        font-weight: 850;
+      }
+
+      .dark .screen {
+        padding-bottom: 0;
+      }
+
+      .dark-hero {
+        min-height: 178px;
+        padding: 18px;
+        border-radius: 26px;
+        background:
+          linear-gradient(135deg, rgba(19, 191, 168, 0.18), rgba(255, 138, 36, 0.12)),
+          #1f2b2b;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .dark-hero h2 {
+        margin: 16px 0 0;
+        font-size: 26px;
+        line-height: 1.12;
+        font-weight: 950;
+      }
+
+      .dark-hero p {
+        margin: 8px 0 0;
+        color: #a9c2bd;
+        font-size: 12px;
+        line-height: 1.45;
+        font-weight: 750;
+      }
+
+      .dark-pill {
+        color: #071c1b;
+        background: #9cf3df;
+      }
+
+      .focus-room {
+        display: grid;
+        place-items: center;
+        min-height: 360px;
+      }
+
+      .focus-ring {
+        width: 248px;
+        height: 248px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle closest-side, #151d1d 66%, transparent 68%),
+          conic-gradient(#13bfa8 0 62%, #ffb35c 62% 70%, rgba(255,255,255,0.08) 70% 100%);
+        box-shadow: 0 0 0 16px rgba(19, 191, 168, 0.04);
+      }
+
+      .focus-core {
+        width: 178px;
+        height: 178px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        text-align: center;
+        background: #1d2828;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .focus-core small {
+        color: #9db9b5;
+        font-size: 11px;
+        font-weight: 800;
+      }
+
+      .focus-core strong {
+        display: block;
+        margin-top: 8px;
+        font-size: 43px;
+        line-height: 1;
+        font-weight: 950;
+      }
+
+      .focus-core span {
+        display: block;
+        max-width: 128px;
+        margin-top: 10px;
+        color: #b7ccc8;
+        font-size: 11px;
+        line-height: 1.35;
+        font-weight: 750;
+      }
+
+      .quiet-tools {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+
+      .quiet-tools button {
+        min-height: 58px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 18px;
+        color: #dcefed;
+        background: #1e2a2a;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .dark-peers {
+        margin-top: 14px;
+        padding: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 22px;
+        background: #1b2626;
+      }
+
+      .dark-peer-row {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 7px;
+        margin-top: 12px;
+      }
+
+      .dark-peer {
+        text-align: center;
+        color: #b7ccc8;
+        font-size: 9px;
+        line-height: 1.25;
+        font-weight: 800;
+      }
+
+      .dark-peer img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid rgba(156, 243, 223, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="board">
+      <header class="board-head">
+        <div>
+          <h1 class="board-title">自习室 UI 设计图方向</h1>
+          <p class="board-subtitle">基于当前移动端原型：保留清新专注风、卡片信息结构、底部导航和数学备考场景。</p>
+        </div>
+        <div class="board-note">390px 移动端 · 4 个可选方向 · 用于先看设计感觉</div>
+      </header>
+
+      <section class="concept-grid">
+        <article class="concept">
+          <div class="concept-label">
+            <strong>A. 清新学习舱</strong>
+            <span>最接近当前网站，降低落地风险</span>
+          </div>
+          <div class="phone">
+            <div class="status"><span>9:41</span><span class="signal">5G <i></i></span></div>
+            <div class="screen">
+              <section class="hero">
+                <h2>考研自习室</h2>
+                <p>专注当下，和同学一起稳稳推进数学计划。</p>
+                <div class="room-row">
+                  <span class="pill">数学二冲刺自习室</span>
+                  <span class="pill">128 人在线</span>
+                </div>
+                <img src="../../prototypes/student-mobile-v1.2/assets/images/study-room-hero-art.png" alt="" />
+              </section>
+              <section class="panel timer-card">
+                <div class="eyebrow">本轮专注</div>
+                <div class="time">45:00</div>
+                <div class="task-chip"><img src="../../prototypes/student-mobile-v1.2/assets/icons/icon-book.svg" alt="" />高数 | 极限与连续</div>
+                <button class="primary-btn">开始专注</button>
+              </section>
+              <section class="panel goal-mini">
+                <div class="card-title">今日自习目标</div>
+                <div class="mini-stats">
+                  <div class="mini-stat"><span>目标</span><strong>3.0h</strong></div>
+                  <div class="mini-stat"><span>已完成</span><strong>1.5h</strong></div>
+                  <div class="mini-stat"><span>进度</span><strong>50%</strong></div>
+                </div>
+                <div class="peers-strip">
+                  <div class="peer"><img src="../../prototypes/student-mobile-v1.2/assets/images/study-room-avatar-1.png" alt="" />线代 62m</div>
+                  <div class="peer"><img src="../../prototypes/student-mobile-v1.2/assets/images/study-room-avatar-2.png" alt="" />高数 48m</div>
+                  <div class="peer"><img src="../../prototypes/student-mobile-v1.2/assets/images/study-room-avatar-3.png" alt="" />概率 55m</div>
+                  <div class="peer"><img src="../../prototypes/student-mobile-v1.2/assets/images/study-room-avatar-4.png" alt="" />线代 35m</div>
+                  <div class="peer"><img src="../../prototypes/student-mobile-v1.2/assets/images/study-room-avatar-5.png" alt="" />高数 28m</div>
+                </div>
+              </section>
+            </div>
+            <nav class="bottom-nav">
+              <div class="nav-item"><img src="../../prototypes/student-mobile-v1.2/assets/icons/icon-calendar.svg" alt="" />今日计划</div>
+              <div class="nav-item"><img src="../../prototypes/student-mobile-v1.2/assets/icons/icon-chart.svg" alt="" />成长</div>
+              <div class="nav-item active"><img src="../../prototypes/student-mobile-v1.2/assets/icons/icon-study-room.svg" alt="" />自习室</div>
+              <div class="nav-item"><img src="../../prototypes/student-mobile-v1.2/assets/icons/icon-graduation.svg" alt="" />我的</div>
+            </nav>
+          </div>
+        </article>
+
+        <article class="concept">
+          <div class="concept-label">
+            <strong>B. 同桌座位图</strong>
+            <span>把“陪伴感”做成视觉核心</span>
+          </div>
+          <div class="phone">
+            <div class="status"><span>9:41</span><span class="signal">5G <i></i></span></div>
+            <div class="screen">
+              <div class="topbar">
+                <div>
+                  <h1>自习室</h1>
+                  <p>128 人在线 · 安静模式</p>
+                </div>
+                <span class="pill">入座中</span>
+              </div>
+              <section class="panel room-stage">
+                <div class="stage-head">
+                  <div>
+                    <h2>数学二冲刺自习室</h2>
+                    <p>看见同伴正在做什么，减少孤独感。</p>
+                  </div>
+                  <span class="pill">第 3 排</span>
+                </div>
+                <div class="seat-map">
+                  <div class="seat me"><img src="../../prototypes/student-mobile-v1.2/assets/images/study-room-avatar-1.png" alt="" /><strong>我</strong><span>极限 45m</span></div>
+                  <div class="seat"><img src="../../prototypes/student-mobile-v1.2/assets/images/study-room-avatar-2.png" alt="" /><strong>李知远</strong><span>高数 48m</span></div>
+                  <div class="seat"><img src="../../prototypes/student-mobile-v1.2/assets/images/study-room-avatar-3.png" alt="" /><strong>周子涵</strong><span>概率 55m</span></div>
+                  <div class="seat empty">可入座</div>
+                  <div class="seat"><img src="../../prototypes/student-mobile-v1.2/assets/images/study-room-avatar-4.png" alt="" /><strong>赵宇航</strong><span>线代 35m</span></div>
+                  <div class="seat empty">空位</div>
+                  <div class="seat"><img src="../../prototypes/student-mobile-v1.2/assets/images/study-room-avatar-5.png" alt="" /><strong>刘雨桐</strong><span>高数 28m</span></div>
+                  <div class="seat empty">稍后加入</div>
+                </div>
+              </section>
+              <div class="focus-stack">
+                <section class="panel dial-panel">
+                  <div class="section-eyebrow">我的进度</div>
+                  <div class="dial">54%</div>
+                </section>
+                <section class="panel rank-panel">
+                  <div class="section-eyebrow">今日陪跑</div>
+                  <div class="rank-list">
+                    <div><span>1. 周子涵</span><b>55m</b></div>
+                    <div><span>2. 李知远</span><b>48m</b></div>
+                    <div><span>3. 我</span><b>45m</b></div>
+                  </div>
+                </section>
+              </div>
+              <section class="panel heat-mini">
+                <div class="card-title">本周自习热度</div>
+                <div class="heat-row"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              </section>
+            </div>
+            <nav class="bottom-nav">
+              <div class="nav-item"><img src="../../prototypes/student-mobile-v1.2/assets/icons/icon-calendar.svg" alt="" />今日计划</div>
+              <div class="nav-item"><img src="../../prototypes/student-mobile-v1.2/assets/icons/icon-chart.svg" alt="" />成长</div>
+              <div class="nav-item active"><img src="../../prototypes/student-mobile-v1.2/assets/icons/icon-study-room.svg" alt="" />自习室</div>
+              <div class="nav-item"><img src="../../prototypes/student-mobile-v1.2/assets/icons/icon-graduation.svg" alt="" />我的</div>
+            </nav>
+          </div>
+        </article>
+
+        <article class="concept">
+          <div class="concept-label">
+            <strong>C. AI 任务战术台</strong>
+            <span>强调 AI 督学、任务队列和下一步建议</span>
+          </div>
+          <div class="phone">
+            <div class="status"><span>9:41</span><span class="signal">5G <i></i></span></div>
+            <div class="screen">
+              <section class="panel mission-hero">
+                <div class="mission-band">
+                  <span class="pill">AI 督学</span>
+                  <h2>先稳住本轮，再推进薄弱项</h2>
+                  <p>系统把今日计划、自习时长和错因优先级合在一个战术台里。</p>
+                </div>
+                <div class="today-command">
+                  <section class="panel big-target">
+                    <div class="section-eyebrow">本轮专注</div>
+                    <strong>45</strong>
+                    <span>分钟 · 安静模式</span>
+                  </section>
+                  <section class="panel task-queue">
+                    <div class="section-eyebrow">任务队列</div>
+                    <div class="queue-item"><i></i><span>极限与连续</span><b>现在</b></div>
+                    <div class="queue-item"><i></i><span>线代方程组</span><b>下一项</b></div>
+                    <div class="queue-item"><i></i><span>错因复盘</span><b>收尾</b></div>
+                  </section>
+                </div>
+              </section>
+              <section class="panel completion-line">
+                <div class="stage-head">
+                  <div>
+                    <h2>今日数学目标</h2>
+                    <p>已完成 1.5h / 目标 3.0h</p>
+                  </div>
+                  <span class="pill">50%</span>
+                </div>
+                <div class="bar" style="--value:50%"><i></i></div>
+              </section>
+              <section class="panel ai-tip">
+                <div class="card-title">下一步建议</div>
+                <div class="tip-grid">
+                  <div>先做 880 基础 4、5、10，保持节奏。</div>
+                  <div>本轮结束后补 1000 强化 17。</div>
+                  <div>错因优先看“条件漏判”。</div>
+                  <div>完成后自动写入成长曲线。</div>
+                </div>
+                <button class="primary-btn">开始这一轮</button>
+              </section>
+            </div>
+            <nav class="bottom-nav">
+              <div class="nav-item"><img src="../../prototypes/student-mobile-v1.2/assets/icons/icon-calendar.svg" alt="" />今日计划</div>
+              <div class="nav-item"><img src="../../prototypes/student-mobile-v1.2/assets/icons/icon-chart.svg" alt="" />成长</div>
+              <div class="nav-item active"><img src="../../prototypes/student-mobile-v1.2/assets/icons/icon-study-room.svg" alt="" />自习室</div>
+              <div class="nav-item"><img src="../../prototypes/student-mobile-v1.2/assets/icons/icon-graduation.svg" alt="" />我的</div>
+            </nav>
+          </div>
+        </article>
+
+        <article class="concept">
+          <div class="concept-label">
+            <strong>D. 深色沉浸专注</strong>
+            <span>作为“专注中”状态，仪式感更强</span>
+          </div>
+          <div class="phone dark">
+            <div class="status"><span>9:41</span><span class="signal">5G <i></i></span></div>
+            <div class="screen">
+              <section class="dark-hero">
+                <span class="pill dark-pill">安静模式 · 128 人在线</span>
+                <h2>保持这一轮</h2>
+                <p>当前只做一件事：高数 | 极限与连续。其他提醒会在结束后处理。</p>
+              </section>
+              <section class="focus-room">
+                <div class="focus-ring">
+                  <div class="focus-core">
+                    <div>
+                      <small>剩余时间</small>
+                      <strong>28:12</strong>
+                      <span>已完成 62%，本轮结束后休息 5 分钟。</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <div class="quiet-tools">
+                <button>暂停</button>
+                <button>白噪音</button>
+                <button>退出</button>
+              </div>
+              <section class="dark-peers">
+                <div class="stage-head">
+                  <div>
+                    <h2>同伴仍在专注</h2>
+                    <p>静音陪伴，不打扰当前任务。</p>
+                  </div>
+                  <span class="pill dark-pill">5 人</span>
+                </div>
+                <div class="dark-peer-row">
+                  <div class="dark-peer"><img src="../../prototypes/student-mobile-v1.2/assets/images/study-room-avatar-1.png" alt="" />62m</div>
+                  <div class="dark-peer"><img src="../../prototypes/student-mobile-v1.2/assets/images/study-room-avatar-2.png" alt="" />48m</div>
+                  <div class="dark-peer"><img src="../../prototypes/student-mobile-v1.2/assets/images/study-room-avatar-3.png" alt="" />55m</div>
+                  <div class="dark-peer"><img src="../../prototypes/student-mobile-v1.2/assets/images/study-room-avatar-4.png" alt="" />35m</div>
+                  <div class="dark-peer"><img src="../../prototypes/student-mobile-v1.2/assets/images/study-room-avatar-5.png" alt="" />28m</div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

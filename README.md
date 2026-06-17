@@ -8,6 +8,10 @@
   - 产品与页面规格文档。
   - 包含业务逻辑说明、开发执行规格和学生手机端低保真页面规格。
 
+- `docs/design-mockups/`
+  - 设计稿、Figma 预览图和 AI 生成视觉资产。
+  - `figma-previews/` 统一保存从 Figma 导出的预览图、检查图和对比截图。
+  - `generated-assets/` 统一保存 AI 生成插画、Banner 人物和候选视觉资产；确定进入前端后再复制到对应原型的 `assets/images/`。
 - `data/samples/`
   - 项目级样例数据。
   - 当前保留 `sample.xlsx`，用于后续梳理题目、计划或反馈等数据结构。

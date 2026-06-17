@@ -1,0 +1,15 @@
+.git/
+.agents/
+.codex/
+.venv/
+dist/
+__pycache__/
+*.pyc
+*.pyo
+*.log
+backend/app.db
+backend/app.db-*
+backend/__pycache__/
+backend/**/*.pyc
+scripts/__pycache__/
+docs/superpowers/

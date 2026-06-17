@@ -21,12 +21,81 @@ def fetch_one(query: str, params: tuple = {}) -> dict:
         return dict(conn.execute(query, params).fetchone())
 
 
+def fetch_optional(query: str, params: tuple = {}) -> dict | None:
+    with sqlite3.connect(DB_PATH) as conn:
+        conn.row_factory = sqlite3.Row
+        row = conn.execute(query, params).fetchone()
+        return dict(row) if row else None
+
+
 def main() -> None:
     seed_database()
     client = TestClient(app)
 
     health = client.get("/health")
     assert health.status_code == 200, health.text
+
+    existing_code_login = client.post("/auth/test-code", json={"code": "demo-a01"})
+    assert existing_code_login.status_code == 200, existing_code_login.text
+    existing_code_data = existing_code_login.json()
+    assert existing_code_data["user"]["userId"] == "10001"
+    assert existing_code_data["needsOnboarding"] is False
+
+    unknown_code_login = client.post("/auth/test-code", json={"code": "not-issued"})
+    assert unknown_code_login.status_code == 400, unknown_code_login.text
+
+    new_code_login = client.post("/auth/test-code", json={"code": "new-a01"})
+    assert new_code_login.status_code == 200, new_code_login.text
+    new_code_data = new_code_login.json()
+    new_user_id = new_code_data["user"]["userId"]
+    assert int(new_user_id) > 10022
+    assert new_code_data["needsOnboarding"] is True
+    assert fetch_optional("SELECT * FROM users WHERE user_id = ?", (new_user_id,)) is not None
+    assert fetch_optional("SELECT * FROM student_profiles WHERE user_id = ?", (new_user_id,)) is None
+    claimed_code = fetch_one("SELECT user_id, status FROM test_access_codes WHERE code = ?", ("new-a01",))
+    assert claimed_code["user_id"] == new_user_id
+    assert claimed_code["status"] == "claimed"
+
+    repeat_new_code_login = client.post("/auth/test-code", json={"code": "new-a01"})
+    assert repeat_new_code_login.status_code == 200, repeat_new_code_login.text
+    assert repeat_new_code_login.json()["user"]["userId"] == new_user_id
+    assert repeat_new_code_login.json()["needsOnboarding"] is True
+
+    onboarding = client.post(
+        f"/students/{new_user_id}/onboarding",
+        json={
+            "targetScore": 135,
+            "level": "C",
+            "primaryBooks": ["880", "1000"],
+            "backupBook": "660",
+            "dailyTargetMinutes": 180,
+        },
+    )
+    assert onboarding.status_code == 200, onboarding.text
+    onboarding_data = onboarding.json()
+    assert onboarding_data["user"]["userId"] == new_user_id
+    assert onboarding_data["needsOnboarding"] is False
+    new_profile = fetch_one(
+        """
+        SELECT target_score, level, primary_book_1, primary_book_2, backup_book, plan_enabled
+        FROM student_profiles
+        WHERE user_id = ?
+        """,
+        (new_user_id,),
+    )
+    assert new_profile["target_score"] == "135"
+    assert new_profile["level"] == "C"
+    assert new_profile["primary_book_1"] == "880"
+    assert new_profile["primary_book_2"] == "1000"
+    assert new_profile["backup_book"] == "660"
+    assert new_profile["plan_enabled"] == "1"
+
+    new_user_plan = client.get(f"/students/{new_user_id}/daily-plan", params={"date": "2026-06-11"})
+    assert new_user_plan.status_code == 200, new_user_plan.text
+    new_user_plan_data = new_user_plan.json()
+    assert new_user_plan_data["student"]["targetScore"] == 135
+    assert new_user_plan_data["plan"]["types"][0]["questions"]
+    assert new_user_plan_data["plan"]["types"][0]["questions"][0]["label"].startswith("《")
 
     login = client.post(
         "/auth/login",
@@ -88,9 +157,27 @@ def main() -> None:
         {
             "questionId": item["questionId"],
             "result": "correct" if index % 2 == 0 else "wrong",
+            "wrongReason": None if index % 2 == 0 else "method_error",
         }
         for index, item in enumerate(open_type["questions"])
     ]
+    missing_reason_answers = [
+        {
+            "questionId": item["questionId"],
+            "result": "correct" if index % 2 == 0 else "wrong",
+        }
+        for index, item in enumerate(open_type["questions"])
+    ]
+    missing_reason_submit = client.post(
+        "/feedback/submit",
+        json={
+            "userId": user_id,
+            "planDate": plan_data["plan"]["planDate"],
+            "typeId": open_type["typeId"],
+            "answers": missing_reason_answers,
+        },
+    )
+    assert missing_reason_submit.status_code == 400, missing_reason_submit.text
     submit = client.post(
         "/feedback/submit",
         json={
@@ -102,6 +189,16 @@ def main() -> None:
     )
     assert submit.status_code == 200, submit.text
     submit_data = submit.json()
+    wrong_reason_count = fetch_one(
+        """
+        SELECT COUNT(*) AS row_count
+        FROM question_feedbacks
+        WHERE user_id = ? AND plan_date = ? AND type_id = ?
+          AND result = 'wrong' AND wrong_reason_code = 'method_error'
+        """,
+        (user_id, plan_data["plan"]["planDate"], open_type["typeId"]),
+    )
+    assert wrong_reason_count["row_count"] == sum(1 for item in answers if item["result"] == "wrong")
     feedback_count = fetch_one(
         """
         SELECT COUNT(*) AS row_count
@@ -135,6 +232,39 @@ def main() -> None:
     assert progress_after_submit["last_completed_type_id"] == open_type["typeId"]
     assert progress_after_submit["unfinished_type_id"] == ""
     assert progress_after_submit["unfinished_question_ids"] == "[]"
+
+    other_test_user_login = client.post("/auth/test-code", json={"code": "demo-b01"})
+    assert other_test_user_login.status_code == 200, other_test_user_login.text
+    assert other_test_user_login.json()["user"]["currentTestDate"] == "2026-06-10"
+
+    advanced_day = client.post(f"/students/{user_id}/test-day/advance")
+    assert advanced_day.status_code == 200, advanced_day.text
+    advanced_day_data = advanced_day.json()
+    assert advanced_day_data["currentTestDate"] == "2026-06-11"
+    assert advanced_day_data["dailyPlan"]["plan"]["planDate"] == "2026-06-11"
+    assert advanced_day_data["dailyPlan"]["plan"]["types"][0]["typeId"] == progress_after_submit["current_type_id"]
+    assert advanced_day_data["dailyPlan"]["plan"]["types"][0]["typeId"] != open_type["typeId"]
+
+    assert fetch_one(
+        "SELECT current_test_date FROM test_user_dates WHERE user_id = ?",
+        (user_id,),
+    )["current_test_date"] == "2026-06-11"
+    assert fetch_one(
+        "SELECT current_test_date FROM test_user_dates WHERE user_id = ?",
+        ("10002",),
+    )["current_test_date"] == "2026-06-10"
+    assert fetch_one(
+        "SELECT COUNT(*) AS row_count FROM student_stats WHERE user_id = ? AND stat_date = ?",
+        (user_id, "2026-06-11"),
+    )["row_count"] == 1
+    assert fetch_one(
+        "SELECT COUNT(*) AS row_count FROM student_daily_activity WHERE user_id = ? AND activity_date = ?",
+        (user_id, "2026-06-11"),
+    )["row_count"] == 1
+    assert fetch_one(
+        "SELECT COUNT(*) AS row_count FROM student_study_goals WHERE user_id = ? AND study_date = ?",
+        (user_id, "2026-06-11"),
+    )["row_count"] == 1
 
     stats_after_submit = fetch_one(
         """
@@ -324,7 +454,8 @@ def main() -> None:
         {"questionId": item["questionId"], "result": "unattempted"}
         for item in unfinished_open_type["questions"]
     ]
-    unfinished_submit = client.post(
+
+    missing_unattempted_action = client.post(
         "/feedback/submit",
         json={
             "userId": unfinished_user_id,
@@ -333,20 +464,34 @@ def main() -> None:
             "answers": unfinished_answers,
         },
     )
+    assert missing_unattempted_action.status_code == 400, missing_unattempted_action.text
+
+    unfinished_submit = client.post(
+        "/feedback/submit",
+        json={
+            "userId": unfinished_user_id,
+            "planDate": unfinished_plan_data["plan"]["planDate"],
+            "typeId": unfinished_open_type["typeId"],
+            "answers": unfinished_answers,
+            "unattemptedAction": "defer",
+        },
+    )
     assert unfinished_submit.status_code == 200, unfinished_submit.text
     unfinished_submit_data = unfinished_submit.json()
     assert unfinished_submit_data["planStatus"] == "blocked_by_unfinished"
     assert unfinished_submit_data["hasUnattempted"] is True
+    assert unfinished_submit_data["unattemptedAction"] == "defer"
 
     unfinished_progress = fetch_one(
         """
-        SELECT current_type_id, unfinished_type_id, unfinished_question_ids
+        SELECT current_type_id, current_type_status, unfinished_type_id, unfinished_question_ids
         FROM student_progress
         WHERE user_id = ?
         """,
         (unfinished_user_id,),
     )
     assert unfinished_progress["current_type_id"] == unfinished_open_type["typeId"]
+    assert unfinished_progress["current_type_status"] == "unfinished"
     assert unfinished_progress["unfinished_type_id"] == unfinished_open_type["typeId"]
     assert set(json.loads(unfinished_progress["unfinished_question_ids"])) == {
         item["questionId"] for item in unfinished_open_type["questions"]
@@ -365,6 +510,56 @@ def main() -> None:
     )
     assert blocked_rows["open_rows"] == 0
     assert blocked_rows["blocked_rows"] == blocked_rows["total_rows"]
+
+    unfinished_next_day = client.get(f"/students/{unfinished_user_id}/daily-plan", params={"date": "2026-06-11"})
+    assert unfinished_next_day.status_code == 200, unfinished_next_day.text
+    unfinished_next_day_data = unfinished_next_day.json()
+    continued_type = unfinished_next_day_data["plan"]["types"][0]
+    assert continued_type["typeId"] == unfinished_open_type["typeId"]
+    assert {item["questionId"] for item in continued_type["questions"]} == {
+        item["questionId"] for item in unfinished_open_type["questions"]
+    }
+
+    skip_user_id = "10010"
+    skip_plan = client.get(f"/students/{skip_user_id}/daily-plan", params={"date": "2026-06-11"})
+    assert skip_plan.status_code == 200, skip_plan.text
+    skip_plan_data = skip_plan.json()
+    skip_open_type = next(
+        item for item in skip_plan_data["plan"]["types"] if item["feedbackOpenStatus"] == "open"
+    )
+    skip_answers = [
+        {"questionId": item["questionId"], "result": "unattempted"}
+        for item in skip_open_type["questions"]
+    ]
+    skip_submit = client.post(
+        "/feedback/submit",
+        json={
+            "userId": skip_user_id,
+            "planDate": skip_plan_data["plan"]["planDate"],
+            "typeId": skip_open_type["typeId"],
+            "answers": skip_answers,
+            "unattemptedAction": "skip",
+        },
+    )
+    assert skip_submit.status_code == 200, skip_submit.text
+    skip_submit_data = skip_submit.json()
+    assert skip_submit_data["planStatus"] in {"in_progress", "completed"}
+    assert skip_submit_data["hasUnattempted"] is True
+    assert skip_submit_data["unattemptedAction"] == "skip"
+
+    skipped_progress = fetch_one(
+        """
+        SELECT current_type_id, current_type_status, last_completed_type_id,
+               unfinished_type_id, unfinished_question_ids
+        FROM student_progress
+        WHERE user_id = ?
+        """,
+        (skip_user_id,),
+    )
+    assert skipped_progress["current_type_status"] == "active"
+    assert skipped_progress["last_completed_type_id"] == skip_open_type["typeId"]
+    assert skipped_progress["unfinished_type_id"] == ""
+    assert skipped_progress["unfinished_question_ids"] == "[]"
 
     print(
         {

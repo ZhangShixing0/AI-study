@@ -1,0 +1,16 @@
+[Unit]
+Description=AI Tutor MVP FastAPI service
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/ai-tutor
+ExecStart=/opt/ai-tutor/.venv/bin/python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000
+Restart=always
+RestartSec=3
+User=ubuntu
+Group=ubuntu
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
