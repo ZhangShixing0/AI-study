@@ -1,0 +1,16 @@
+<svg width="300" height="185" viewBox="0 0 300 185" xmlns="http://www.w3.org/2000/svg">
+  <style>:root{--accent:#2f6fdf;--ink:#273142;}</style>
+  <rect x="6" y="6" width="288" height="173" rx="18" fill="var(--accent,#2f6fdf)" fill-opacity="0.06"/>
+  <!-- content-shift-start -->
+  <g transform="translate(-10 0)">
+<text x="150" y="36" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="800" fill="var(--accent,#2f6fdf)">一阶线性方程</text>
+  <g transform="translate(27 43)">
+    <rect x="20" y="10" width="228" height="106" rx="14" fill="#fff" stroke="var(--accent,#2f6fdf)" stroke-opacity="0.35"/>
+    <text x="134" y="37" text-anchor="middle" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="20" fill="var(--ink,#273142)">y' + P(x)y = Q(x)</text>
+    <text x="134" y="64" text-anchor="middle" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="18" fill="var(--ink,#273142)">μ(x)=e<tspan baseline-shift="super" font-size="12">∫P(x)dx</tspan></text>
+    <path d="M70 76L198 76" stroke="var(--accent,#2f6fdf)" stroke-width="2.4" stroke-linecap="round"/><path d="M188.0 81.0L198 76L188.0 71.0" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="134" y="103" text-anchor="middle" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="15.5" fill="var(--ink,#273142)">y=e<tspan baseline-shift="super" font-size="11">-∫Pdx</tspan>(∫Qe<tspan baseline-shift="super" font-size="11">∫Pdx</tspan>dx+C)</text>
+  </g>
+  </g>
+  <!-- content-shift-end -->
+</svg>

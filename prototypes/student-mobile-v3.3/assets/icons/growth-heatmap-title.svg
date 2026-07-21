@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+  <defs>
+    <linearGradient id="navy" x1="6" y1="3" x2="15" y2="16" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#183A5F"/>
+      <stop offset="1" stop-color="#071E39"/>
+    </linearGradient>
+    <linearGradient id="navy2" x1="2" y1="11" x2="17" y2="18" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E4771"/>
+      <stop offset="1" stop-color="#062449"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="3" y1="8" x2="16" y2="14" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10CDB9"/>
+      <stop offset="1" stop-color="#009E91"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="10" y1="5" x2="17" y2="10" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD94A"/>
+      <stop offset="1" stop-color="#FFB42A"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="20" height="20" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy=".25" stdDeviation=".28" flood-color="#001B36" flood-opacity=".22"/>
+    </filter>
+  </defs>
+
+  <!-- lower book -->
+  <path d="M2.55 11.2 9.55 8.55 17.25 11.05c.45.14.55.75.16.98l-7.29 4.24a1.8 1.8 0 0 1-1.68.07L2.38 13.45c-.9-.43-.78-1.9.17-2.25Z" fill="url(#navy2)"/>
+  <path d="M2.3 12.7v1.25c0 .35.21.67.53.82l5.8 2.7c.48.22 1.04.2 1.5-.06l7.22-4.02c.22-.12.35-.35.35-.6v-1.28l-7.63 4.32a1.8 1.8 0 0 1-1.58.07L2.3 12.7Z" fill="#0A2C53"/>
+  <path d="M3 12.08 9.1 9.7 16.7 12 9.56 15.62c-.3.15-.66.15-.96 0L3 13.02c-.47-.22-.48-.74 0-.94Z" fill="#FDFDFB"/>
+
+  <!-- top book -->
+  <g filter="url(#shadow)">
+    <path d="M3.65 8.68 10.08 6.06l6.82 2.3c.48.16.57.8.15 1.04l-6.65 3.75c-.45.25-1 .27-1.46.05L3.5 10.6c-.86-.4-.75-1.55.15-1.92Z" fill="url(#teal)"/>
+    <path d="M3.25 9.72v1.5c0 .33.2.64.5.78l5.19 2.42c.46.21 1 .2 1.43-.05l6.53-3.7c.25-.14.4-.4.4-.68V8.98l-6.95 3.93a1.48 1.48 0 0 1-1.35.04L3.25 9.72Z" fill="#00A996"/>
+    <path d="M3.9 9.53 9.95 7.05l6.45 2.16-6.5 3.45c-.3.16-.65.17-.96.03L3.9 10.32c-.42-.2-.42-.62 0-.79Z" fill="#FFFFFF"/>
+    <path d="M3.9 8.64 10.04 6.12l6.55 2.2-6.48 3.43a1.35 1.35 0 0 1-1.21.03L3.64 9.3c-.36-.17-.13-.5.26-.66Z" fill="url(#teal)"/>
+  </g>
+
+  <!-- cap body -->
+  <path d="M6.48 6.55h7.08v3.16c0 .45-.26.85-.67 1.03l-2.47 1.1a1.2 1.2 0 0 1-.94.02L7.12 10.9a1.1 1.1 0 0 1-.64-1V6.55Z" fill="url(#navy)"/>
+  <path d="M9.92 7.05c1.27.4 2.31 1.22 3.35 2.67.13-.16.2-.37.2-.6V6.55H6.52v3.1c0 .19.05.37.14.52.68-1.7 1.56-2.7 3.26-3.12Z" fill="#061B35" opacity=".42"/>
+
+  <!-- mortarboard -->
+  <path d="M4.6 5.94 9.45 3.94c.35-.14.73-.15 1.08-.02l5.75 2.07c.34.12.38.58.07.75l-5.76 3.04c-.39.2-.85.21-1.24.03L4.58 7.6c-.71-.33-.7-1.36.02-1.66Z" fill="#112F51"/>
+  <path d="M4.95 5.8 9.55 3.94c.29-.12.61-.12.9-.02l5.44 1.93c.28.1.31.47.05.61l-5.5 2.84c-.32.17-.7.17-1.03.02L4.9 7.23c-.58-.27-.55-1.19.05-1.43Z" fill="url(#navy)"/>
+  <path d="M4.78 6.72 9.48 8.9c.39.18.83.17 1.21-.03l5.74-3.01v.64c0 .22-.12.42-.31.53l-5.37 2.89c-.45.24-.99.25-1.45.04L4.62 7.78a.62.62 0 0 1-.36-.57v-.4c.16.07.33.11.52-.09Z" fill="#24496F" opacity=".8"/>
+
+  <!-- tassel -->
+  <path d="M10.4 5.8c1.22.04 2.58.2 4.25.48.7.12 1.18.74 1.12 1.45l-.15 1.87" stroke="url(#gold)" stroke-width=".52" stroke-linecap="round"/>
+  <ellipse cx="10.14" cy="5.8" rx=".58" ry=".27" fill="#06988D" opacity=".45"/>
+  <ellipse cx="10.05" cy="5.55" rx=".6" ry=".31" fill="#11C9BA"/>
+  <circle cx="15.6" cy="8.5" r=".35" fill="#FFC034"/>
+  <path d="M15.24 8.82h.72l.26 1.24c.05.25-.15.48-.41.48h-.42c-.26 0-.46-.24-.4-.5l.25-1.22Z" fill="#FFC034"/>
+  <path d="M15.35 8.9h.28l-.22 1.54h-.42l.36-1.54Z" fill="#FFD95A" opacity=".55"/>
+</svg>

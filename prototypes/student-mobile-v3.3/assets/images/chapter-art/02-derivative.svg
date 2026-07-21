@@ -1,0 +1,19 @@
+<svg width="300" height="185" viewBox="0 0 300 185" xmlns="http://www.w3.org/2000/svg">
+  <style>:root{--accent:#2f6fdf;--ink:#273142;}</style>
+  <rect x="6" y="6" width="288" height="173" rx="18" fill="var(--accent,#2f6fdf)" fill-opacity="0.06"/>
+  <!-- content-shift-start -->
+  <g transform="translate(-10 0)">
+<text x="150" y="35" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="800" fill="var(--accent,#2f6fdf)">导数几何意义</text>
+  <g transform="translate(22 34)">
+    <path d="M38 128L248 128" stroke="var(--accent,#2f6fdf)" stroke-width="2" stroke-linecap="round"/><path d="M239.0 132.5L248 128L239.0 123.5" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M38 128L38 28" stroke="var(--accent,#2f6fdf)" stroke-width="2" stroke-linecap="round"/><path d="M42.5 37.0L38 28L33.5 37.0" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="255" y="133" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="16" fill="var(--ink,#273142)">x</text><text x="25" y="24" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="16" fill="var(--ink,#273142)">y</text>
+    <polyline points="50.0,152.0 58.0,142.5 66.0,133.6 74.0,125.3 82.0,117.6 90.0,110.5 98.0,103.9 106.0,98.0 114.0,92.6 122.0,87.8 130.0,83.6 138.0,80.0 146.0,77.0 154.0,74.6 162.0,72.7 170.0,71.5 178.0,70.8 186.0,70.8 194.0,71.3 202.0,72.4 210.0,74.1 218.0,76.4" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M78.0 100.1L218.0 52.5" stroke="var(--accent,#2f6fdf)" stroke-width="2.8" stroke-linecap="round"/>
+    <circle cx="146" cy="77" r="6.5" fill="var(--accent,#2f6fdf)" stroke="var(--accent,#2f6fdf)" stroke-width="2" fill-opacity="0.22"/>
+    <path d="M146 77V128" stroke="var(--accent,#2f6fdf)" stroke-width="1.5" stroke-dasharray="5 5"/>
+    <text x="136" y="148" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="16" fill="var(--ink,#273142)">x₀</text>
+    <text x="186" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="700" fill="var(--ink,#273142)">f'(x₀)</text>
+    <text x="196" y="43" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="17" fill="var(--ink,#273142)">y=f(x)</text>
+  </g>
+  </g>
+  <!-- content-shift-end -->
+</svg>

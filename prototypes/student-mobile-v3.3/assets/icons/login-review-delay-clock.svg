@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+  <defs>
+    <linearGradient id="clockFill" x1="4" y1="3" x2="16.8" y2="16.7" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6EA8FF"/>
+      <stop offset="1" stop-color="#4E72F2"/>
+    </linearGradient>
+  </defs>
+  <circle cx="10" cy="10" r="7.35" fill="url(#clockFill)"/>
+  <path d="M10 6.25V10.25L13.2 12.1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M6.2 4.75C7.25 3.85 8.58 3.3 10 3.25" stroke="#8EC0FF" stroke-width="1.1" stroke-linecap="round" opacity="0.9"/>
+</svg>

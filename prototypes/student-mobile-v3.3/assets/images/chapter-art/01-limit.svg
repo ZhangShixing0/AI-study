@@ -1,0 +1,23 @@
+<svg width="300" height="185" viewBox="0 0 300 185" xmlns="http://www.w3.org/2000/svg">
+  <style>:root{--accent:#2f6fdf;--ink:#273142;}</style>
+  <rect x="6" y="6" width="288" height="173" rx="18" fill="var(--accent,#2f6fdf)" fill-opacity="0.06"/>
+  <!-- content-shift-start -->
+  <g transform="translate(-10 0)">
+<text x="150" y="35" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="800" fill="var(--accent,#2f6fdf)">双向趋近</text>
+  <g transform="translate(20 62)">
+    <path d="M12 70H238" stroke="var(--accent,#2f6fdf)" stroke-width="2.2"/>
+    <path d="M228 62L240 70L228 78" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M126 31V91" stroke="var(--accent,#2f6fdf)" stroke-width="1.5"/>
+    <text x="252" y="77" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="18" fill="var(--ink,#273142)">x</text>
+    <path d="M28 36H102" stroke="var(--accent,#2f6fdf)" stroke-width="2.5" stroke-dasharray="7 7"/>
+    <path d="M95 28L109 36L95 44" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M224 36H150" stroke="var(--accent,#2f6fdf)" stroke-width="2.5" stroke-dasharray="7 7"/>
+    <path d="M157 28L143 36L157 44" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="28" cy="36" r="6" fill="var(--accent,#2f6fdf)" stroke="var(--accent,#2f6fdf)" fill-opacity="0.22"/><circle cx="56" cy="36" r="6" fill="var(--accent,#2f6fdf)" stroke="var(--accent,#2f6fdf)" fill-opacity="0.22"/><circle cx="84" cy="36" r="6" fill="var(--accent,#2f6fdf)"/>
+    <circle cx="126" cy="36" r="8" fill="var(--accent,#2f6fdf)"/>
+    <circle cx="168" cy="36" r="6" fill="var(--accent,#2f6fdf)" stroke="var(--accent,#2f6fdf)" fill-opacity="0.22"/><circle cx="196" cy="36" r="6" fill="var(--accent,#2f6fdf)" stroke="var(--accent,#2f6fdf)" fill-opacity="0.22"/><circle cx="224" cy="36" r="6" fill="var(--accent,#2f6fdf)"/>
+    <text x="64" y="100" text-anchor="middle" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="18" fill="var(--ink,#273142)">a-δ</text><text x="126" y="100" text-anchor="middle" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="18" fill="var(--ink,#273142)">a</text><text x="204" y="100" text-anchor="middle" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="18" fill="var(--ink,#273142)">a+δ</text>
+  </g>
+  </g>
+  <!-- content-shift-end -->
+</svg>

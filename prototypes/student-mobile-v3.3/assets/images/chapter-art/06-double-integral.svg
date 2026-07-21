@@ -1,0 +1,19 @@
+<svg width="300" height="185" viewBox="0 0 300 185" xmlns="http://www.w3.org/2000/svg">
+  <style>:root{--accent:#2f6fdf;--ink:#273142;}</style>
+  <rect x="6" y="6" width="288" height="173" rx="18" fill="var(--accent,#2f6fdf)" fill-opacity="0.06"/>
+  <g transform="translate(-10 0)">
+  <text x="150" y="35" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="800" fill="var(--accent,#2f6fdf)">二重积分区域</text>
+  <g transform="translate(24 32)">
+    <path d="M38 128L242 128" stroke="var(--accent,#2f6fdf)" stroke-width="2" stroke-linecap="round"/><path d="M233.0 132.5L242 128L233.0 123.5" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M38 128L38 26" stroke="var(--accent,#2f6fdf)" stroke-width="2" stroke-linecap="round"/><path d="M42.5 35.0L38 26L33.5 35.0" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="249" y="133" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="16" fill="var(--ink,#273142)">x</text><text x="25" y="22" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="16" fill="var(--ink,#273142)">y</text>
+    <path d="M58 82C87 54 120 37 150 42C181 47 196 68 232 50" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2.4"/>
+    <path d="M58 113C91 99 121 94 150 104C184 116 206 118 232 100" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2.4"/>
+    <path d="M58 82C87 54 120 37 150 42C181 47 196 68 232 50L232 100C206 118 184 116 150 104C121 94 91 99 58 113Z" fill="var(--accent,#2f6fdf)" opacity=".78" fill-opacity="0.10"/>
+    <g stroke="var(--accent,#2f6fdf)" stroke-width="1.35" stroke-dasharray="5 5" opacity=".82"><path d="M58 82V128"/><path d="M80 65V106"/><path d="M105 50V99"/><path d="M130 42V98"/><path d="M155 43V105"/><path d="M180 57V113"/><path d="M210 61V110"/><path d="M232 50V128"/></g>
+    <text x="151" y="86" text-anchor="middle" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="22" fill="var(--ink,#273142)">D</text>
+    <text x="174" y="42" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="16" fill="var(--ink,#273142)">y=φ₂(x)</text>
+    <text x="103" y="119" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="16" fill="var(--ink,#273142)">y=φ₁(x)</text>
+    <text x="58" y="152" text-anchor="middle" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="16" fill="var(--ink,#273142)">x=a</text>
+    <text x="232" y="152" text-anchor="middle" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="16" fill="var(--ink,#273142)">x=b</text>
+  </g>
+  </g>
+</svg>

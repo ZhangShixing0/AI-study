@@ -1,0 +1,16 @@
+<svg width="300" height="185" viewBox="0 0 300 185" xmlns="http://www.w3.org/2000/svg">
+  <style>:root{--accent:#2f6fdf;--ink:#273142;}</style>
+  <rect x="6" y="6" width="288" height="173" rx="18" fill="var(--accent,#2f6fdf)" fill-opacity="0.06"/>
+  <g transform="translate(-10 0)">
+  <text x="150" y="35" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="800" fill="var(--accent,#2f6fdf)">线性表示</text>
+  <g transform="translate(20 43)">
+    <path d="M42 128L250 128" stroke="var(--accent,#2f6fdf)" stroke-width="2" stroke-linecap="round"/><path d="M241.0 132.5L250 128L241.0 123.5" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M42 128L42 28" stroke="var(--accent,#2f6fdf)" stroke-width="2" stroke-linecap="round"/><path d="M46.5 37.0L42 28L37.5 37.0" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="257" y="133" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="16" fill="var(--ink,#273142)">x</text><text x="29" y="24" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="16" fill="var(--ink,#273142)">y</text>
+    <path d="M42 128L158 106" stroke="var(--accent,#2f6fdf)" stroke-width="2.8" stroke-linecap="round"/><path d="M150.0 112.1L158 106L148.3 103.3" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M158 106L216 56" stroke="var(--accent,#2f6fdf)" stroke-width="2.8" stroke-linecap="round"/><path d="M212.1 65.3L216 56L206.2 58.5" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M42 128L216 56" stroke="var(--accent,#2f6fdf)" stroke-width="3" stroke-linecap="round"/><path d="M209.4 63.6L216 56L206.0 55.3" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M42 128L100 78L216 56" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="1.5" stroke-dasharray="5 5"/>
+    <path d="M42 128L100 78" stroke="var(--accent,#2f6fdf)" stroke-width="2.4" stroke-linecap="round"/><path d="M96.1 87.3L100 78L90.2 80.5" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="164" y="108" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="17" fill="var(--ink,#273142)">k₁α₁</text><text x="102" y="76" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="17" fill="var(--ink,#273142)">k₂α₂</text><text x="218" y="55" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="18" fill="var(--ink,#273142)">β</text>
+    <text x="139" y="32" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="17" fill="var(--ink,#273142)">β = k₁α₁ + k₂α₂</text>
+    <text x="142" y="156" text-anchor="middle" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="15.5" fill="var(--ink,#273142)">Span{α₁,α₂}={k₁α₁+k₂α₂}</text>
+  </g>
+  </g>
+</svg>

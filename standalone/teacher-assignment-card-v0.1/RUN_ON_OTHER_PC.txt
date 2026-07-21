@@ -1,0 +1,13 @@
+教师做题任务图工具 - 另一台电脑运行说明
+
+1. 解压整个 teacher-assignment-card-v0.1 文件夹。
+2. 双击 start-preview.bat。
+3. 如果电脑装了 Python，会自动打开：
+   http://127.0.0.1:8093/
+4. 如果电脑没有 Python，脚本会直接打开 index.html，也可以正常使用大部分功能。
+5. 不需要 PostgreSQL，不需要后端服务，不需要原来的 AI 督学主网站。
+
+注意：
+- 不要只拷贝 index.html，必须保留 app.js、data.js、styles.css 和 assets 文件夹。
+- 如果“保存 PNG 图片”在直接打开 index.html 时被浏览器限制，请安装 Python 3 后重新双击 start-preview.bat。
+- data.js 已经包含当前题型和题目数据；只有以后公共题库更新时才需要重新生成 data.js。

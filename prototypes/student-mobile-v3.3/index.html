@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>学生端今日学习计划</title>
+    <link rel="stylesheet" href="styles/design-tokens.css?v=24" />
+    <link rel="stylesheet" href="styles/app.css?v=31" />
+    <link rel="stylesheet" href="styles/pages/plan.css?v=26" />
+    <link rel="stylesheet" href="styles/pages/growth.css?v=26" />
+    <link rel="stylesheet" href="styles/pages/profile.css?v=33" />
+    <link rel="stylesheet" href="styles/pages/question-preview.css?v=3" />
+    <link rel="stylesheet" href="styles/pages/study-room.css?v=25" />
+    <link rel="stylesheet" href="styles/app-shell.css?v=25" />
+  </head>
+  <body>
+    <section class="login-screen login-screen-launch" id="loginScreen">
+      <div class="login-card launch-login-card">
+        <div class="login-hero">
+          <div class="login-avatar" aria-hidden="true">
+            <img class="login-avatar-image" src="assets/images/graduate-avatar-about-300kb.jpg" alt="" />
+          </div>
+          <div class="login-brand-name">上岸笔记本的满分课堂</div>
+          <h1 class="login-title">别只听懂，要<span>真正会做题</span></h1>
+          <p class="login-subtitle">每天带你做题、提交反馈、复盘错因，<br />及时发现卡点，把薄弱点补上来。</p>
+        </div>
+
+        <section class="login-pain-card" aria-labelledby="loginPainTitle">
+          <h2 class="login-section-title" id="loginPainTitle"><span></span>你是否也有这些困扰？<span></span></h2>
+          <div class="login-pain-grid">
+            <div class="login-pain-item">
+              <img src="assets/icons/login-confused-face.svg" alt="" />
+              <p>会听不会做</p>
+            </div>
+            <div class="login-pain-item">
+              <img src="assets/icons/login-wrong-reason-file.svg" alt="" />
+              <p>不会总结错因</p>
+            </div>
+            <div class="login-pain-item">
+              <img src="assets/icons/login-review-delay-clock.svg" alt="" />
+              <p>复盘总是拖延</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="login-process-card" aria-labelledby="loginProcessTitle">
+          <h2 class="login-section-title login-section-title-leaf" id="loginProcessTitle"><span></span>满分上岸经验帮你<span></span></h2>
+          <div class="login-process-grid">
+            <div class="login-process-item">
+              <div class="login-step-badge">01</div>
+              <div class="login-process-icon"><img src="assets/icons/login-practice-list-pencil.svg" alt="" /></div>
+              <h3>做题</h3>
+              <p>按计划练</p>
+            </div>
+            <div class="login-process-arrow" aria-hidden="true">›</div>
+            <div class="login-process-item">
+              <div class="login-step-badge">02</div>
+              <div class="login-process-icon"><img src="assets/icons/login-feedback-bubbles.svg" alt="" /></div>
+              <h3>反馈</h3>
+              <p>及时看问题</p>
+            </div>
+            <div class="login-process-arrow" aria-hidden="true">›</div>
+            <div class="login-process-item">
+              <div class="login-step-badge">03</div>
+              <div class="login-process-icon"><img src="assets/icons/login-review-book.svg" alt="" /></div>
+              <h3>复盘</h3>
+              <p>找出错因</p>
+            </div>
+            <div class="login-process-arrow" aria-hidden="true">›</div>
+            <div class="login-process-item">
+              <div class="login-step-badge">04</div>
+              <div class="login-process-icon"><img class="login-target-icon" src="assets/icons/growth-stage-target.svg" alt="" /></div>
+              <h3>定位</h3>
+              <p>生成报告</p>
+            </div>
+          </div>
+        </section>
+
+        <button class="login-submit login-experience-button" id="experienceLoginButton" type="button">立即体验 <span aria-hidden="true">›</span></button>
+
+        <section class="login-entry login-form-card" aria-labelledby="formalLoginTitle">
+          <div class="login-entry-copy login-form-head">
+            <img src="assets/icons/login-shield-check.svg" alt="" />
+            <h2 id="formalLoginTitle">正式学员登录</h2>
+          </div>
+          <form class="login-form legacy-login-form" id="legacyLoginForm">
+            <label class="login-field">
+              <span>账号</span>
+              <input id="loginAccount" name="loginAccount" autocomplete="username" placeholder="请输入账号" />
+            </label>
+            <label class="login-field">
+              <span>密码</span>
+              <span class="login-password-wrap">
+                <input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="请输入密码" />
+                <button class="login-password-eye" type="button" aria-label="显示密码" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3.2 12.4C4.8 8.9 8 6.8 12 6.8c4 0 7.2 2.1 8.8 5.6-1.6 3.5-4.8 5.6-8.8 5.6-4 0-7.2-2.1-8.8-5.6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M9.5 12.4a2.5 2.5 0 0 0 4.1 1.9m.7-3.3a2.5 2.5 0 0 0-3.1-1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path d="M5.2 4.8 18.8 19.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+                  </svg>
+                </button>
+              </span>
+            </label>
+            <button class="login-submit login-entry-button" id="loginSubmit" type="submit">正式学员登录</button>
+          </form>
+        </section>
+
+        <div class="login-message" id="loginMessage"></div>
+        <p class="login-footnote"><img src="assets/icons/login-shield-check.svg" alt="" />体验模式为静态演示，正式学员数据以学员账号为准。</p>
+      </div>
+    </section>
+    <div class="page" id="appShell" hidden>
+      <aside class="sidebar bottom-app-nav">
+        <div class="brand"><img src="assets/icons/icon-graduation.svg" alt="" /></div>
+        <nav class="nav" aria-label="学生端导航">
+          <button class="nav-item active" type="button" data-view="planView">
+            <img src="assets/icons/icon-calendar.svg" alt="" />
+            <span>今日计划</span>
+          </button>
+          <button class="nav-item" type="button" data-view="curveView">
+            <img src="assets/icons/icon-chart.svg" alt="" />
+            <span>成长</span>
+          </button>
+          <button class="nav-item" type="button" data-view="studyRoomView">
+            <img src="assets/icons/icon-study-room.svg" alt="" />
+            <span>自习室</span>
+          </button>
+          <button class="nav-item" type="button" data-view="myView">
+            <img src="assets/icons/icon-graduation.svg" alt="" />
+            <span>我的</span>
+          </button>
+        </nav>
+      </aside>
+
+      <main class="content">
+        <section class="view" id="planView"></section>
+
+        <section class="view" id="studyRoomView" hidden>
+          <div class="study-room">
+            <section class="study-hero">
+              <img class="study-hero-art" src="assets/images/study-room-hero-art.png" alt="自习室学习插画" />
+              <div class="study-hero-copy">
+                <h1>考研自习室</h1>
+                <p class="study-hero-subtitle">专注当下，未来可期</p>
+                <div class="study-room-name">
+                  <svg class="study-home-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M3 10.7 12 3l9 7.7v9.1a1.2 1.2 0 0 1-1.2 1.2h-5.1v-6.2H9.3V21H4.2A1.2 1.2 0 0 1 3 19.8v-9.1z"/>
+                  </svg>
+                  数学二冲刺自习室
+                </div>
+                <div class="study-online">在线 <strong>128</strong> 人</div>
+                <div class="quiet-pill">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M11 5 6 9H3v6h3l5 4V5z"/>
+                    <path d="m19 9-6 6"/>
+                    <path d="m13 9 6 6"/>
+                  </svg>
+                  安静模式
+                </div>
+              </div>
+            </section>
+
+            <section class="study-focus-card">
+              <div class="focus-label">本轮专注</div>
+              <div class="focus-time">45:00</div>
+              <div class="task-label">当前任务</div>
+              <div class="current-task">
+                <span class="task-book"><img src="assets/icons/icon-book.svg" alt="" /></span>
+                高数｜极限与连续
+              </div>
+              <div class="focus-actions">
+                <button class="focus-start" type="button">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M8 5.6v12.8a1 1 0 0 0 1.55.84l9.85-6.4a1 1 0 0 0 0-1.68L9.55 4.76A1 1 0 0 0 8 5.6z"/>
+                  </svg>
+                  开始专注
+                </button>
+                <button class="focus-exit" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M10 17H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h4"/>
+                    <path d="M15 7l5 5-5 5"/>
+                    <path d="M20 12H9"/>
+                  </svg>
+                  退出房间
+                </button>
+              </div>
+            </section>
+
+            <section class="study-goal-card">
+              <div class="study-card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="8"/>
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="m16 8 4-4"/>
+                  <path d="m18 4h2v2"/>
+                </svg>
+                今日自习目标
+              </div>
+              <div class="goal-stats">
+                <div class="goal-stat">
+                  <div class="goal-stat-label">目标时长</div>
+                  <div class="goal-stat-value">3.0<span>小时</span></div>
+                </div>
+                <div class="goal-stat">
+                  <div class="goal-stat-label">已完成</div>
+                  <div class="goal-stat-value">1.5<span>小时</span></div>
+                </div>
+              </div>
+              <div class="goal-progress-row">
+                <div class="study-progress-track"><div class="study-progress-fill"></div></div>
+                <div class="progress-percent">50%</div>
+              </div>
+            </section>
+
+            <section class="study-peer-card">
+              <div class="peer-head">
+                <div class="study-card-title">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M8.5 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM2 21a6.5 6.5 0 0 1 13 0H2zM17 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM16.2 13.2A5.7 5.7 0 0 1 22 18.8V21h-4.8a8.4 8.4 0 0 0-2.1-5.5 6.4 6.4 0 0 0 1.1-2.3z"/>
+                  </svg>
+                  同桌陪伴
+                </div>
+                <div class="peer-more">查看全部 <img src="assets/icons/icon-arrow-right.svg" alt="" /></div>
+              </div>
+              <div class="peer-list">
+                <div class="peer">
+                  <img src="assets/images/study-room-avatar-1.png" alt="" />
+                  <div class="peer-status">正在做线代</div>
+                  <div class="peer-time">已专注 62 分钟</div>
+                </div>
+                <div class="peer">
+                  <img src="assets/images/study-room-avatar-2.png" alt="" />
+                  <div class="peer-status">正在做高数</div>
+                  <div class="peer-time">已专注 48 分钟</div>
+                </div>
+                <div class="peer">
+                  <img src="assets/images/study-room-avatar-3.png" alt="" />
+                  <div class="peer-status">正在做概率论</div>
+                  <div class="peer-time">已专注 55 分钟</div>
+                </div>
+                <div class="peer">
+                  <img src="assets/images/study-room-avatar-4.png" alt="" />
+                  <div class="peer-status">正在做线代</div>
+                  <div class="peer-time">已专注 35 分钟</div>
+                </div>
+                <div class="peer">
+                  <img src="assets/images/study-room-avatar-5.png" alt="" />
+                  <div class="peer-status">正在做高数</div>
+                  <div class="peer-time">已专注 28 分钟</div>
+                </div>
+              </div>
+            </section>
+
+            <section class="study-rule-card">
+              <svg class="rule-shield" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2.5 4 5.8v5.8c0 5 3.3 8.2 8 9.9 4.7-1.7 8-4.9 8-9.9V5.8l-8-3.3z"/>
+                <path d="m10.4 13.3 4.7-4.7 1.3 1.3-6 6-3-3 1.3-1.3 1.7 1.7z" fill="#fff"/>
+              </svg>
+              <h2>房间规则</h2>
+              <p>不开麦、不聊天、按计划专注</p>
+              <img class="rule-art" src="assets/images/study-room-rule-art.png" alt="" />
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="curveView" hidden>
+          <section class="curve-hero">
+            <svg class="radar-art" viewBox="0 0 392 188" fill="none" aria-hidden="true">
+              <circle cx="190" cy="115" r="118" stroke="#13BFA8" stroke-opacity=".12" />
+              <circle cx="190" cy="115" r="92" stroke="#13BFA8" stroke-opacity=".12" />
+              <circle cx="190" cy="115" r="66" stroke="#13BFA8" stroke-opacity=".12" />
+              <circle cx="190" cy="115" r="40" stroke="#13BFA8" stroke-opacity=".12" />
+              <path d="M70 153 112 118 136 140 170 93 198 118 282 28" stroke="#0BAE8F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="m266 32 18-6-6 18" stroke="#0BAE8F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="70" cy="153" r="7" fill="#0BAE8F" />
+              <rect x="304" y="62" width="72" height="112" rx="10" fill="#DDF8F1" stroke="#13BFA8" stroke-width="3" />
+              <rect x="326" y="50" width="32" height="16" rx="6" fill="#13BFA8" />
+              <path d="M323 91l7 7 13-16M323 119l7 7 13-16M323 147l7 7 13-16" stroke="#0BAE8F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M352 92h18M352 120h18M352 148h18" stroke="#B9C8C7" stroke-width="3" stroke-linecap="round" />
+            </svg>
+            <h1>能力曲线</h1>
+            <p class="curve-hero-subtitle">把握学习趋势，科学备战考研数学</p>
+            <section class="metrics-panel">
+              <div class="metric-grid">
+                <div class="metric-item">
+                  <div class="metric-icon">◎</div>
+                  <div><div class="metric-label">目标分数</div><div class="metric-value">120<small> 分</small></div></div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-icon">↗</div>
+                  <div><div class="metric-label">综合正确率</div><div class="metric-value">74<small>%</small></div></div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-icon warn">!</div>
+                  <div><div class="metric-label">复错率</div><div class="metric-value orange">31<small>%</small></div></div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-icon">✓</div>
+                  <div><div class="metric-label">本周完成率</div><div class="metric-value">86<small>%</small></div></div>
+                </div>
+              </div>
+              <div class="curve-note"><span class="info">i</span><span><strong>注：</strong>别太在意第一遍学习的正确率，把重点放在真正掌握错题上。</span></div>
+            </section>
+          </section>
+
+          <div class="curve-grid">
+            <section class="curve-card">
+              <h2>最近14天学习热力图 <span style="font-size:20px;color:#64748b">?</span></h2>
+              <div class="heat-summary">
+                <div class="heat-stat"><span>累计自习</span><strong>31.5h</strong></div>
+                <div class="heat-stat"><span>最高单日</span><strong>4.0h</strong></div>
+                <div class="heat-stat"><span>连续学习</span><strong>5天</strong></div>
+              </div>
+              <div class="heatmap">
+                <div class="heat-day"><span>05.29</span><div class="heat-box low"></div><div class="heat-meta">1.0h</div></div>
+                <div class="heat-day"><span>05.30</span><div class="heat-box mid"></div><div class="heat-meta">2.0h</div></div>
+                <div class="heat-day"><span>05.31</span><div class="heat-box none"></div><div class="heat-meta">休息</div></div>
+                <div class="heat-day"><span>06.01</span><div class="heat-box high"></div><div class="heat-meta">3.0h</div></div>
+                <div class="heat-day"><span>06.02</span><div class="heat-box low"></div><div class="heat-meta">1.5h</div></div>
+                <div class="heat-day"><span>06.03</span><div class="heat-box mid"></div><div class="heat-meta">2.5h</div></div>
+                <div class="heat-day"><span>06.04</span><div class="heat-box high"></div><div class="heat-meta">3.5h</div></div>
+                <div class="heat-day"><span>06.05</span><div class="heat-box low"></div><div class="heat-meta">1.0h</div></div>
+                <div class="heat-day"><span>06.06</span><div class="heat-box high"></div><div class="heat-meta">3.0h</div></div>
+                <div class="heat-day"><span>06.07</span><div class="heat-box peak"></div><div class="heat-meta">4.0h</div></div>
+                <div class="heat-day"><span>06.08</span><div class="heat-box mid"></div><div class="heat-meta">2.0h</div></div>
+                <div class="heat-day"><span>06.09</span><div class="heat-box low"></div><div class="heat-meta">1.5h</div></div>
+                <div class="heat-day"><span>06.10</span><div class="heat-box high"></div><div class="heat-meta">3.0h</div></div>
+                <div class="heat-day"><span>06.11</span><div class="heat-box mid"></div><div class="heat-meta">2.5h</div></div>
+              </div>
+              <div class="heat-legend">
+                <span><i class="legend-square peak"></i>超高</span>
+                <span><i class="legend-square"></i>高强度</span>
+                <span><i class="legend-square mid"></i>中等</span>
+                <span><i class="legend-square low"></i>低强度</span>
+                <span><i class="legend-square none"></i>未学习</span>
+              </div>
+            </section>
+
+            <section class="curve-card mastery-card">
+              <h2>章节掌握度</h2>
+              <div class="mastery-list mastery-scroll">
+                <div class="mastery-row"><div>极限与连续</div><div class="mastery-percent">84%</div><div class="bar-track"><div class="bar-fill" style="width:84%"></div></div></div>
+                <div class="mastery-row"><div>导数应用</div><div class="mastery-percent">76%</div><div class="bar-track"><div class="bar-fill" style="width:76%"></div></div></div>
+                <div class="mastery-row"><div>定积分</div><div class="mastery-percent">63%</div><div class="bar-track"><div class="bar-fill" style="width:63%"></div></div></div>
+                <div class="mastery-row"><div>二重积分</div><div class="mastery-percent">58%</div><div class="bar-track"><div class="bar-fill orange" style="width:58%"></div></div></div>
+                <div class="mastery-row"><div>线性方程组</div><div class="mastery-percent">72%</div><div class="bar-track"><div class="bar-fill" style="width:72%"></div></div></div>
+                <div class="mastery-row"><div>特征值</div><div class="mastery-percent">61%</div><div class="bar-track"><div class="bar-fill orange" style="width:61%"></div></div></div>
+                <div class="mastery-row"><div>随机变量分布</div><div class="mastery-percent">66%</div><div class="bar-track"><div class="bar-fill" style="width:66%"></div></div></div>
+                <div class="mastery-row"><div>向量与空间解析几何</div><div class="mastery-percent">54%</div><div class="bar-track"><div class="bar-fill" style="width:54%"></div></div></div>
+                <div class="mastery-row"><div>无穷级数</div><div class="mastery-percent">48%</div><div class="bar-track"><div class="bar-fill" style="width:48%"></div></div></div>
+              </div>
+            </section>
+
+            <section class="curve-card loss-card">
+              <h2>失分原因比例</h2>
+              <div class="loss-content">
+                <div class="donut"></div>
+                <div class="loss-legend">
+                  <div class="loss-legend-row">
+                    <i class="dot"></i><span>方法选择错误</span><strong>34%</strong>
+                    <div class="loss-bar"><i style="--value:34%;--bar-color:#13bfa8"></i></div>
+                  </div>
+                  <div class="loss-legend-row">
+                    <i class="dot green"></i><span>计算失误</span><strong>26%</strong>
+                    <div class="loss-bar"><i style="--value:26%;--bar-color:#42b977"></i></div>
+                  </div>
+                  <div class="loss-legend-row">
+                    <i class="dot orange"></i><span>概念混淆</span><strong>22%</strong>
+                    <div class="loss-bar"><i style="--value:22%;--bar-color:#ffa726"></i></div>
+                  </div>
+                  <div class="loss-legend-row">
+                    <i class="dot purple"></i><span>漏条件</span><strong>12%</strong>
+                    <div class="loss-bar"><i style="--value:12%;--bar-color:#7e70f2"></i></div>
+                  </div>
+                  <div class="loss-legend-row">
+                    <i class="dot gray"></i><span>审题粗心</span><strong>6%</strong>
+                    <div class="loss-bar"><i style="--value:6%;--bar-color:#94a3b8"></i></div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <section class="priority-card">
+            <div class="priority-head"><div class="priority-icon">◎</div><h2>最该优先补强</h2></div>
+            <div class="priority-list">
+              <div class="priority-row"><div class="priority-index">1</div><div class="priority-name">二重积分</div><div class="tag">薄弱项</div><div class="priority-desc">综合区间划分与积分域变换薄弱，易在边界与对称性上失分。</div><div class="priority-action">▤</div></div>
+              <div class="priority-row"><div class="priority-index">2</div><div class="priority-name">特征值</div><div class="tag">薄弱项</div><div class="priority-desc">特征多项式与相似变换理解不牢，求解步骤容易出错。</div><div class="priority-action">▣</div></div>
+              <div class="priority-row"><div class="priority-index">3</div><div class="priority-name">线性方程组</div><div class="tag blue">待提升</div><div class="priority-desc">消元与秩的判定不稳定，需巩固基本变换与解的结构。</div><div class="priority-action">△</div></div>
+            </div>
+          </section>
+        </section>
+
+        <section class="view" id="myView" hidden></section>
+        <section class="view" id="questionPreviewView" hidden></section>
+      </main>
+    </div>
+
+    <footer class="site-filing-footer" aria-label="网站备案信息">
+      <div class="site-filing-links">
+        <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">豫ICP备2026030408号</a>
+        <a class="site-police-filing" href="https://beian.mps.gov.cn/#/query/webSearch?code=41108202000963" target="_blank" rel="noopener noreferrer">
+          <img src="/assets/icons/beian-police.png" alt="" aria-hidden="true" />
+          <span>豫公网安备41108202000963号</span>
+        </a>
+      </div>
+    </footer>
+
+    <script src="assets/js/source-formatting.js?v=24"></script>
+    <script src="assets/js/pages/plan.js?v=32"></script>
+    <script src="assets/js/pages/chapter-art-inline.js?v=1"></script>
+    <script src="assets/js/pages/curve.js?v=27"></script>
+    <script src="assets/js/pages/study-room.js?v=26"></script>
+    <script src="assets/js/pages/profile.js?v=36"></script>
+    <script src="assets/js/pages/question-preview.js?v=2"></script>
+    <script src="assets/js/pages/onboarding.js?v=1"></script>
+    <script src="data/experience-data.js?v=4"></script>
+    <script src="assets/js/app.js?v=46"></script>
+  </body>
+</html>

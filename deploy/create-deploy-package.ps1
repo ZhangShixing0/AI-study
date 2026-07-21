@@ -4,58 +4,118 @@ $Root = Resolve-Path (Join-Path $PSScriptRoot "..")
 $Dist = Join-Path $Root "dist"
 $Stamp = Get-Date -Format "yyyyMMdd-HHmmss"
 $Out = Join-Path $Dist "ai-tutor-deploy-$Stamp.zip"
+$StudentFrontend = "prototypes\student-mobile-v3.3"
+$AdminConsole = "prototypes\admin-teacher-console-v0.1"
 
 New-Item -ItemType Directory -Force -Path $Dist | Out-Null
 
-$excludedDirs = @(
-  ".git",
-  ".agents",
-  ".codex",
-  ".venv",
-  "dist",
-  "docs\superpowers",
-  "__pycache__"
+$includePaths = @(
+  "backend",
+  "data\production-seed",
+  "data\samples",
+  $StudentFrontend,
+  $AdminConsole,
+  "deploy",
+  "scripts\validate-production-seed.mjs",
+  "scripts\import-production-seed.mjs",
+  "VERSION",
+  "requirements.txt",
+  ".env.production.example",
+  ".deployignore",
+  ".gitignore"
 )
 
-$excludedFiles = @(
+$excludedRelative = @(
   "backend\app.db"
 )
 
-$files = Get-ChildItem -LiteralPath $Root -Recurse -File | Where-Object {
+$allowedRelative = @(
+  "$StudentFrontend\data\experience-data.js"
+)
+
+$excludedPatterns = @(
+  "$StudentFrontend\data\*",
+  "$StudentFrontend\tests\*",
+  "$StudentFrontend\_screenshots\*",
+  "$AdminConsole\tests\*",
+  "$AdminConsole\_screenshots\*",
+  "data\production-seed\review\*",
+  "*.inspect.ndjson"
+)
+
+$excludedFileNamePatterns = @(
+  "*.db",
+  "*.db-*",
+  "*.db.*",
+  "*.sqlite",
+  "*.sqlite-*",
+  "*.sqlite.*",
+  "*.sqlite3",
+  "*.sqlite3-*",
+  "*.sqlite3.*"
+)
+
+$files = foreach ($includePath in $includePaths) {
+  $absolute = Join-Path $Root $includePath
+  if (-not (Test-Path -LiteralPath $absolute)) {
+    continue
+  }
+  if ((Get-Item -LiteralPath $absolute).PSIsContainer) {
+    if ($includePath -eq "data\samples") {
+      Get-ChildItem -LiteralPath $absolute -Recurse -File | Where-Object { $_.Extension -eq ".xlsx" }
+    } else {
+      Get-ChildItem -LiteralPath $absolute -Recurse -File
+    }
+  } else {
+    Get-Item -LiteralPath $absolute
+  }
+}
+
+$files = $files | Where-Object {
   $relative = $_.FullName.Substring($Root.Path.Length + 1)
-  foreach ($dir in $excludedDirs) {
-    if ($relative -eq $dir -or $relative.StartsWith("$dir\")) {
-      return $false
-    }
-    if ($relative -like "*\$dir\*") {
+  if ($relative -in $allowedRelative) {
+    return $true
+  }
+  if ($relative -in $excludedRelative) {
+    return $false
+  }
+  foreach ($pattern in $excludedPatterns) {
+    if ($relative -like $pattern) {
       return $false
     }
   }
-  foreach ($file in $excludedFiles) {
-    if ($relative -eq $file) {
+  foreach ($pattern in $excludedFileNamePatterns) {
+    if ($_.Name -like $pattern) {
       return $false
     }
   }
-  if ($_.Extension -in @(".pyc", ".pyo", ".log")) {
+  if ($relative -like "*\__pycache__\*" -or $_.Extension -in @(".pyc", ".pyo", ".log", ".md")) {
     return $false
   }
   return $true
 }
 
-$temp = Join-Path $env:TEMP "ai-tutor-deploy-$Stamp"
-if (Test-Path $temp) {
-  Remove-Item -LiteralPath $temp -Recurse -Force
-}
-New-Item -ItemType Directory -Force -Path $temp | Out-Null
-
-foreach ($file in $files) {
-  $relative = $file.FullName.Substring($Root.Path.Length + 1)
-  $target = Join-Path $temp $relative
-  New-Item -ItemType Directory -Force -Path (Split-Path $target -Parent) | Out-Null
-  Copy-Item -LiteralPath $file.FullName -Destination $target
+if (Test-Path -LiteralPath $Out) {
+  Remove-Item -LiteralPath $Out -Force
 }
 
-Compress-Archive -Path (Join-Path $temp "*") -DestinationPath $Out -Force
-Remove-Item -LiteralPath $temp -Recurse -Force
+Add-Type -AssemblyName System.IO.Compression
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+
+$zip = [System.IO.Compression.ZipFile]::Open($Out, [System.IO.Compression.ZipArchiveMode]::Create)
+try {
+  foreach ($file in $files) {
+    $relative = $file.FullName.Substring($Root.Path.Length + 1)
+    $entryName = ($relative -replace "\\", "/")
+    [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile(
+      $zip,
+      $file.FullName,
+      $entryName,
+      [System.IO.Compression.CompressionLevel]::Optimal
+    ) | Out-Null
+  }
+} finally {
+  $zip.Dispose()
+}
 
 Write-Host "Deployment package created: $Out"

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+  <defs>
+    <linearGradient id="bubbleFill" x1="3" y1="5.2" x2="14.5" y2="16.4" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22D5A7"/>
+      <stop offset="1" stop-color="#08A77F"/>
+    </linearGradient>
+    <linearGradient id="bubbleBack" x1="8.5" y1="4" x2="17" y2="13.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#65E3C4"/>
+      <stop offset="1" stop-color="#16B990"/>
+    </linearGradient>
+  </defs>
+  <path d="M9.9 4.2C14 4.2 17.2 6.65 17.2 9.7C17.2 11.05 16.55 12.3 15.45 13.25L15.85 16L13.25 14.6C12.25 14.98 11.1 15.2 9.9 15.2C5.9 15.2 2.7 12.75 2.7 9.7C2.7 6.65 5.9 4.2 9.9 4.2Z" fill="url(#bubbleBack)" opacity="0.9"/>
+  <path d="M8.2 5.7C11.95 5.7 14.95 7.92 14.95 10.68C14.95 13.43 11.95 15.65 8.2 15.65C7.28 15.65 6.4 15.52 5.62 15.27L3.2 16.62L3.68 14.08C2.3 13.18 1.45 11.98 1.45 10.68C1.45 7.92 4.45 5.7 8.2 5.7Z" fill="url(#bubbleFill)"/>
+  <circle cx="5.85" cy="10.55" r="0.82" fill="white"/>
+  <circle cx="8.25" cy="10.55" r="0.82" fill="white"/>
+  <circle cx="10.65" cy="10.55" r="0.82" fill="white"/>
+</svg>

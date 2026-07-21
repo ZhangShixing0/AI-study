@@ -1,0 +1,28 @@
+<svg width="300" height="185" viewBox="0 0 300 185" xmlns="http://www.w3.org/2000/svg">
+  <style>:root{--accent:#2f6fdf;--ink:#273142;}</style>
+  <rect x="6" y="6" width="288" height="173" rx="18" fill="var(--accent,#2f6fdf)" fill-opacity="0.06"/>
+  <text x="150" y="31" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="800" fill="var(--accent,#2f6fdf)">曲顶柱体</text>
+  <g transform="translate(0 1)">
+    <defs>
+      <linearGradient id="miTop11" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--accent,#2f6fdf)" stop-opacity="0.16"/><stop offset="1" stop-color="var(--accent,#2f6fdf)" stop-opacity="0.22"/></linearGradient>
+      <linearGradient id="miWall11" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--accent,#2f6fdf)" stop-opacity="0.72"/><stop offset="1" stop-color="var(--accent,#2f6fdf)" stop-opacity="0.38"/></linearGradient>
+    </defs>
+    <g stroke="var(--accent,#2f6fdf)" stroke-width="1.45" stroke-linecap="round" fill="none">
+      <path d="M91 127V43"/><path d="M86 52L91 43L96 52"/>
+      <path d="M91 127H249"/><path d="M240 122L249 127L240 132"/>
+      <path d="M91 127L47 153"/><path d="M57 152L47 153L53 145"/>
+    </g>
+    <text x="99" y="47" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="14.5" fill="var(--ink,#273142)">z</text>
+    <text x="253" y="132" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="14.5" fill="var(--ink,#273142)">y</text>
+    <text x="41" y="160" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="14.5" fill="var(--ink,#273142)">x</text>
+    <path d="M79 78C104 50 160 43 217 72C209 94 184 105 153 99C122 94 98 91 79 78Z" fill="url(#miTop11)" stroke="var(--accent,#2f6fdf)" stroke-width="2.3"/>
+    <path d="M79 78V132C103 119 144 116 217 126V72C209 94 184 105 153 99C122 94 98 91 79 78Z" fill="url(#miWall11)" stroke="var(--accent,#2f6fdf)" stroke-width="1.8" opacity="0.96"/>
+    <path d="M79 132C103 119 144 116 217 126C204 145 168 154 125 150C96 148 72 140 65 136C70 134 75 132 79 132Z" fill="var(--accent,#2f6fdf)" fill-opacity="0.75" stroke="var(--accent,#2f6fdf)" stroke-width="2"/>
+    <path d="M79 78C100 93 122 96 153 99C184 105 209 94 217 72" stroke="var(--accent,#2f6fdf)" stroke-width="2" fill="none"/>
+    <g stroke="var(--accent,#2f6fdf)" stroke-width="1.2" stroke-dasharray="5 5" opacity="0.75"><path d="M104 86V122"/><path d="M153 99V150"/><path d="M217 72V126"/><path d="M79 78V132"/></g>
+    <path d="M94 73C126 61 168 62 205 80" stroke="#fff" stroke-width="1.2" opacity="0.72" fill="none"/>
+    <text x="174" y="55" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="16" fill="var(--ink,#273142)">z=f(x,y)</text>
+    <text x="147" y="138" text-anchor="middle" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="17" fill="var(--ink,#273142)">D</text>
+    <text x="150" y="164" text-anchor="middle" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="16" fill="var(--ink,#273142)">V = ∫∫<tspan baseline-shift="sub" font-size="10">D</tspan> f(x,y)dA</text>
+  </g>
+</svg>

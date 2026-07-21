@@ -1,0 +1,6 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" color="#13BFA8" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="target school">
+  <path d="M2.7 7.1L10 3.5L17.3 7.1L10 10.7L2.7 7.1Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+  <path d="M5.2 9V13.2C5.2 14.4 7.3 15.5 10 15.5C12.7 15.5 14.8 14.4 14.8 13.2V9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M17.3 7.2V12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+  <path d="M17.3 12.8V13.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+</svg>

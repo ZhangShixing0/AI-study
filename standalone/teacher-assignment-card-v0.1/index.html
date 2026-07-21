@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>教师今日做题任务图</title>
+    <link rel="stylesheet" href="styles.css?v=20260708-ac-styles" />
+  </head>
+  <body>
+    <aside class="control-panel" aria-label="任务图配置">
+      <div class="brand-block">
+        <div class="eyebrow">教师督学工具</div>
+        <h1>今日做题任务图</h1>
+      </div>
+
+      <section class="panel-section">
+        <h2>书籍配置</h2>
+        <p>书 1 必选；书 2、书 3 可不选，且不能重复。</p>
+        <div class="book-slot">
+          <label class="field compact">
+            <span>书 1 *</span>
+            <select id="bookSelect0"></select>
+          </label>
+          <label class="field compact">
+            <span>范围</span>
+            <select id="stageSelect0"></select>
+          </label>
+        </div>
+        <div class="book-slot">
+          <label class="field compact">
+            <span>书 2</span>
+            <select id="bookSelect1"></select>
+          </label>
+          <label class="field compact">
+            <span>范围</span>
+            <select id="stageSelect1"></select>
+          </label>
+        </div>
+        <div class="book-slot">
+          <label class="field compact">
+            <span>书 3</span>
+            <select id="bookSelect2"></select>
+          </label>
+          <label class="field compact">
+            <span>范围</span>
+            <select id="stageSelect2"></select>
+          </label>
+        </div>
+      </section>
+
+      <section class="panel-section">
+        <h2>题目范围</h2>
+        <label class="field">
+          <span>范围</span>
+          <select id="levelSelect">
+            <option value="all">全部题目</option>
+            <option value="C">C班题目</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="panel-section">
+        <h2>今日题型</h2>
+        <label class="field">
+          <span>章节</span>
+          <select id="chapterSelect"></select>
+        </label>
+        <label class="field">
+          <span>搜索题型</span>
+          <input id="typeSearch" type="search" placeholder="输入极限、矩阵、积分等关键词" />
+        </label>
+        <div class="type-slot">
+          <label class="field">
+            <span>题型 1 *</span>
+            <select id="typeSelect0"></select>
+          </label>
+          <output id="duration0">建议 -</output>
+        </div>
+        <div class="type-slot">
+          <label class="field">
+            <span>题型 2</span>
+            <select id="typeSelect1"></select>
+          </label>
+          <output id="duration1">建议 -</output>
+        </div>
+        <div class="type-slot">
+          <label class="field">
+            <span>题型 3</span>
+            <select id="typeSelect2"></select>
+          </label>
+          <output id="duration2">建议 -</output>
+        </div>
+        <div class="total-duration" id="totalDuration">合计建议时长：-</div>
+      </section>
+
+      <section class="panel-section">
+        <h2>图片风格</h2>
+        <div class="style-list" id="styleList" aria-label="图片风格"></div>
+      </section>
+
+      <div class="action-row">
+        <button id="exportPngBtn" class="primary-btn" type="button">保存 PNG 图片</button>
+        <button id="printBtn" class="secondary-btn" type="button">打印 / 保存 PDF</button>
+        <button id="copyTextBtn" class="secondary-btn" type="button">复制任务文字</button>
+      </div>
+
+      <p class="panel-note">保存图片只会保存右侧任务图，不会保存左侧配置和下方老师提醒。</p>
+    </aside>
+
+    <main class="preview-panel">
+      <div class="preview-wrap">
+        <article id="taskCard" class="task-card"></article>
+
+        <section id="taskMeta" class="task-meta" aria-label="当前任务统计"></section>
+
+        <section class="teacher-reminder" aria-label="老师提醒">
+          <div>
+            <span>老师提醒</span>
+            <h2>发给老师看的话术，不进入图片</h2>
+          </div>
+          <div id="teacherReminderContent" class="teacher-reminder-content"></div>
+          <button id="copyReminderBtn" type="button">复制老师提醒</button>
+        </section>
+      </div>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="data.js?v=20260708-ac-styles"></script>
+    <script src="app.js?v=20260708-ac-styles"></script>
+  </body>
+</html>

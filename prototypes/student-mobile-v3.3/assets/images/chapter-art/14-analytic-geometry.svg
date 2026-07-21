@@ -1,0 +1,24 @@
+<svg width="300" height="185" viewBox="0 0 300 185" xmlns="http://www.w3.org/2000/svg">
+  <style>:root{--accent:#2f6fdf;--ink:#273142;}</style>
+  <rect x="6" y="6" width="288" height="173" rx="18" fill="var(--accent,#2f6fdf)" fill-opacity="0.06"/>
+  <text x="150" y="31" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="800" fill="var(--accent,#2f6fdf)">平面与直线</text>
+  <g transform="translate(0 1)">
+    <polygon points="53,112 137,80 247,108 162,146" fill="var(--accent,#2f6fdf)" stroke="var(--accent,#2f6fdf)" stroke-width="2.1" fill-opacity="0.10"/>
+    <text x="215" y="119" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="17" fill="var(--ink,#273142)">π</text>
+    <path d="M67 132L229 99" stroke="var(--accent,#2f6fdf)" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M217 96L229 99L220 107" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="232" y="100" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="16" fill="var(--ink,#273142)">s</text>
+    <text x="75" y="148" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="16" fill="var(--ink,#273142)">l</text>
+    <circle cx="148" cy="106" r="4.5" fill="#fff" stroke="var(--accent,#2f6fdf)" stroke-width="2"/>
+    <path d="M148 106L148 51" stroke="var(--accent,#2f6fdf)" stroke-width="3.2" stroke-linecap="round"/>
+    <path d="M143 61L148 51L153 61" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="158" y="70" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="17" fill="var(--ink,#273142)">n=(A,B,C)</text>
+    <circle cx="88" cy="60" r="4.5" fill="var(--accent,#2f6fdf)"/>
+    <text x="62" y="61" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="15.5" fill="var(--ink,#273142)">P₀</text>
+    <path d="M88 60L121 104" stroke="var(--accent,#2f6fdf)" stroke-width="1.9" stroke-dasharray="5 5"/>
+    <circle cx="121" cy="104" r="3.8" fill="#fff" stroke="var(--accent,#2f6fdf)" stroke-width="1.8"/>
+    <text x="100" y="87" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="15" fill="var(--ink,#273142)">d</text>
+    <path d="M150 146C164 140 176 131 183 121" stroke="var(--accent,#2f6fdf)" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+    <text x="185" y="126" font-family="Microsoft YaHei, Arial, sans-serif" font-size="12.5" font-weight="700" fill="var(--ink,#273142)">夹角</text>
+  </g>
+</svg>

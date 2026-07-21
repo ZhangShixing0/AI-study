@@ -1,0 +1,2543 @@
+/* Study room page-only styles. Keep shell and navigation primitives in app-shell.css. */
+
+#studyRoomView .study-room {
+  --study-room-card-gutter: 18px;
+  position: relative;
+  display: grid;
+  gap: 24px;
+  color: #173f3a;
+}
+
+#studyRoomView .study-room-shell {
+  display: grid;
+  gap: 24px;
+  padding-bottom: 96px;
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+#studyRoomView .study-room-shell.is-focusing {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px) scale(0.985);
+}
+
+.page.focus-mode {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.page.focus-mode .sidebar,
+.page.focus-mode .bottom-app-nav {
+  display: none;
+}
+
+.page.custom-duration-open .bottom-app-nav {
+  display: none;
+}
+
+.page.focus-mode .content {
+  max-width: 430px;
+  padding: 0;
+  border-radius: 0;
+}
+
+.page.focus-mode #studyRoomView .study-room {
+  min-height: 100vh;
+}
+
+#studyRoomView .study-hero {
+  position: relative;
+  height: 377px;
+  overflow: hidden;
+  border: 1px solid rgba(20, 50, 70, 0.07);
+  border-radius: 26px;
+  background:
+    linear-gradient(90deg, rgba(246, 252, 249, 0.98) 0%, rgba(236, 248, 242, 0.92) 46%, rgba(255, 255, 255, 0.18) 100%),
+    #eef8f2;
+  box-shadow: var(--shadow-card);
+}
+
+#studyRoomView .study-hero-copy {
+  position: relative;
+  z-index: 2;
+  padding: 50px 0 0 50px;
+}
+
+#studyRoomView .study-hero h1 {
+  margin: 0;
+  color: #0c3f38;
+  font-size: 56px;
+  line-height: 1.08;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+#studyRoomView .study-hero-subtitle {
+  margin: 22px 0 0;
+  color: #687986;
+  font-size: 24px;
+  font-weight: 650;
+}
+
+#studyRoomView .study-room-name {
+  margin-top: 45px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  color: #163732;
+  font-size: 24px;
+  font-weight: 850;
+}
+
+#studyRoomView .study-home-icon {
+  width: 32px;
+  height: 32px;
+  color: #43b789;
+  flex: 0 0 auto;
+}
+
+#studyRoomView .study-online {
+  margin-top: 12px;
+  color: #2f4542;
+  font-size: 23px;
+  font-weight: 500;
+}
+
+#studyRoomView .study-online strong {
+  color: #33b982;
+  font-size: 29px;
+  font-weight: 900;
+}
+
+#studyRoomView .quiet-pill {
+  margin-top: 18px;
+  min-height: 38px;
+  padding: 0 17px;
+  border: 1px solid rgba(67, 183, 137, 0.45);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: #33a979;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+#studyRoomView .quiet-pill svg {
+  width: 20px;
+  height: 20px;
+}
+
+#studyRoomView .study-hero-art {
+  position: absolute;
+  right: -1px;
+  bottom: 0;
+  width: 427px;
+  height: 377px;
+  object-fit: cover;
+  object-position: right bottom;
+}
+
+#studyRoomView .study-focus-card,
+#studyRoomView .study-goal-card,
+#studyRoomView .study-peer-card {
+  border: 1px solid rgba(20, 50, 70, 0.08);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: var(--shadow-card);
+}
+
+#studyRoomView .study-focus-card {
+  min-height: 522px;
+  padding: 29px 90px;
+  text-align: center;
+}
+
+#studyRoomView .focus-label {
+  color: #173f3a;
+  font-size: 27px;
+  font-weight: 650;
+}
+
+#studyRoomView .focus-time {
+  margin-top: 20px;
+  color: #083a34;
+  font-size: 122px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-shadow: 0 8px 18px rgba(0, 45, 39, 0.1);
+}
+
+#studyRoomView .focus-duration-options,
+#studyRoomView .task-picker {
+  margin-top: 18px;
+  display: grid;
+  gap: 12px;
+}
+
+#studyRoomView .duration-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+#studyRoomView .duration-option,
+#studyRoomView .task-option {
+  border: 1px solid rgba(20, 50, 70, 0.1);
+  background: #f8fbfa;
+  color: #294a45;
+  cursor: pointer;
+}
+
+#studyRoomView .duration-option {
+  min-height: 48px;
+  border-radius: 14px;
+  font-size: 17px;
+  font-weight: 850;
+}
+
+#studyRoomView .duration-option.active,
+#studyRoomView .task-option.active {
+  border-color: rgba(19, 191, 168, 0.42);
+  background: #e6f8f2;
+  color: #0b806c;
+}
+
+#studyRoomView .task-label {
+  margin: 24px auto 18px;
+  max-width: 420px;
+  color: #76838c;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 18px;
+  font-weight: 650;
+}
+
+#studyRoomView .task-label::before,
+#studyRoomView .task-label::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: rgba(20, 50, 70, 0.08);
+}
+
+#studyRoomView .current-task {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  color: #102f2b;
+  font-size: 29px;
+  font-weight: 900;
+}
+
+#studyRoomView .task-book {
+  width: 39px;
+  height: 39px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #d9f5ea;
+  color: #42b98b;
+  flex: 0 0 auto;
+}
+
+#studyRoomView .task-book img {
+  width: 22px;
+  height: 22px;
+  filter: invert(57%) sepia(59%) saturate(472%) hue-rotate(103deg) brightness(90%) contrast(91%);
+}
+
+#studyRoomView .task-card-pager {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  gap: 12px;
+  align-items: center;
+}
+
+#studyRoomView .task-arrow {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(19, 191, 168, 0.2);
+  border-radius: 50%;
+  background: #f1fbf8;
+  color: #168f78;
+  font-size: 26px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+#studyRoomView .task-arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+#studyRoomView .task-card-current {
+  min-height: 74px;
+  border: 1px solid rgba(19, 191, 168, 0.18);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(233, 250, 244, 0.96), rgba(255, 255, 255, 0.98));
+  box-shadow: 0 10px 22px rgba(20, 50, 70, 0.07);
+  display: grid;
+  place-items: center;
+  padding: 12px 18px;
+  color: #123b36;
+  font-size: 20px;
+  line-height: 1.35;
+  font-weight: 900;
+}
+
+#studyRoomView .task-card-dots {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+}
+
+#studyRoomView .task-card-dots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #d7e5e1;
+}
+
+#studyRoomView .task-card-dots i.active {
+  width: 18px;
+  border-radius: var(--radius-pill);
+  background: #21ad91;
+}
+
+#studyRoomView .focus-actions {
+  margin: 39px auto 0;
+  max-width: 530px;
+  display: grid;
+  gap: 20px;
+}
+
+#studyRoomView .focus-start,
+#studyRoomView .focus-exit {
+  min-height: 79px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-size: 30px;
+  font-weight: 850;
+}
+
+#studyRoomView .focus-start {
+  border: 0;
+  background: linear-gradient(135deg, #39c497 0%, #2eb87d 100%);
+  color: #fff;
+  box-shadow: 0 9px 17px rgba(45, 180, 126, 0.24);
+  cursor: pointer;
+}
+
+#studyRoomView .focus-exit {
+  border: 1px solid rgba(20, 50, 70, 0.13);
+  background: #fff;
+  color: #223b39;
+  cursor: pointer;
+}
+
+#studyRoomView .focus-start svg,
+#studyRoomView .focus-exit svg {
+  width: 28px;
+  height: 28px;
+}
+
+#studyRoomView .study-goal-card {
+  min-height: 214px;
+  padding: 28px 29px 26px;
+}
+
+#studyRoomView .study-card-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #1b3f3a;
+  font-size: 27px;
+  font-weight: 900;
+}
+
+#studyRoomView .study-card-title svg {
+  width: 31px;
+  height: 31px;
+  color: #33b982;
+}
+
+#studyRoomView .goal-stats {
+  margin: 21px 45px 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#studyRoomView .goal-stat {
+  text-align: left;
+}
+
+#studyRoomView .goal-stat + .goal-stat {
+  border-left: 1px solid rgba(20, 50, 70, 0.1);
+  padding-left: 62px;
+}
+
+#studyRoomView .goal-stat-label {
+  color: #65747c;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+#studyRoomView .goal-stat-value {
+  margin-top: 7px;
+  color: #123b36;
+  font-size: 42px;
+  font-weight: 900;
+}
+
+#studyRoomView .goal-stat-value span {
+  margin-left: 7px;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+#studyRoomView .goal-progress-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+}
+
+#studyRoomView .study-progress-track {
+  height: 14px;
+  border-radius: 999px;
+  background: #edf1f3;
+  overflow: hidden;
+}
+
+#studyRoomView .study-progress-fill {
+  width: 50%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #34bf8d, #39b884);
+}
+
+#studyRoomView .progress-percent {
+  color: #7d8b93;
+  font-size: 19px;
+}
+
+#studyRoomView .study-peer-card {
+  min-height: 260px;
+  padding: 22px 18px 21px;
+  border-color: rgba(20, 50, 70, 0.06);
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.99), rgba(252, 254, 253, 0.98));
+  box-shadow: 0 12px 32px rgba(20, 50, 70, 0.07);
+}
+
+#studyRoomView .peer-companion-card {
+  overflow: hidden;
+}
+
+#studyRoomView .peer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+#studyRoomView .peer-title {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+#studyRoomView .peer-title-icon {
+  width: 26px;
+  height: 26px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(45%) sepia(81%) saturate(1456%) hue-rotate(122deg) brightness(87%) contrast(91%);
+}
+
+#studyRoomView .peer-title .study-card-title {
+  color: #05090b;
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 950;
+}
+
+#studyRoomView .peer-count {
+  flex: 0 0 auto;
+  color: #06a85b;
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+#studyRoomView .peer-companion-list {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+#studyRoomView .peer-companion-list.is-empty {
+  grid-template-columns: 1fr;
+}
+
+#studyRoomView .peer-empty-text {
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 16px;
+  color: #60747f;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  text-align: center;
+  border: 1px solid rgba(20, 50, 70, 0.08);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+#studyRoomView .peer-companion-item {
+  min-width: 0;
+  min-height: 126px;
+  padding: 14px 6px 12px;
+  text-align: center;
+  border: 1px solid rgba(20, 50, 70, 0.08);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 8px 20px rgba(20, 50, 70, 0.05);
+}
+
+#studyRoomView .peer-avatar {
+  width: min(58px, 100%);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(20, 50, 70, 0.08);
+}
+
+#studyRoomView .peer-name {
+  max-width: 100%;
+  margin-top: 13px;
+  color: #05090b;
+  font-size: 14px;
+  line-height: 1.12;
+  font-weight: 950;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+
+#studyRoomView .peer-focus-text {
+  max-width: 100%;
+  margin-top: 9px;
+  color: #06a85b;
+  font-size: 12px;
+  line-height: 1.2;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+
+#studyRoomView .peer-encourage-row {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: #606b76;
+  font-size: 15px;
+  line-height: 1.1;
+  font-weight: 850;
+  white-space: normal;
+  text-align: center;
+}
+
+#studyRoomView .peer-sprout-icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+#studyRoomView .peer-muscle-icon {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(72%) sepia(75%) saturate(1306%) hue-rotate(344deg) brightness(102%) contrast(102%);
+}
+
+#studyRoomView .focus-session-page {
+  display: none;
+  min-height: calc(100vh - 36px);
+  border: 1px solid rgba(20, 50, 70, 0.08);
+  border-radius: 24px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(235, 249, 245, 0.96)),
+    radial-gradient(circle at 82% 82%, rgba(19, 191, 168, 0.14), transparent 32%);
+  box-shadow: var(--shadow-page);
+  color: #183d38;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+#studyRoomView .focus-session-page.active {
+  display: grid;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#studyRoomView .focus-session-inner {
+  min-height: calc(100vh - 36px);
+  padding: 58px 54px 54px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  position: relative;
+}
+
+#studyRoomView .focus-session-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+#studyRoomView .focus-session-room h1 {
+  margin: 0;
+  font-size: 32px;
+  line-height: 1.25;
+  font-weight: 900;
+}
+
+#studyRoomView .focus-session-meta {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #2f7d70;
+  font-size: 18px;
+  font-weight: 750;
+}
+
+#studyRoomView .focus-session-online {
+  color: #526861;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+#studyRoomView .focus-dial-wrap {
+  display: grid;
+  place-items: center;
+}
+
+#studyRoomView .focus-dial {
+  width: min(72vw, 610px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #fff 0 58%, transparent 59%),
+    conic-gradient(#27b892 var(--focus-progress), #e8f2ef 0);
+  display: grid;
+  place-items: center;
+  box-shadow: inset 0 0 0 18px rgba(19, 191, 168, 0.06), 0 18px 54px rgba(20, 50, 70, 0.12);
+}
+
+#studyRoomView .focus-dial-core {
+  width: 74%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.96);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  box-shadow: inset 0 0 0 1px rgba(20, 50, 70, 0.05);
+}
+
+#studyRoomView .focus-task-name {
+  color: #344944;
+  font-size: 24px;
+  font-weight: 750;
+}
+
+#studyRoomView .focus-countdown {
+  margin-top: 24px;
+  color: #0c443c;
+  font-size: 112px;
+  line-height: 0.95;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+#studyRoomView .focus-current-time {
+  margin-top: 24px;
+  color: #687a74;
+  font-size: 20px;
+}
+
+#studyRoomView .focus-current-time strong {
+  color: #249f84;
+}
+
+#studyRoomView .focus-session-goal {
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  color: #5a6965;
+  font-size: 24px;
+  font-weight: 650;
+}
+
+#studyRoomView .focus-session-goal strong {
+  color: #119a7f;
+  font-size: 34px;
+}
+
+#studyRoomView .focus-session-progress {
+  width: min(480px, 70vw);
+  height: 9px;
+  border-radius: var(--radius-pill);
+  background: rgba(20, 50, 70, 0.08);
+  overflow: hidden;
+}
+
+#studyRoomView .focus-session-progress i {
+  display: block;
+  width: var(--focus-progress);
+  height: 100%;
+  border-radius: inherit;
+  background: #27b892;
+}
+
+#studyRoomView .focus-session-note {
+  margin-top: 34px;
+  color: #6e8580;
+  font-size: 23px;
+  text-align: center;
+}
+
+#studyRoomView .focus-session-actions {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: 90px minmax(0, 360px) 90px;
+  justify-content: center;
+  align-items: start;
+  gap: 44px;
+}
+
+#studyRoomView .focus-round-btn,
+#studyRoomView .focus-exit-main {
+  border: 0;
+  cursor: pointer;
+  box-shadow: 0 16px 34px rgba(20, 50, 70, 0.12);
+}
+
+#studyRoomView .focus-round-btn {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: #376b62;
+  font-size: 30px;
+  display: grid;
+  place-items: center;
+}
+
+#studyRoomView .focus-round-label {
+  margin-top: 12px;
+  color: #536b67;
+  font-size: 16px;
+  text-align: center;
+}
+
+#studyRoomView .focus-exit-main {
+  min-height: 92px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.94);
+  color: #183d38;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+@media (max-width: 600px) {
+  #studyRoomView .study-room,
+  #studyRoomView .study-room-shell {
+    gap: 14px;
+  }
+
+  #studyRoomView .study-hero {
+    min-height: 224px;
+    height: auto;
+    padding: 22px 18px;
+    border-radius: 24px;
+  }
+
+  #studyRoomView .study-hero-copy {
+    padding: 0;
+    max-width: 66%;
+  }
+
+  #studyRoomView .study-hero h1 {
+    font-size: 27px;
+    line-height: 1.16;
+  }
+
+  #studyRoomView .study-hero-subtitle {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+
+  #studyRoomView .study-room-name {
+    width: fit-content;
+    max-width: 100%;
+    min-height: 34px;
+    margin-top: 18px;
+    border-radius: 999px;
+    padding: 0 12px;
+    background: rgba(255, 255, 255, 0.82);
+    color: #0c4c45;
+    font-size: 12px;
+    font-weight: 850;
+    white-space: nowrap;
+  }
+
+  #studyRoomView .study-home-icon {
+    width: 15px;
+    height: 15px;
+  }
+
+  #studyRoomView .study-online,
+  #studyRoomView .quiet-pill {
+    min-height: 30px;
+    margin-top: 10px;
+    padding: 0 11px;
+    border-radius: 999px;
+    font-size: 12px;
+  }
+
+  #studyRoomView .study-hero-art {
+    right: -54px;
+    bottom: 2px;
+    width: 206px;
+    height: auto;
+    opacity: 0.9;
+  }
+
+  #studyRoomView .study-focus-card,
+  #studyRoomView .study-goal-card,
+  #studyRoomView .study-peer-card {
+    min-height: 0;
+    border-radius: 22px;
+    padding: 18px;
+  }
+
+  #studyRoomView .study-focus-card {
+    text-align: center;
+  }
+
+  #studyRoomView .focus-label,
+  #studyRoomView .task-label,
+  #studyRoomView .study-card-title {
+    font-size: 17px;
+  }
+
+  #studyRoomView .focus-time {
+    margin-top: 8px;
+    font-size: 54px;
+  }
+
+  #studyRoomView .focus-duration-options,
+  #studyRoomView .task-picker {
+    margin-top: 12px;
+  }
+
+  #studyRoomView .duration-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  #studyRoomView .duration-option {
+    min-height: 34px;
+    padding: 0 5px;
+    border-radius: 12px;
+    font-size: 11px;
+  }
+
+  #studyRoomView .current-task {
+    min-height: 42px;
+    margin-top: 8px;
+    border-radius: 14px;
+    padding: 8px 10px;
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  #studyRoomView .task-book {
+    width: 28px;
+    height: 28px;
+  }
+
+  #studyRoomView .task-card-pager {
+    grid-template-columns: 34px minmax(0, 1fr) 34px;
+    gap: 8px;
+  }
+
+  #studyRoomView .task-arrow {
+    width: 34px;
+    height: 34px;
+    font-size: 22px;
+  }
+
+  #studyRoomView .task-card-current {
+    min-height: 46px;
+    border-radius: 14px;
+    padding: 8px 10px;
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  #studyRoomView .task-card-dots {
+    margin-top: 2px;
+  }
+
+  #studyRoomView .focus-actions {
+    margin-top: 16px;
+    max-width: none;
+  }
+
+  #studyRoomView .focus-start,
+  #studyRoomView .focus-exit {
+    min-height: 50px;
+    font-size: 15px;
+  }
+
+  #studyRoomView .goal-stats {
+    margin: 18px 0 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  #studyRoomView .goal-stat {
+    min-height: 74px;
+    border-radius: 16px;
+    padding: 12px;
+    background: #f7fbfa;
+  }
+
+  #studyRoomView .goal-stat + .goal-stat {
+    border-left: 0;
+    padding-left: 12px;
+  }
+
+  #studyRoomView .goal-stat-label {
+    font-size: 12px;
+  }
+
+  #studyRoomView .goal-stat-value {
+    font-size: 28px;
+  }
+
+  #studyRoomView .goal-progress-row {
+    grid-template-columns: minmax(0, 1fr) 44px;
+    gap: 10px;
+  }
+
+  #studyRoomView .study-peer-card {
+    min-height: 260px;
+    padding: 22px 18px 21px;
+    border-radius: 20px;
+  }
+
+  #studyRoomView .peer-title {
+    gap: 9px;
+  }
+
+  #studyRoomView .peer-title-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  #studyRoomView .peer-title .study-card-title {
+    font-size: 22px;
+  }
+
+  #studyRoomView .peer-count {
+    font-size: 16px;
+  }
+
+  #studyRoomView .peer-companion-list {
+    margin-top: 18px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  #studyRoomView .peer-companion-item {
+    min-height: 126px;
+    padding: 14px 6px 12px;
+    border-radius: 14px;
+  }
+
+  #studyRoomView .peer-avatar {
+    width: clamp(48px, 14vw, 58px);
+    height: clamp(48px, 14vw, 58px);
+  }
+
+  #studyRoomView .peer-name {
+    margin-top: 13px;
+    font-size: 14px;
+    line-height: 1.12;
+  }
+
+  #studyRoomView .peer-focus-text {
+    margin-top: 9px;
+    color: #06a85b;
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 500;
+  }
+
+  #studyRoomView .peer-encourage-row {
+    margin-top: 10px;
+    gap: 8px;
+    font-size: 15px;
+  }
+
+  #studyRoomView .peer-sprout-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  #studyRoomView .peer-muscle-icon {
+    width: 19px;
+    height: 19px;
+  }
+
+  #studyRoomView .focus-session-page {
+    min-height: 100vh;
+    border-radius: 0;
+  }
+
+  #studyRoomView .focus-session-page.active {
+    display: block;
+  }
+
+  #studyRoomView .focus-session-inner {
+    min-height: 100vh;
+    padding: 26px 18px 28px;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    align-content: start;
+    gap: 20px;
+  }
+
+  #studyRoomView .focus-session-top {
+    align-items: center;
+    gap: 12px;
+  }
+
+  #studyRoomView .focus-session-room h1 {
+    font-size: 22px;
+  }
+
+  #studyRoomView .focus-session-meta {
+    margin-top: 8px;
+    font-size: 12px;
+  }
+
+  #studyRoomView .focus-session-online {
+    border-radius: 999px;
+    padding: 7px 10px;
+    background: rgba(255, 255, 255, 0.72);
+    font-size: 12px;
+  }
+
+  #studyRoomView .focus-dial-wrap {
+    display: grid;
+    gap: 16px;
+    place-items: center;
+  }
+
+  #studyRoomView .focus-dial {
+    width: min(78vw, 292px);
+    box-shadow: inset 0 0 0 12px rgba(19, 191, 168, 0.06), 0 16px 36px rgba(20, 50, 70, 0.12);
+  }
+
+  #studyRoomView .focus-dial-core {
+    width: 76%;
+  }
+
+  #studyRoomView .focus-task-name {
+    max-width: 176px;
+    margin: 0 auto;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  #studyRoomView .focus-countdown {
+    margin-top: 12px;
+    font-size: 48px;
+  }
+
+  #studyRoomView .focus-current-time {
+    margin-top: 12px;
+    font-size: 12px;
+  }
+
+  #studyRoomView .focus-session-goal {
+    width: 100%;
+    gap: 8px;
+    font-size: 13px;
+  }
+
+  #studyRoomView .focus-session-goal strong {
+    font-size: 22px;
+  }
+
+  #studyRoomView .focus-session-progress {
+    width: min(100%, 288px);
+    height: 8px;
+  }
+
+  #studyRoomView .focus-session-note {
+    margin-top: 8px;
+    font-size: 13px;
+  }
+
+  #studyRoomView .focus-session-actions {
+    align-self: end;
+    width: 100%;
+    margin-top: 12px;
+    grid-template-columns: 64px minmax(0, 1fr) 64px;
+    gap: 12px;
+  }
+
+  #studyRoomView .focus-round-btn {
+    width: 58px;
+    height: 58px;
+    font-size: 22px;
+  }
+
+  #studyRoomView .focus-round-label {
+    margin-top: 6px;
+    font-size: 12px;
+  }
+
+  #studyRoomView .focus-exit-main {
+    min-height: 58px;
+    font-size: 15px;
+  }
+}
+
+/* v2.1 immersive full-bleed study hero */
+
+#studyRoomView .study-room {
+  padding-top: 0;
+}
+
+#studyRoomView .study-room-shell {
+  gap: 18px;
+}
+
+#studyRoomView .study-hero {
+  width: 100vw;
+  margin-top: -24px;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+#studyRoomView .study-hero-slider {
+  border-radius: 0;
+}
+
+#studyRoomView .focus-visual-card {
+  margin-top: -4px;
+}
+
+@media (max-width: 600px) {
+  #studyRoomView .study-room-shell {
+    gap: 14px;
+  }
+
+  #studyRoomView .study-hero {
+    width: 100vw;
+    height: 318px;
+    min-height: 318px;
+    margin-top: -24px;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    border-radius: 0;
+  }
+
+  #studyRoomView .study-hero-slider {
+    border-radius: 0;
+  }
+
+  #studyRoomView .study-hero-scrim {
+    background:
+      linear-gradient(90deg, rgba(247, 252, 249, 0.94) 0%, rgba(247, 252, 249, 0.62) 35%, rgba(247, 252, 249, 0.02) 72%),
+      linear-gradient(180deg, rgba(8, 36, 31, 0.04), rgba(8, 36, 31, 0.05) 55%, rgba(243, 248, 248, 0.86) 100%);
+  }
+
+  #studyRoomView .study-hero-copy {
+    left: 18px;
+    top: 42px;
+  }
+
+  #studyRoomView .study-hero-dots {
+    bottom: 18px;
+  }
+
+  #studyRoomView .focus-visual-card {
+    margin-top: -2px;
+  }
+}
+
+/* v2.1 study room visual refresh */
+
+#studyRoomView .study-hero {
+  height: clamp(270px, 42vw, 377px);
+  padding: 0;
+  border: 0;
+  isolation: isolate;
+  background: #102d29;
+  box-shadow: 0 16px 36px rgba(20, 50, 70, 0.09);
+}
+
+#studyRoomView .study-hero-slider {
+  height: 100%;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  border-radius: inherit;
+  scrollbar-width: none;
+}
+
+#studyRoomView .study-hero-slider::-webkit-scrollbar {
+  display: none;
+}
+
+#studyRoomView .study-hero-slide {
+  width: 100%;
+  height: 100%;
+  flex: 0 0 100%;
+  object-fit: cover;
+  object-position: center;
+  scroll-snap-align: start;
+}
+
+#studyRoomView .study-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(247, 252, 249, 0.96) 0%, rgba(247, 252, 249, 0.76) 30%, rgba(247, 252, 249, 0.08) 62%),
+    linear-gradient(180deg, rgba(8, 36, 31, 0.1), rgba(8, 36, 31, 0.04) 56%, rgba(8, 36, 31, 0.2));
+}
+
+#studyRoomView .study-hero-copy {
+  position: absolute;
+  left: 50px;
+  top: 46px;
+  z-index: 2;
+  max-width: 46%;
+  padding: 0;
+}
+
+#studyRoomView .study-hero-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  z-index: 3;
+  display: flex;
+  gap: 7px;
+  transform: translateX(-50%);
+}
+
+#studyRoomView .study-hero-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.74);
+  box-shadow: 0 1px 4px rgba(5, 24, 22, 0.18);
+}
+
+#studyRoomView .study-hero-dots span:first-child {
+  width: 18px;
+  background: #31c695;
+}
+
+#studyRoomView .focus-visual-card {
+  position: relative;
+  min-height: 376px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 45%) minmax(0, 55%);
+  align-items: center;
+  padding: 46px 0 46px 50px;
+  text-align: left;
+  isolation: isolate;
+  background: #fffdfa;
+}
+
+#studyRoomView .focus-card-copy {
+  position: relative;
+  z-index: 3;
+  min-width: 0;
+}
+
+#studyRoomView .focus-visual-card .focus-label {
+  color: #113b35;
+  font-size: 20px;
+  font-weight: 850;
+}
+
+#studyRoomView .focus-visual-card .focus-time {
+  margin-top: 12px;
+  color: #062f28;
+  font-size: clamp(72px, 9vw, 118px);
+  line-height: 0.95;
+  letter-spacing: 0;
+  text-shadow: 0 10px 22px rgba(0, 45, 39, 0.11);
+}
+
+#studyRoomView .focus-time-options {
+  max-width: 390px;
+  margin-top: 26px;
+}
+
+#studyRoomView .focus-time-options .duration-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid rgba(17, 59, 53, 0.06);
+  border-radius: 24px;
+  background: rgba(249, 247, 243, 0.82);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.74);
+}
+
+#studyRoomView .focus-time-options .duration-option {
+  min-height: 48px;
+  min-width: 0;
+  border: 0;
+  border-radius: 17px;
+  background: transparent;
+  color: #183f39;
+  font-size: 17px;
+  font-weight: 850;
+}
+
+#studyRoomView .focus-time-options .duration-option.active {
+  background: #e7f8f2;
+  color: #07836e;
+  box-shadow: 0 8px 18px rgba(32, 174, 132, 0.12), inset 0 0 0 1px rgba(31, 190, 145, 0.22);
+}
+
+#studyRoomView .focus-visual-card .focus-actions {
+  max-width: 390px;
+  margin: 26px 0 0;
+}
+
+#studyRoomView .focus-visual-card .focus-start {
+  width: 100%;
+  min-height: 72px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #72b58f 0%, #1f744e 100%);
+  box-shadow: 0 12px 24px rgba(31, 116, 78, 0.23);
+  font-size: 28px;
+  letter-spacing: 0;
+}
+
+#studyRoomView .focus-play-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.94);
+  color: #2f8f68;
+  font-size: 18px;
+  line-height: 1;
+  padding-left: 2px;
+}
+
+#studyRoomView .focus-card-visual {
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: 1;
+  width: 66%;
+}
+
+#studyRoomView .focus-card-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, #fffdfa 0%, rgba(255, 253, 250, 0.96) 22%, rgba(255, 253, 250, 0.34) 48%, rgba(255, 253, 250, 0) 72%),
+    linear-gradient(180deg, rgba(255, 253, 250, 0.08), rgba(255, 253, 250, 0.44));
+}
+
+#studyRoomView .focus-card-art {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 600px) {
+  #studyRoomView .study-hero {
+    min-height: 250px;
+    height: 250px;
+    padding: 0;
+    border-radius: 26px;
+  }
+
+  #studyRoomView .study-hero-copy {
+    left: 18px;
+    top: 18px;
+    max-width: 68%;
+    padding: 0;
+  }
+
+  #studyRoomView .study-hero h1 {
+    font-size: 28px;
+    line-height: 1.12;
+  }
+
+  #studyRoomView .study-hero-subtitle {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+
+  #studyRoomView .study-room-name {
+    min-height: 34px;
+    margin-top: 16px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.84);
+    font-size: 12px;
+  }
+
+  #studyRoomView .quiet-pill {
+    min-height: 30px;
+    margin-top: 10px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.84);
+    font-size: 12px;
+  }
+
+  #studyRoomView .study-hero-dots {
+    bottom: 12px;
+  }
+
+  #studyRoomView .focus-visual-card {
+    min-height: 296px;
+    display: block;
+    padding: 22px 18px 20px;
+    border-radius: 24px;
+  }
+
+  #studyRoomView .focus-card-copy {
+    width: 58%;
+  }
+
+  #studyRoomView .focus-visual-card .focus-label {
+    font-size: 15px;
+  }
+
+  #studyRoomView .focus-visual-card .focus-time {
+    margin-top: 10px;
+    font-size: 56px;
+  }
+
+  #studyRoomView .focus-time-options {
+    max-width: 196px;
+    margin-top: 16px;
+  }
+
+  #studyRoomView .focus-time-options .duration-grid {
+    gap: 5px;
+    padding: 5px;
+    border-radius: 17px;
+  }
+
+  #studyRoomView .focus-time-options .duration-option {
+    min-height: 32px;
+    padding: 0 4px;
+    border-radius: 12px;
+    font-size: 10px;
+  }
+
+  #studyRoomView .focus-visual-card .focus-actions {
+    max-width: 196px;
+    margin-top: 18px;
+  }
+
+  #studyRoomView .focus-visual-card .focus-start {
+    min-height: 48px;
+    gap: 8px;
+    font-size: 15px;
+  }
+
+  #studyRoomView .focus-play-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  #studyRoomView .focus-card-visual {
+    left: 31%;
+    width: 69%;
+  }
+
+  #studyRoomView .focus-card-visual::after {
+    background:
+      linear-gradient(90deg, #fffdfa 0%, rgba(255, 253, 250, 0.96) 15%, rgba(255, 253, 250, 0.46) 42%, rgba(255, 253, 250, 0) 74%),
+      linear-gradient(180deg, rgba(255, 253, 250, 0.08), rgba(255, 253, 250, 0.42));
+  }
+}
+
+/* v2.1 final immersive full-bleed study hero. Keep this after compact overrides. */
+
+#studyRoomView .study-hero {
+  width: 100vw;
+  height: 318px;
+  min-height: 318px;
+  margin-top: -24px;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+#studyRoomView .study-hero-slider,
+#studyRoomView .study-hero-slide {
+  border-radius: 0;
+}
+
+#studyRoomView .study-hero-scrim {
+  background:
+    linear-gradient(90deg, rgba(247, 252, 249, 0.94) 0%, rgba(247, 252, 249, 0.62) 35%, rgba(247, 252, 249, 0.02) 72%),
+    linear-gradient(180deg, rgba(8, 36, 31, 0.04), rgba(8, 36, 31, 0.05) 55%, rgba(243, 248, 248, 0.86) 100%);
+}
+
+#studyRoomView .study-hero-copy {
+  left: 18px;
+  top: 42px;
+  max-width: 68%;
+}
+
+#studyRoomView .study-hero-dots {
+  bottom: 18px;
+}
+
+/* v2.1 card 11: daily goal card from Figma reference */
+
+#studyRoomView .goal-card11 {
+  min-height: 132px;
+  padding: 18px 16px 16px;
+  border: 1px solid rgba(20, 50, 70, 0.06);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 9% 10%, rgba(32, 191, 143, 0.06), transparent 28%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.99), rgba(250, 253, 252, 0.98));
+  box-shadow: 0 10px 28px rgba(20, 50, 70, 0.07);
+  overflow: hidden;
+}
+
+#studyRoomView .goal-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#studyRoomView .goal-title-icon {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  filter: brightness(0) saturate(100%) invert(45%) sepia(81%) saturate(1456%) hue-rotate(122deg) brightness(87%) contrast(91%);
+}
+
+#studyRoomView .goal-title-row h2 {
+  margin: 0;
+  color: #0e2724;
+  font-size: 19px;
+  line-height: 1.1;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+#studyRoomView .goal-card-content {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 116px minmax(0, 1fr) 86px;
+  align-items: center;
+  gap: 11px;
+}
+
+#studyRoomView .goal-arc-panel {
+  position: relative;
+  min-width: 0;
+  width: 114px;
+  height: 94px;
+  justify-self: center;
+  display: block;
+}
+
+#studyRoomView .goal-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+#studyRoomView .goal-ring-track,
+#studyRoomView .goal-ring-progress {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 9;
+}
+
+#studyRoomView .goal-ring-track {
+  stroke: #edf5f2;
+}
+
+#studyRoomView .goal-ring-progress {
+  stroke: #22b986;
+  stroke-dasharray: var(--goal-progress) 100;
+  filter: drop-shadow(0 4px 6px rgba(34, 185, 134, 0.14));
+}
+
+#studyRoomView .goal-card11.is-goal-empty .goal-ring-progress {
+  opacity: 0;
+}
+
+#studyRoomView .goal-star-img {
+  position: absolute;
+  left: 40.93%;
+  top: 54.61%;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 7px 8px rgba(246, 166, 26, 0.22));
+}
+
+#studyRoomView .goal-card-main {
+  min-width: 0;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#studyRoomView .goal-target-line {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  color: #092e29;
+  line-height: 1;
+}
+
+#studyRoomView .goal-target-line strong {
+  font-size: 32px;
+  font-weight: 950;
+  letter-spacing: 0;
+}
+
+#studyRoomView .goal-target-line span {
+  color: #233d3a;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+#studyRoomView .goal-complete-line {
+  margin-top: 8px;
+  color: #697878;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+#studyRoomView .goal-complete-line strong {
+  color: #092e29;
+  font-size: 17px;
+  font-weight: 950;
+}
+
+#studyRoomView .goal-card-progress {
+  width: min(100%, 176px);
+  height: 7px;
+  margin-top: 13px;
+  border-radius: 999px;
+  background: #eef4f3;
+  overflow: hidden;
+}
+
+#studyRoomView .goal-card-progress i {
+  display: block;
+  width: calc(var(--goal-progress) * 1%);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #2cc58f, #19a974);
+}
+
+#studyRoomView .goal-card-main p {
+  margin: 12px 0 0;
+  color: #667675;
+  font-size: 12px;
+  line-height: 1.35;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+#studyRoomView .goal-card-art {
+  width: 88px;
+  height: 82px;
+  align-self: end;
+  justify-self: end;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  overflow: visible;
+}
+
+#studyRoomView .goal-target-art {
+  width: 112px;
+  height: 112px;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+  mix-blend-mode: multiply;
+  transform: translate(14px, 18px);
+}
+
+@media (max-width: 600px) {
+  #studyRoomView .goal-card11 {
+    min-height: 132px;
+    padding: 18px 14px 15px;
+    border-radius: 20px;
+  }
+
+  #studyRoomView .goal-card-content {
+    grid-template-columns: 104px minmax(0, 1fr) 70px;
+    gap: 8px;
+  }
+
+  #studyRoomView .goal-ring {
+    width: 100%;
+    height: 100%;
+  }
+
+  #studyRoomView .goal-arc-panel {
+    width: 104px;
+    height: 86px;
+  }
+
+  #studyRoomView .goal-star-img {
+    width: 43px;
+    height: 43px;
+  }
+
+  #studyRoomView .goal-target-line strong {
+    font-size: 30px;
+  }
+
+  #studyRoomView .goal-card-progress {
+    width: min(100%, 166px);
+    margin-top: 12px;
+  }
+
+  #studyRoomView .goal-card-main p {
+    font-size: 11px;
+    white-space: normal;
+  }
+
+  #studyRoomView .goal-card-art {
+    width: 74px;
+    height: 72px;
+  }
+
+  #studyRoomView .goal-target-art {
+    width: 98px;
+    height: 98px;
+    transform: translate(12px, 15px);
+  }
+}
+
+/* v2.1 card 11 compact phone proportions */
+
+@media (max-width: 600px) {
+  #studyRoomView .goal-card11 {
+    height: auto;
+    min-height: 0;
+    padding: 15px 14px 13px;
+  }
+
+  #studyRoomView .goal-title-row {
+    gap: 8px;
+  }
+
+  #studyRoomView .goal-title-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  #studyRoomView .goal-title-row h2 {
+    font-size: 17px;
+  }
+
+  #studyRoomView .goal-card-content {
+    margin-top: 7px;
+    grid-template-columns: clamp(82px, 23vw, 92px) minmax(112px, 1fr) clamp(56px, 16vw, 64px);
+    gap: 7px;
+  }
+
+  #studyRoomView .goal-ring {
+    width: 100%;
+    height: 100%;
+  }
+
+  #studyRoomView .goal-arc-panel {
+    width: 88px;
+    height: 72px;
+  }
+
+  #studyRoomView .goal-star-img {
+    width: 38px;
+    height: 38px;
+  }
+
+  #studyRoomView .goal-ring-track,
+  #studyRoomView .goal-ring-progress {
+    stroke-width: 8;
+  }
+
+  #studyRoomView .goal-target-line strong {
+    font-size: 27px;
+  }
+
+  #studyRoomView .goal-target-line span {
+    font-size: 12px;
+  }
+
+  #studyRoomView .goal-complete-line {
+    margin-top: 6px;
+    font-size: 11px;
+  }
+
+  #studyRoomView .goal-complete-line strong {
+    font-size: 14px;
+  }
+
+  #studyRoomView .goal-card-progress {
+    height: 6px;
+    margin-top: 8px;
+  }
+
+  #studyRoomView .goal-card-main p {
+    margin-top: 8px;
+    font-size: 10px;
+    line-height: 1.22;
+  }
+
+  #studyRoomView .goal-card-art {
+    width: 62px;
+    height: 62px;
+  }
+
+  #studyRoomView .goal-target-art {
+    width: 88px;
+    height: 88px;
+    transform: translate(12px, 13px);
+  }
+}
+
+/* v2.2 Figma-final top study-room area. Only affects content above the daily goal card. */
+
+#studyRoomView .study-room-shell {
+  gap: 18px;
+}
+
+#studyRoomView .study-hero {
+  width: 100vw;
+  height: 318px;
+  min-height: 318px;
+  margin-top: -24px;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  border: 0;
+  border-radius: 0 0 50px 50px;
+  background: #102d29;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+#studyRoomView .study-hero-slider,
+#studyRoomView .study-hero-slide {
+  border-radius: inherit;
+}
+
+#studyRoomView .study-hero-scrim {
+  background: linear-gradient(
+    180deg,
+    rgba(247, 252, 249, 0.8) 0%,
+    rgba(247, 252, 249, 0.4) 11.363%,
+    rgba(247, 252, 249, 0.02) 27.373%,
+    rgba(247, 252, 249, 0.02) 100%
+  );
+}
+
+#studyRoomView .study-hero-copy {
+  left: 9px;
+  top: 13px;
+  max-width: none;
+  padding: 0;
+}
+
+#studyRoomView .study-hero-title-pill {
+  width: 172px;
+  min-height: 52px;
+  padding: 4px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+
+#studyRoomView .study-hero .study-hero-title-pill h1 {
+  margin: 0;
+  color: #062f28;
+  font-size: 28px;
+  line-height: 31.36px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+#studyRoomView .study-hero-online {
+  min-height: 10px;
+  padding-left: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #0c4c45;
+  font-size: 10px;
+  line-height: 10px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+#studyRoomView .study-hero-online-icon {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #31c695;
+  box-shadow: 0 0 0 2px rgba(49, 198, 149, 0.14);
+}
+
+#studyRoomView .study-hero-subtitle,
+#studyRoomView .study-room-name,
+#studyRoomView .quiet-pill {
+  display: none;
+}
+
+#studyRoomView .study-hero-dots {
+  bottom: 63px;
+}
+
+#studyRoomView .focus-visual-card {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  min-height: clamp(248px, 68vw, 264px);
+  height: auto;
+  margin: -73px auto 0;
+  padding: 1px;
+  border: 0.67px solid rgba(20, 50, 70, 0.08);
+  border-radius: 24px;
+  background: #fffdfa;
+  box-shadow: 0 12px 32px rgba(20, 50, 70, 0.08);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-align: left;
+  isolation: isolate;
+}
+
+#studyRoomView .focus-card-copy {
+  position: relative;
+  z-index: 3;
+  width: 170px;
+  height: 210px;
+  padding-left: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#studyRoomView .focus-visual-card .focus-label {
+  width: 158px;
+  color: #113b35;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 900;
+}
+
+#studyRoomView .focus-visual-card .focus-time {
+  margin-top: 10px;
+  color: #062f28;
+  font-size: 46px;
+  line-height: 53.2px;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-shadow: none;
+}
+
+#studyRoomView .focus-time-options {
+  width: 158px;
+  max-width: 158px;
+  margin-top: 16px;
+}
+
+#studyRoomView .focus-time-options .duration-grid {
+  width: 158px;
+  height: 44px;
+  padding: 6px;
+  border: 0.67px solid rgba(17, 59, 53, 0.1);
+  border-radius: 17px;
+  background: rgba(249, 247, 243, 0.82);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.74);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#studyRoomView .focus-time-options .duration-option {
+  width: 45px;
+  min-width: 0;
+  min-height: 32px;
+  height: 32px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: #183f39;
+  font-size: 10px;
+  line-height: 13px;
+  font-weight: 900;
+}
+
+#studyRoomView .focus-time-options .duration-option.active {
+  background: rgba(14, 159, 143, 0.4);
+  color: #07836e;
+  box-shadow: 0 8px 18px rgba(32, 174, 132, 0.12);
+}
+
+#studyRoomView .focus-time-options .duration-option-custom {
+  display: inline-grid;
+  place-items: center;
+}
+
+#studyRoomView .custom-duration-sheet[hidden] {
+  display: none;
+}
+
+#studyRoomView .custom-duration-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+#studyRoomView .custom-duration-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(7, 25, 22, 0.24);
+}
+
+#studyRoomView .custom-duration-panel {
+  position: relative;
+  width: min(100%, 430px);
+  padding: 18px 20px 24px;
+  border-radius: 26px 26px 0 0;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 -18px 40px rgba(12, 45, 38, 0.16);
+}
+
+#studyRoomView .custom-duration-title {
+  color: #123b35;
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 900;
+  text-align: center;
+}
+
+#studyRoomView .custom-duration-list {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+#studyRoomView .custom-duration-choice {
+  min-height: 48px;
+  border: 1px solid rgba(17, 59, 53, 0.1);
+  border-radius: 16px;
+  background: #f7fbf8;
+  color: #173f39;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+#studyRoomView .custom-duration-choice.active {
+  border-color: rgba(31, 190, 145, 0.42);
+  background: #e7f8f2;
+  color: #07836e;
+  box-shadow: 0 8px 18px rgba(32, 174, 132, 0.12);
+}
+
+#studyRoomView .focus-visual-card .focus-actions {
+  width: 158px;
+  max-width: 158px;
+  margin: 16px 0 0;
+}
+
+#studyRoomView .focus-visual-card .focus-start {
+  width: 146px;
+  min-height: 50px;
+  height: 50px;
+  padding: 1px 25px;
+  border-radius: 999px;
+  gap: 8px;
+  background: linear-gradient(161deg, #72b58f 0%, #1f744e 100%);
+  box-shadow: 0 12px 12px rgba(31, 116, 78, 0.23);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+#studyRoomView .focus-play-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.94);
+  color: #2f8f68;
+  font-size: 12px;
+  line-height: 1;
+  padding-left: 2px;
+  flex: 0 0 auto;
+}
+
+#studyRoomView .focus-card-visual {
+  position: absolute;
+  inset: 1px auto auto 171px;
+  z-index: 1;
+  width: 182px;
+  height: 262px;
+}
+
+#studyRoomView .focus-card-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    #fffdfa 0.497%,
+    rgba(255, 253, 250, 0.96) 15%,
+    rgba(255, 253, 250, 0.46) 42%,
+    rgba(255, 253, 250, 0) 74%
+  );
+  pointer-events: none;
+}
+
+#studyRoomView .focus-card-art {
+  width: 182px;
+  height: 262px;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 600px) {
+  #studyRoomView .study-room-shell {
+    gap: 18px;
+  }
+
+  #studyRoomView .study-hero {
+    height: 318px;
+    min-height: 318px;
+    border-radius: 0 0 50px 50px;
+  }
+
+  #studyRoomView .focus-visual-card {
+    width: 100%;
+    min-height: clamp(248px, 68vw, 264px);
+    height: auto;
+    margin-top: -73px;
+    padding: 1px;
+    border-radius: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  #studyRoomView .focus-visual-card {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #studyRoomView .goal-card11 {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #studyRoomView .peer-companion-card {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #studyRoomView .focus-card-visual {
+    inset: 1px 0 auto auto;
+    width: min(182px, calc(100% - 157px));
+  }
+
+  #studyRoomView .focus-card-art {
+    width: 100%;
+  }
+
+  #studyRoomView .goal-card-content {
+    grid-template-columns: clamp(82px, 23vw, 92px) minmax(112px, 1fr) clamp(56px, 16vw, 64px);
+    gap: 6px;
+  }
+
+  #studyRoomView .goal-arc-panel {
+    width: clamp(82px, 23vw, 88px);
+    height: clamp(68px, 19vw, 72px);
+  }
+
+  #studyRoomView .goal-star-img {
+    width: clamp(35px, 10vw, 38px);
+    height: clamp(35px, 10vw, 38px);
+  }
+
+  #studyRoomView .goal-card-progress {
+    width: min(100%, 148px);
+  }
+
+  #studyRoomView .goal-card-main p {
+    max-width: 148px;
+    white-space: normal;
+  }
+
+  #studyRoomView .goal-card-art {
+    width: clamp(56px, 16vw, 62px);
+    height: clamp(56px, 16vw, 62px);
+  }
+
+  #studyRoomView .goal-target-art {
+    width: clamp(80px, 22vw, 88px);
+    height: clamp(80px, 22vw, 88px);
+    transform: translate(10px, 13px);
+  }
+
+  #studyRoomView .peer-companion-list {
+    gap: clamp(6px, 2vw, 8px);
+  }
+
+  #studyRoomView .peer-companion-item {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+/* Minimal full-screen focus mode */
+#studyRoomView .focus-session-page-minimal {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  min-height: 100svh;
+  width: 100%;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background:
+    linear-gradient(180deg, #ecfcf5 0%, #ffffff 54%, #ffffff 100%);
+  color: #12372f;
+}
+
+#studyRoomView .focus-session-page-minimal.active {
+  display: block;
+}
+
+#studyRoomView .focus-session-page-minimal .focus-session-inner {
+  min-height: 100svh;
+  width: min(100%, 430px);
+  margin: 0 auto;
+  padding: max(26px, env(safe-area-inset-top)) 22px max(22px, env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+}
+
+#studyRoomView .focus-status-pill {
+  justify-self: center;
+  min-width: 86px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(22, 163, 116, 0.12);
+  color: #08775f;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+}
+
+#studyRoomView .focus-main-timer {
+  width: 100%;
+  display: grid;
+  gap: 18px;
+  justify-items: center;
+}
+
+#studyRoomView .focus-hint {
+  color: #5d756e;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.35;
+  text-align: center;
+}
+
+#studyRoomView .focus-countdown {
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(68px, 18vw, 86px);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0;
+  color: #0f2f29;
+}
+
+#studyRoomView .focus-session-page-minimal .focus-session-progress {
+  width: min(100%, 316px);
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(15, 47, 41, 0.1);
+  overflow: hidden;
+}
+
+#studyRoomView .focus-session-page-minimal .focus-session-progress i {
+  display: block;
+  width: var(--focus-progress);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #12b981, #0f9f87);
+  transition: width 0.25s ease;
+}
+
+#studyRoomView .focus-timer-meta {
+  width: min(100%, 316px);
+  display: flex;
+  justify-content: space-between;
+  color: #61766f;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+#studyRoomView .focus-timer-meta strong {
+  color: #08775f;
+}
+
+#studyRoomView .focus-session-page-minimal .focus-session-actions {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  grid-template-areas:
+    "pause exit"
+    "label exit";
+  gap: 7px 14px;
+  align-items: center;
+}
+
+#studyRoomView .focus-session-page-minimal .focus-round-btn {
+  grid-area: pause;
+  width: 56px;
+  height: 56px;
+  border: 0;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #0f7b65;
+  box-shadow: 0 10px 28px rgba(18, 60, 48, 0.12);
+  font-size: 22px;
+  font-weight: 900;
+}
+
+#studyRoomView .focus-session-page-minimal .focus-round-label {
+  grid-area: label;
+  color: #61766f;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+#studyRoomView .focus-session-page-minimal .focus-exit-main {
+  grid-area: exit;
+  width: 100%;
+  min-height: 56px;
+  border: 0;
+  border-radius: 18px;
+  background: #10a77f;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 900;
+  box-shadow: 0 16px 34px rgba(16, 167, 127, 0.25);
+}
+
+#studyRoomView .focus-away-panel,
+#studyRoomView .focus-result-panel {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 14px;
+}
+
+#studyRoomView .focus-away-kicker {
+  color: #08775f;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+#studyRoomView .focus-away-panel h1,
+#studyRoomView .focus-result-panel h1 {
+  margin: 0;
+  color: #12372f;
+  font-size: 28px;
+  line-height: 1.22;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+#studyRoomView .focus-away-panel p,
+#studyRoomView .focus-result-panel p {
+  width: min(100%, 310px);
+  margin: 0;
+  color: #5d756e;
+  font-size: 15px;
+  line-height: 1.6;
+  font-weight: 600;
+}
+
+#studyRoomView .focus-away-actions {
+  width: 100%;
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+#studyRoomView .focus-away-primary,
+#studyRoomView .focus-away-secondary,
+#studyRoomView .focus-return-button {
+  width: 100%;
+  min-height: 52px;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+#studyRoomView .focus-away-primary,
+#studyRoomView .focus-return-button {
+  border: 0;
+  background: #10a77f;
+  color: #ffffff;
+}
+
+#studyRoomView .focus-away-secondary {
+  border: 1px solid rgba(16, 167, 127, 0.22);
+  background: #ffffff;
+  color: #0f7b65;
+}
+
+#studyRoomView .focus-result-icon {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(16, 167, 127, 0.12);
+  color: #0f9f87;
+  font-size: 38px;
+  font-weight: 900;
+}
+
+#studyRoomView .focus-result-minutes {
+  color: #08775f;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+#studyRoomView .focus-result-footer {
+  display: grid;
+  gap: 12px;
+  color: #78908a;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+}
+
+@media (max-width: 380px) {
+  #studyRoomView .focus-session-page-minimal .focus-session-inner {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  #studyRoomView .focus-countdown {
+    font-size: 64px;
+  }
+
+  #studyRoomView .focus-session-page-minimal .focus-session-actions {
+    grid-template-columns: 58px 1fr;
+    gap: 6px 10px;
+  }
+
+  #studyRoomView .focus-session-page-minimal .focus-round-btn {
+    width: 52px;
+    height: 52px;
+  }
+}

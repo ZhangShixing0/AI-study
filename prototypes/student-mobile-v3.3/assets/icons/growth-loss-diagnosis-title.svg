@@ -1,0 +1,57 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="lensStroke" x1="4.5" y1="5.2" x2="10.8" y2="11.5" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A855F7"></stop>
+      <stop offset="1" stop-color="#7C3AED"></stop>
+    </linearGradient>
+
+    <linearGradient id="handleGrad" x1="3.1" y1="11.4" x2="5.5" y2="13.8" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9B5CF6"></stop>
+      <stop offset="1" stop-color="#7C3AED"></stop>
+    </linearGradient>
+
+    <linearGradient id="purpleBar" x1="7.2" y1="12.6" x2="7.2" y2="17.2" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#C4B5FD"></stop>
+      <stop offset="1" stop-color="#A78BFA"></stop>
+    </linearGradient>
+
+    <linearGradient id="greenBar" x1="10" y1="11.5" x2="10" y2="17.2" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7DDDD2"></stop>
+      <stop offset="1" stop-color="#5CCFC3"></stop>
+    </linearGradient>
+
+    <linearGradient id="orangeBar" x1="12.8" y1="10.1" x2="12.8" y2="17.2" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FDBA74"></stop>
+      <stop offset="1" stop-color="#FB923C"></stop>
+    </linearGradient>
+
+    <linearGradient id="blueBar" x1="15.5" y1="7.9" x2="15.5" y2="17.2" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#93C5FD"></stop>
+      <stop offset="1" stop-color="#60A5FA"></stop>
+    </linearGradient>
+
+    <linearGradient id="warnGrad" x1="13.2" y1="2.1" x2="17.9" y2="6.8" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF9B4A"></stop>
+      <stop offset="1" stop-color="#FF6B1A"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- bars -->
+  <rect x="6.45" y="12.55" width="1.7" height="4.65" rx="0.65" fill="url(#purpleBar)"></rect>
+  <rect x="9.15" y="11.55" width="1.7" height="5.65" rx="0.65" fill="url(#greenBar)"></rect>
+  <rect x="11.95" y="10.15" width="1.7" height="7.05" rx="0.65" fill="url(#orangeBar)"></rect>
+  <rect x="14.65" y="7.85" width="1.7" height="9.35" rx="0.65" fill="url(#blueBar)"></rect>
+
+  <!-- base line -->
+  <path d="M5.95 17.35H17.15" stroke="#D9E4F2" stroke-width="1.15" stroke-linecap="round"></path>
+
+  <!-- warning circle -->
+  <circle cx="15.5" cy="5" r="2.55" fill="url(#warnGrad)"></circle>
+  <path d="M15.5 3.55V4.95" stroke="white" stroke-width="1.05" stroke-linecap="round"></path>
+  <circle cx="15.5" cy="6.15" r="0.42" fill="white"></circle>
+
+  <!-- smaller magnifier -->
+  <circle cx="7.55" cy="8.15" r="3.25" stroke="url(#lensStroke)" stroke-width="1.35"></circle>
+  <path d="M5.25 10.55L3.25 12.55" stroke="url(#handleGrad)" stroke-width="1.75" stroke-linecap="round"></path>
+  <path d="M6.45 6.45C6.95 6.08 7.5 5.95 8.08 5.98" stroke="#DDD6FE" stroke-width="0.95" stroke-linecap="round"></path>
+</svg>

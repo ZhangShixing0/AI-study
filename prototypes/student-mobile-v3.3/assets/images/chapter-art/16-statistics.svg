@@ -1,0 +1,19 @@
+<svg width="300" height="185" viewBox="0 0 300 185" xmlns="http://www.w3.org/2000/svg">
+  <style>:root{--accent:#2f6fdf;--ink:#273142;}</style>
+  <rect x="6" y="6" width="288" height="173" rx="18" fill="var(--accent,#2f6fdf)" fill-opacity="0.06"/>
+  <!-- content-shift-start -->
+  <g transform="translate(-10 0)">
+<text x="150" y="36" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="800" fill="var(--accent,#2f6fdf)">样本分布</text>
+  <g transform="translate(20 23)">
+    <path d="M35 122H252" stroke="var(--accent,#2f6fdf)" stroke-width="2"/>
+    <g fill="var(--accent,#2f6fdf)" stroke="var(--accent,#2f6fdf)" stroke-width="1.5" opacity=".9" fill-opacity="0.22">
+      <rect x="54" y="102" width="18" height="20"/><rect x="78" y="86" width="18" height="36"/><rect x="102" y="61" width="18" height="61"/><rect x="126" y="40" width="18" height="82"/><rect x="150" y="55" width="18" height="67"/><rect x="174" y="82" width="18" height="40"/><rect x="198" y="103" width="18" height="19"/>
+    </g>
+    <path d="M40 119C68 115 82 78 104 55C128 30 152 30 174 55C196 80 208 116 238 119" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2.5"/>
+    <circle cx="145" cy="122" r="4.5" fill="var(--accent,#2f6fdf)"/>
+    <text x="90" y="154" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="18" fill="var(--ink,#273142)">x̄ = 52.3</text>
+    <text x="182" y="154" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="18" fill="var(--ink,#273142)">s² = 36.5</text>
+  </g>
+  </g>
+  <!-- content-shift-end -->
+</svg>

@@ -1,0 +1,1284 @@
+/* Today Plan page-only styles. Keep app shell and navigation state in app-shell.css. */
+
+#planView {
+  display: grid;
+  gap: 12px;
+}
+
+#planView .banner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 154px;
+  min-height: 154px;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  box-shadow: 0 10px 24px rgba(36, 65, 86, 0.12);
+}
+
+#planView .banner::after {
+  background: linear-gradient(90deg, rgba(5, 137, 125, 0.28) 0%, rgba(5, 137, 125, 0.08) 46%, transparent 72%);
+}
+
+#planView .banner-text {
+  position: absolute;
+  z-index: 2;
+  left: 20px;
+  top: 15px;
+  max-width: 210px;
+}
+
+#planView .banner-student {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#planView .banner-title {
+  font-size: 29px;
+  line-height: 36px;
+  font-weight: 700;
+  text-shadow: 0 2px 5px rgba(0, 56, 51, 0.18);
+}
+
+#planView .banner-meta {
+  margin-top: 5px;
+  gap: 9px;
+  color: #effffb;
+  font-size: 12px;
+  line-height: 18px;
+  text-shadow: 0 2px 5px rgba(0, 56, 51, 0.18);
+}
+
+#planView .banner-meta .meta-item {
+  gap: 4px;
+}
+
+#planView .meta-item img {
+  width: 12px;
+  height: 12px;
+}
+
+#planView .status-btn {
+  min-width: 78px;
+  height: 28px;
+  margin-top: 10px;
+  padding: 0 15px;
+  gap: 3px;
+  background: rgba(255, 255, 255, 0.96);
+  color: #142033;
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 500;
+  box-shadow: none;
+}
+
+#planView .status-btn.is-completed {
+  color: #0f8f84;
+}
+
+#planView .status-btn img {
+  width: 11px;
+  height: 11px;
+}
+
+#planView .countdown {
+  position: absolute;
+  z-index: 3;
+  top: 14px;
+  right: 18px;
+  width: 62px;
+  height: 74px;
+  border-radius: 18px;
+  color: #087c73;
+  box-shadow: 0 6px 16px rgba(36, 65, 86, 0.08);
+}
+
+#planView .countdown small,
+#planView .countdown span {
+  font-size: 10px;
+  line-height: 14px;
+  font-weight: 500;
+}
+
+#planView .countdown strong {
+  margin: 2px 0 0;
+  font-size: 25px;
+  line-height: 29px;
+  font-weight: 700;
+}
+
+#planView .section-head {
+  margin: 8px 0 8px;
+}
+
+#planView .section-title {
+  gap: 10px;
+}
+
+#planView .section-title img {
+  width: 30px;
+  height: 30px;
+}
+
+#planView .section-title h2 {
+  color: #142033;
+  font-size: 26px;
+  line-height: 34px;
+  font-weight: 700;
+}
+
+#planView .type-count {
+  min-width: 92px;
+  height: 28px;
+  padding: 0 14px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(232, 250, 247, 0.95);
+  color: #142033;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+#planView .type-count strong {
+  margin: 0 2px;
+  color: #078a7d;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+:is(#planView, #questionPreviewView) .type-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  min-height: 0;
+  margin-bottom: 8px;
+  padding: 15px 13px;
+  border: 1px solid #eaf3f1;
+  border-radius: 28px;
+  background: #fbfffd;
+  box-shadow: 0 10px 14px rgba(15, 46, 43, 0.08);
+}
+
+:is(#planView, #questionPreviewView) .type-card-head {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+}
+
+:is(#planView, #questionPreviewView) .type-label {
+  display: inline-flex;
+  align-items: center;
+  width: 72px;
+  height: 28px;
+  justify-content: center;
+  padding: 0 16px;
+  border: 1px solid rgba(8, 124, 112, 0.28);
+  border-radius: 14px;
+  background: #0e9f8f;
+  color: #fff;
+  box-shadow: 0 6px 14px rgba(5, 102, 87, 0.18);
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 700;
+}
+
+:is(#planView, #questionPreviewView) .theme-purple .type-label {
+  border-color: rgba(93, 78, 227, 0.25);
+  background: #6d5df2;
+  box-shadow: 0 6px 14px rgba(64, 51, 191, 0.18);
+}
+
+:is(#planView, #questionPreviewView) .type-title {
+  color: #0f2137;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+:is(#planView, #questionPreviewView) .type-summary {
+  width: 100%;
+  min-height: 94px;
+  padding: 17px 19px;
+  border: 1px solid #c9f0ea;
+  border-radius: 22px;
+  background: #e8faf6;
+  display: grid;
+  gap: 6px;
+}
+
+:is(#planView, #questionPreviewView) .theme-purple .type-summary {
+  border-color: #e0d6ff;
+  background: #f5f0ff;
+}
+
+:is(#planView, #questionPreviewView) .type-summary-title {
+  color: #087f74;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+:is(#planView, #questionPreviewView) .theme-purple .type-summary-title {
+  color: #6657e4;
+}
+
+:is(#planView, #questionPreviewView) .type-summary-body {
+  color: #315e5a;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+}
+
+:is(#planView, #questionPreviewView) .theme-purple .type-summary-body {
+  color: #5b5487;
+}
+
+:is(#planView, #questionPreviewView) .source {
+  width: 100%;
+  min-height: 0;
+  margin-top: 0;
+  padding: 10px 12px;
+  border: 1.2px solid #bfefe8;
+  border-radius: 24px;
+  background: #f2fffc;
+  display: grid;
+  gap: 10px;
+}
+
+:is(#planView, #questionPreviewView) .theme-purple .source {
+  border-color: #e0d6ff;
+  background: #f5f0ff;
+}
+
+:is(#planView, #questionPreviewView) .source-head {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  gap: 6px;
+  color: #0b8278;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+}
+
+:is(#planView, #questionPreviewView) .theme-purple .source-head {
+  color: #6657e4;
+}
+
+:is(#planView, #questionPreviewView) .source-head > .source-header-icon {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  object-fit: contain;
+}
+
+:is(#planView, #questionPreviewView) .source-list {
+  display: grid;
+  gap: 7px;
+}
+
+:is(#planView, #questionPreviewView) .source-row {
+  min-height: 54px;
+  padding: 10px 14px;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 7px;
+  align-items: start;
+  text-align: left;
+  border: 1.2px solid #cbefea;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(13, 71, 64, 0.04);
+  color: #142238;
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  font-size: 12.5px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+:is(#planView, #questionPreviewView) .source-book-card {
+  display: block;
+  padding: 11px 12px 12px;
+}
+
+:is(#planView, #questionPreviewView) .source-row > img:not(.source-book-icon) {
+  display: none;
+}
+
+:is(#planView, #questionPreviewView) .source-row > .source-book-icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  margin-top: 0;
+  object-fit: contain;
+}
+
+:is(#planView, #questionPreviewView) .source-book-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+:is(#planView, #questionPreviewView) .source-book-header .source-book-icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  object-fit: contain;
+}
+
+:is(#planView, #questionPreviewView) .source-group-copy {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+:is(#planView, #questionPreviewView) .source-group-title {
+  display: block;
+}
+
+:is(#planView, #questionPreviewView) .source-entry-continuation .source-group-title {
+  padding-left: 3.95em;
+}
+
+:is(#planView, #questionPreviewView) .source-inline-text {
+  min-width: 0;
+}
+
+:is(#planView, #questionPreviewView) .source-book-name {
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+:is(#planView, #questionPreviewView) .source-book-name-green {
+  color: #00a88f;
+}
+
+:is(#planView, #questionPreviewView) .source-book-name-purple {
+  color: #7b61ff;
+}
+
+:is(#planView, #questionPreviewView) .source-book-desc {
+  color: #142238;
+}
+
+:is(#planView, #questionPreviewView) .source-group-title .source-book-name {
+  display: inline;
+  padding-right: 0;
+}
+
+:is(#planView, #questionPreviewView) .source-question-line {
+  display: block;
+  padding-left: 5.3em;
+}
+
+:is(#planView, #questionPreviewView) .source-question-line > .source-book-label {
+  display: none;
+}
+
+:is(#planView, #questionPreviewView) .source-question-content {
+  display: grid;
+  grid-template-columns: 3.45em minmax(0, 1fr);
+  padding-left: 0;
+  color: #5f6e82;
+}
+
+:is(#planView, #questionPreviewView) .source-question-numbers {
+  display: block;
+  min-width: 0;
+  color: #142238;
+  font-weight: 500;
+}
+
+:is(#planView, #questionPreviewView) .source-question-number {
+  display: inline;
+  white-space: nowrap;
+}
+
+:is(#planView, #questionPreviewView) .source-book-sections {
+  display: grid;
+  gap: 9px;
+  margin-top: 9px;
+}
+
+:is(#planView, #questionPreviewView) .source-chapter-group {
+  position: relative;
+  overflow: hidden;
+  padding: 8px 9px 9px 12px;
+  border: 1px solid #bcefe6;
+  border-radius: 16px;
+  background: #e9fbf7;
+}
+
+:is(#planView, #questionPreviewView) .theme-purple .source-chapter-group {
+  border-color: #ded6ff;
+  background: #f6f2ff;
+}
+
+:is(#planView, #questionPreviewView) .source-chapter-group::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: #12aa99;
+}
+
+:is(#planView, #questionPreviewView) .theme-purple .source-chapter-group::before {
+  background: #7967ee;
+}
+
+:is(#planView, #questionPreviewView) .source-chapter-title {
+  margin-bottom: 6px;
+  color: #087f74;
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 700;
+}
+
+:is(#planView, #questionPreviewView) .theme-purple .source-chapter-title {
+  color: #6657e4;
+}
+
+:is(#planView, #questionPreviewView) .source-task-list {
+  display: grid;
+  gap: 5px;
+}
+
+:is(#planView, #questionPreviewView) .source-task-row {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  column-gap: 8px;
+  align-items: start;
+  min-width: 0;
+  color: #142238;
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  font-size: 12.5px;
+  line-height: 19px;
+  font-weight: 500;
+}
+
+:is(#planView, #questionPreviewView) .source-task-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  min-height: 19px;
+  border: 1px solid rgba(18, 170, 153, 0.2);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.82);
+  color: #087f74;
+  font-size: 11.5px;
+  line-height: 16px;
+  font-weight: 700;
+}
+
+:is(#planView, #questionPreviewView) .theme-purple .source-task-label {
+  border-color: rgba(121, 103, 238, 0.2);
+  color: #6657e4;
+}
+
+:is(#planView, #questionPreviewView) .source-task-numbers {
+  display: block;
+  min-width: 0;
+  color: #152338;
+  overflow-wrap: anywhere;
+}
+
+#planView .feedback {
+  margin-top: 4px;
+  padding: 15px 13px;
+  border: 1px solid #e8f0f0;
+  border-radius: 20px;
+  background: #fff9f0;
+  box-shadow: 0 8px 11px rgba(36, 65, 86, 0.08);
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+}
+
+#planView .feedback-head {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 28px;
+  padding: 0;
+  border-bottom: 0;
+}
+
+#planView .feedback-head > .feedback-icon {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  object-fit: contain;
+}
+
+#planView .feedback-head h2 {
+  color: #142033;
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 23px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+#planView .feedback-subtitle {
+  display: block;
+  min-width: 0;
+  margin-left: -5px;
+  margin-right: auto;
+  color: #8190a2;
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#planView .all-none {
+  flex: 0 0 100px;
+  margin-left: auto;
+  width: 100px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid #d8e2ed;
+  border-radius: 14px;
+  background: #f7fafd;
+  color: #667895;
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+#planView .feedback-list {
+  display: grid;
+  gap: 0;
+}
+
+#planView .feedback-row {
+  min-height: 68px;
+  padding: 10px 2px 8px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 7px;
+  border-bottom: 0;
+}
+
+#planView .feedback-row:last-child {
+  border-bottom: 0;
+}
+
+#planView .feedback-title {
+  padding-top: 0;
+  color: #253246;
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#planView .feedback-choices {
+  width: 272px;
+  max-width: 100%;
+  justify-self: center;
+  display: grid;
+  grid-template-columns: repeat(3, 72px);
+  justify-content: center;
+  gap: 25px;
+}
+
+#planView .feedback-row .choice,
+#planView .choice {
+  width: 72px;
+  min-width: 0;
+  height: 24px;
+  padding: 0;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 18px;
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 500;
+}
+
+#planView .choice.correct {
+  border-color: #b5efe3;
+  background: #e4faf5;
+  color: #00a88f;
+}
+
+#planView .choice.wrong {
+  border-color: #ffcacc;
+  background: #fff0f1;
+  color: #f0525c;
+}
+
+#planView .choice.none {
+  border-color: #d8e2ed;
+  background: #f7fafd;
+  color: #667895;
+}
+
+#planView .choice.selected {
+  box-shadow: inset 0 0 0 2px currentColor;
+}
+
+#planView .wrong-reasons {
+  padding: 2px 0 8px;
+  gap: 6px;
+}
+
+#planView .feedback-actions {
+  margin-top: 12px;
+  display: grid;
+  gap: 0;
+  padding-top: 0;
+}
+
+#planView .submit-feedback {
+  justify-self: center;
+  width: min(100%, 320px);
+  height: 52px;
+  padding: 1px 6px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(170.77deg, #13bfa8 0%, #0ba98e 100%);
+  box-shadow: 0 10px 10px rgba(19, 191, 168, 0.2);
+  color: #fff;
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  font-size: 20px;
+  line-height: normal;
+  font-weight: 400;
+  text-align: center;
+}
+
+#planView .submit-feedback:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+#planView .feedback-message {
+  min-height: 0;
+  color: #667895;
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+}
+
+#planView .feedback-message:empty {
+  display: none;
+}
+
+#planView .incomplete-result-card {
+  margin-top: 8px;
+  padding: 24px 22px 22px;
+  border: 1px solid rgba(245, 174, 63, 0.32);
+  border-radius: 24px;
+  background: linear-gradient(135deg, #fffbef 0%, #f2fffb 100%);
+  box-shadow: 0 14px 28px rgba(20, 50, 70, 0.08);
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+}
+
+#planView .incomplete-result-kicker {
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(245, 174, 63, 0.15);
+  color: #b86f00;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+}
+
+#planView .incomplete-result-card h2 {
+  margin: 10px 0 8px;
+  color: #142033;
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 800;
+}
+
+#planView .incomplete-result-card p {
+  margin: 0;
+  color: #405469;
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+#planView .chapter-summary-card {
+  --primary: #009a84;
+  --primary-dark: #007d72;
+  --text-main: #102033;
+  --text-muted: #64748b;
+  --card-border: #cdede9;
+  --soft-bg: #f2fcfa;
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  margin: 14px auto 0;
+  padding: 22px 18px 20px;
+  overflow: hidden;
+  border: 1px solid rgba(45, 200, 185, 0.24);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 88% 8%, rgba(45, 200, 185, 0.14), transparent 26%),
+    linear-gradient(145deg, #ffffff 0%, #f8fffe 58%, #e8faf7 100%);
+  box-shadow: 0 14px 34px rgba(20, 96, 90, 0.10);
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  isolation: isolate;
+}
+
+#planView .chapter-summary-card::before {
+  position: absolute;
+  top: -26px;
+  right: -28px;
+  z-index: -1;
+  width: 168px;
+  height: 168px;
+  background:
+    url("../../assets/icons/chapter-summary-bg-blob.svg") center / contain no-repeat,
+    url("../../assets/icons/chapter-summary-decor-dots.svg") 58% 42% / 82px auto no-repeat;
+  opacity: 0.58;
+  content: "";
+}
+
+#planView .chapter-summary-card::after {
+  position: absolute;
+  right: 18px;
+  bottom: 16px;
+  z-index: -1;
+  width: 76px;
+  height: 64px;
+  background: url("../../assets/icons/chapter-summary-leaf.svg") center / contain no-repeat;
+  opacity: 0.12;
+  content: "";
+}
+
+#planView .chapter-summary-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: 116px;
+  gap: 16px;
+}
+
+#planView .chapter-summary-title-wrap {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+#planView .chapter-summary-kicker {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  height: 44px;
+}
+
+#planView .chapter-summary-kicker img {
+  width: 148px;
+  height: 44px;
+  flex: 0 0 148px;
+  object-fit: contain;
+}
+
+#planView .chapter-summary-head h2 {
+  max-width: 640px;
+  margin: 20px 0 0;
+  color: var(--text-main);
+  font-size: 31px;
+  line-height: 38px;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+#planView .chapter-summary-title-tail {
+  white-space: nowrap;
+}
+
+#planView .chapter-summary-head p {
+  margin: 8px 0 0;
+  color: var(--text-muted);
+  font-size: 17px;
+  line-height: 26px;
+  font-weight: 500;
+}
+
+#planView .chapter-summary-title-line {
+  display: block;
+  width: 58px;
+  height: 4px;
+  margin-top: 15px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary), rgba(45, 200, 185, 0));
+}
+
+#planView .chapter-summary-open-book-decor {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 82px;
+  height: 82px;
+  object-fit: contain;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+#planView .chapter-summary-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 4px;
+  padding: 14px 16px;
+  border: 1px solid rgba(45, 200, 185, 0.20);
+  border-radius: 22px;
+  background: rgba(244, 253, 251, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.64);
+  backdrop-filter: blur(8px);
+}
+
+#planView .chapter-summary-metric {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  min-height: 88px;
+  padding: 14px 14px;
+  border-bottom: 1px solid rgba(20, 96, 90, 0.14);
+}
+
+#planView .chapter-summary-metric:nth-child(odd) {
+  border-right: 1px solid rgba(20, 96, 90, 0.14);
+}
+
+#planView .chapter-summary-metric:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+
+#planView .chapter-summary-metric.is-wide,
+#planView .chapter-summary-metric.is-wide:nth-child(odd),
+#planView .chapter-summary-metric.is-wide:nth-last-child(-n + 2) {
+  grid-column: 1 / -1;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+#planView .chapter-summary-metric:nth-child(2) {
+  border-bottom: 1px solid rgba(20, 96, 90, 0.14);
+}
+
+#planView .chapter-summary-metric-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  background: rgba(218, 248, 245, 0.88);
+}
+
+#planView .chapter-summary-metric-icon img {
+  width: 27px;
+  height: 27px;
+  object-fit: contain;
+}
+
+#planView .chapter-summary-metric-copy {
+  min-width: 0;
+}
+
+#planView .chapter-summary-metric span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 21px;
+  font-weight: 700;
+}
+
+#planView .chapter-summary-metric strong {
+  display: block;
+  min-width: 0;
+  margin-top: 5px;
+  color: var(--text-main);
+  font-size: 20px;
+  line-height: 29px;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
+#planView .chapter-summary-metric:nth-child(-n + 2) strong {
+  color: var(--primary-dark);
+  font-size: 27px;
+  line-height: 34px;
+}
+
+#planView .chapter-summary-section-list {
+  display: grid;
+  gap: 0;
+  margin-top: 22px;
+}
+
+#planView .chapter-summary-section {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 14px;
+  min-width: 0;
+  padding: 18px 0;
+  border-top: 1px dashed rgba(100, 116, 139, 0.24);
+}
+
+#planView .chapter-summary-section:first-child {
+  border-top: 0;
+}
+
+#planView .chapter-summary-section.is-highlight {
+  margin-bottom: 4px;
+  padding: 16px 14px 17px 12px;
+  border: 1px solid rgba(45, 200, 185, 0.15);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0 10px 24px rgba(20, 96, 90, 0.06);
+}
+
+#planView .chapter-summary-section.is-highlight::before {
+  position: absolute;
+  top: 18px;
+  bottom: 18px;
+  left: 0;
+  width: 4px;
+  border-radius: 999px;
+  background: var(--primary);
+  content: "";
+}
+
+#planView .chapter-summary-section-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  background: rgba(218, 248, 245, 0.82);
+}
+
+#planView .chapter-summary-section-icon img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+#planView .chapter-summary-section-body {
+  min-width: 0;
+}
+
+#planView .chapter-summary-section h3 {
+  margin: 0;
+  color: var(--primary-dark);
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 900;
+}
+
+#planView .chapter-summary-section p {
+  margin: 9px 0 0;
+  color: var(--text-main);
+  font-size: 15px;
+  line-height: 25px;
+  font-weight: 400;
+}
+
+#planView .chapter-summary-book-stack {
+  position: absolute;
+  right: 2px;
+  bottom: 8px;
+  width: 68px;
+  height: 58px;
+  object-fit: contain;
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+@media (max-width: 430px) {
+  #planView .chapter-summary-card {
+    padding: 20px 15px 18px;
+  }
+
+  #planView .chapter-summary-open-book-decor {
+    width: 62px;
+    height: 62px;
+    opacity: 0.55;
+  }
+
+  #planView .chapter-summary-head h2 {
+    max-width: 318px;
+    font-size: 26px;
+    line-height: 33px;
+  }
+
+  #planView .chapter-summary-head p {
+    font-size: 15px;
+    line-height: 23px;
+  }
+
+  #planView .chapter-summary-metrics {
+    padding: 10px;
+  }
+
+  #planView .chapter-summary-metric {
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 9px;
+    min-height: 86px;
+    padding: 12px 10px;
+  }
+
+  #planView .chapter-summary-metric-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  #planView .chapter-summary-metric-icon img {
+    width: 23px;
+    height: 23px;
+  }
+
+  #planView .chapter-summary-metric span {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  #planView .chapter-summary-metric strong {
+    font-size: 17px;
+    line-height: 25px;
+  }
+
+  #planView .chapter-summary-metric:nth-child(-n + 2) strong {
+    font-size: 23px;
+    line-height: 30px;
+  }
+}
+
+@media (max-width: 340px) {
+  #planView .chapter-summary-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  #planView .chapter-summary-metric,
+  #planView .chapter-summary-metric:nth-child(odd),
+  #planView .chapter-summary-metric:nth-last-child(-n + 2) {
+    border-right: 0;
+    border-bottom: 1px solid rgba(20, 96, 90, 0.14);
+  }
+
+  #planView .chapter-summary-metric:last-child {
+    border-bottom: 0;
+  }
+
+  #planView .chapter-summary-section {
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  #planView .chapter-summary-section-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  #planView .chapter-summary-book-stack {
+    display: none;
+  }
+}
+
+#planView .daily-review-card {
+  margin-top: 12px;
+  padding: 16px 14px;
+  border: 1px solid #e6f1ef;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 8px 18px rgba(20, 50, 70, 0.07);
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+}
+
+#planView .daily-review-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+#planView .daily-review-head img {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  object-fit: contain;
+}
+
+#planView .daily-review-head h2 {
+  margin: 0;
+  color: #142033;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+#planView .daily-review-head p {
+  margin: 1px 0 0;
+  color: #8190a2;
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+#planView .daily-review-list {
+  display: grid;
+  gap: 8px;
+}
+
+#planView .daily-review-item {
+  padding: 10px 11px;
+  border: 1px solid #e6f1ef;
+  border-radius: 8px;
+  background: #fbfffd;
+}
+
+#planView .daily-review-item-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+
+#planView .daily-review-item-head strong {
+  min-width: 0;
+  color: #253246;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#planView .daily-review-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+}
+
+#planView .daily-review-status.is-correct {
+  border-color: #b5efe3;
+  background: #e4faf5;
+  color: #00a88f;
+}
+
+#planView .daily-review-status.is-wrong {
+  border-color: #ffcacc;
+  background: #fff0f1;
+  color: #f0525c;
+}
+
+#planView .daily-review-item p {
+  margin: 7px 0 0;
+  color: #405469;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+}
+
+#planView .completion-card .more-practice-btn {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 18px;
+  border: 1.2px solid rgba(0, 168, 143, 0.35);
+  border-radius: 999px;
+  background: #ffffff;
+  color: #078a7d;
+  box-shadow: 0 8px 18px rgba(0, 168, 143, 0.08);
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 700;
+}
+
+#planView .completion-card .more-practice-btn:disabled {
+  border-color: rgba(0, 168, 143, 0.2);
+  background: #f2fffc;
+  color: #5aa99f;
+  box-shadow: none;
+}
+
+#planView .extra-practice-card {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+#planView .extra-practice-card .type-card {
+  margin-bottom: 0;
+}
+
+/* Test-only next-day action. Remove this block and markup before production launch. */
+#planView .test-only-next-day {
+  margin: 14px 0 2px;
+  padding: 0 14px;
+}
+
+#planView .test-only-next-day .next-test-day-btn {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 0;
+}
+
+@media (max-width: 390px) {
+  #planView .section-title h2 {
+    font-size: 24px;
+  }
+
+  #planView .type-count {
+    min-width: 86px;
+    padding: 0 10px;
+    font-size: 14px;
+  }
+
+  #planView .feedback-choices {
+    grid-template-columns: repeat(3, minmax(64px, 72px));
+    gap: 12px;
+  }
+}

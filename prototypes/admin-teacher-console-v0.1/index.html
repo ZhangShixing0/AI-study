@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI 督学后台工作台 Mockup</title>
+    <link rel="stylesheet" href="styles.css?v=4" />
+  </head>
+  <body>
+    <section id="authRoot" class="auth-root"></section>
+
+    <div class="app-shell" hidden>
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">AI</div>
+          <div>
+            <div class="brand-title">AI 督学后台</div>
+            <div class="brand-subtitle">Admin / Teacher Console</div>
+          </div>
+        </div>
+
+        <div id="roleSwitchSlot"></div>
+
+        <nav class="side-nav" id="sideNav" aria-label="后台导航"></nav>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <div class="eyebrow" id="roleEyebrow">管理员工作台</div>
+            <h1 id="pageTitle">运营总览</h1>
+          </div>
+          <div class="topbar-actions">
+            <label class="search-box">
+              <span>搜索</span>
+              <input id="globalSearch" type="search" placeholder="学生ID / QQ / 班级 / 老师" />
+            </label>
+            <button class="ghost-button" type="button" id="resetSearch">清空</button>
+            <div class="risk-pill" id="riskAuthPill" hidden></div>
+            <div class="user-pill" id="currentUserPill"></div>
+          </div>
+        </header>
+
+        <section id="searchResults" class="search-results" hidden></section>
+        <section id="viewRoot" class="view-root" aria-live="polite"></section>
+      </main>
+    </div>
+
+    <template id="emptyStateTemplate">
+      <div class="empty-state">
+        <div class="empty-title">暂无匹配数据</div>
+        <p>调整筛选条件后再查看。</p>
+      </div>
+    </template>
+
+    <div class="modal-backdrop" id="actionModal" hidden>
+      <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <header class="modal-head">
+          <div>
+            <div class="eyebrow" id="modalEyebrow">模拟操作</div>
+            <h2 id="modalTitle">确认操作</h2>
+          </div>
+          <button class="icon-button" type="button" aria-label="关闭弹窗" data-modal-close>×</button>
+        </header>
+        <div class="modal-body" id="modalBody"></div>
+        <footer class="modal-actions">
+          <button class="secondary-button" type="button" data-modal-close>取消</button>
+          <button class="primary-button" type="button" data-modal-confirm id="modalConfirm">确认</button>
+        </footer>
+      </section>
+    </div>
+
+    <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+
+    <footer class="site-filing-footer" aria-label="网站备案信息">
+      <div class="site-filing-links">
+        <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">豫ICP备2026030408号</a>
+        <a class="site-police-filing" href="https://beian.mps.gov.cn/#/query/webSearch?code=41108202000963" target="_blank" rel="noopener noreferrer">
+          <img src="/assets/icons/beian-police.png" alt="" aria-hidden="true" />
+          <span>豫公网安备41108202000963号</span>
+        </a>
+      </div>
+    </footer>
+
+    <script src="data.js?v=3"></script>
+    <script src="app.js?v=11"></script>
+  </body>
+</html>

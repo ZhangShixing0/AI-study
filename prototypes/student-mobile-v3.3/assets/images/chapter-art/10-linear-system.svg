@@ -1,0 +1,21 @@
+<svg width="300" height="185" viewBox="0 0 300 185" xmlns="http://www.w3.org/2000/svg">
+  <style>:root{--accent:#2f6fdf;--ink:#273142;}</style>
+  <rect x="6" y="6" width="288" height="173" rx="18" fill="var(--accent,#2f6fdf)" fill-opacity="0.06"/>
+  <text x="150" y="35" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="800" fill="var(--accent,#2f6fdf)">[A|b] → 阶梯形矩阵</text>
+  <g transform="translate(-10 0)">
+    <g transform="translate(18 46)">
+      <g font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="14.5" fill="var(--accent,#2f6fdf)" text-anchor="middle">
+        <path d="M20 26V94M128 26V94" stroke="var(--accent,#2f6fdf)" stroke-width="1.7"/>
+        <text x="42" y="46" fill="var(--ink,#273142)">a₁₁</text><text x="68" y="46" fill="var(--ink,#273142)">a₁₂</text><text x="94" y="46" fill="var(--ink,#273142)">...</text><text x="118" y="46" fill="var(--ink,#273142)">b₁</text>
+        <text x="42" y="68" fill="var(--ink,#273142)">a₂₁</text><text x="68" y="68" fill="var(--ink,#273142)">a₂₂</text><text x="94" y="68" fill="var(--ink,#273142)">...</text><text x="118" y="68" fill="var(--ink,#273142)">b₂</text>
+        <text x="42" y="90" fill="var(--ink,#273142)">⋮</text><text x="68" y="90" fill="var(--ink,#273142)">⋮</text><text x="94" y="90" fill="var(--ink,#273142)">⋱</text><text x="118" y="90" fill="var(--ink,#273142)">⋮</text>
+      </g><path d="M138 62L166 62" stroke="var(--accent,#2f6fdf)" stroke-width="2.5" stroke-linecap="round"/><path d="M157.0 66.5L166 62L157.0 57.5" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <g font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="14.5" fill="var(--accent,#2f6fdf)" text-anchor="middle">
+        <path d="M176 26V94M280 26V94" stroke="var(--accent,#2f6fdf)" stroke-width="1.7"/>
+        <text x="196" y="46" fill="var(--ink,#273142)">1</text><text x="222" y="46" fill="var(--ink,#273142)">*</text><text x="248" y="46" fill="var(--ink,#273142)">...</text><text x="270" y="46" fill="var(--ink,#273142)">c₁</text>
+        <text x="196" y="68" fill="var(--ink,#273142)">0</text><text x="222" y="68" fill="var(--ink,#273142)">1</text><text x="248" y="68" fill="var(--ink,#273142)">...</text><text x="270" y="68" fill="var(--ink,#273142)">c₂</text>
+        <text x="196" y="90" fill="var(--ink,#273142)">0</text><text x="222" y="90" fill="var(--ink,#273142)">0</text><text x="248" y="90" fill="var(--ink,#273142)">...</text><text x="270" y="90" fill="var(--ink,#273142)">cᵣ</text>
+      </g>
+    </g>
+  </g>
+</svg>

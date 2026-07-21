@@ -1,0 +1,132 @@
+/* Student app shell and view state.
+   Load this after page styles so navigation state always wins over page display rules. */
+
+html body .page {
+  width: min(390px, 100vw);
+  max-width: 390px;
+  background: #f3f8f8;
+}
+
+html body .content {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 390px;
+  padding: 24px 18px 104px;
+  background: #f3f8f8;
+  border-radius: 0;
+}
+
+.content,
+.content *,
+.content *::before,
+.content *::after {
+  box-sizing: border-box;
+}
+
+.content > .view {
+  width: 100%;
+  min-width: 0;
+}
+
+.content > .view[hidden] {
+  display: none !important;
+}
+
+.content [class*="card"] {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.content [class*="card"] > * {
+  min-width: 0;
+}
+
+.content img {
+  max-width: 100%;
+}
+
+.bottom-app-nav {
+  left: 50%;
+  right: auto;
+  width: min(100vw, 390px);
+  max-width: 390px;
+  transform: translateX(-50%);
+}
+
+.bottom-app-nav .nav {
+  gap: 4px;
+}
+
+.bottom-app-nav .nav-item {
+  min-height: 56px;
+  border-radius: 18px;
+  color: #5f6e82;
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 500;
+}
+
+.bottom-app-nav .nav-item.active {
+  background: #e9f8f4;
+  color: #07937f;
+}
+
+.bottom-app-nav .nav-item img {
+  width: 22px;
+  height: 22px;
+}
+
+@media (min-width: 768px) {
+  html body {
+    background: #eaf2f2;
+  }
+
+  html body .scheme-title,
+  html body .page {
+    width: 390px;
+    max-width: 390px;
+    margin: 0 auto;
+  }
+
+  html body .page {
+    min-height: 100vh;
+  }
+
+  html body .content {
+    width: 100%;
+    max-width: 390px;
+    margin: 0 auto;
+  }
+
+  .bottom-app-nav {
+    width: 390px;
+    max-width: 390px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  .login-screen {
+    width: 390px;
+    max-width: 390px;
+    min-height: 100vh;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 430px) {
+  html body .page {
+    width: 100vw;
+    max-width: none;
+  }
+
+  html body .content {
+    max-width: none;
+    padding: 24px 18px 104px;
+  }
+
+  .bottom-app-nav {
+    width: 100vw;
+    max-width: none;
+  }
+}
