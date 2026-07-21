@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="700" viewBox="0 0 1600 700" role="img" aria-labelledby="title desc">
+  <title id="title">AI 督学项目封面</title>
+  <desc id="desc">AI 督学 v721，将学生每日计划、逐题反馈与教师跟进连接成学习闭环。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07111f"/>
+      <stop offset="0.55" stop-color="#0b2133"/>
+      <stop offset="1" stop-color="#123346"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2dd4bf"/>
+      <stop offset="1" stop-color="#a3e635"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16384a" stop-opacity="0.96"/>
+      <stop offset="1" stop-color="#0e293a" stop-opacity="0.9"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#2dd4bf" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" fill="none" stroke="#d9f99d" stroke-opacity="0.045"/>
+    </pattern>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#020617" flood-opacity="0.36"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="700" rx="34" fill="url(#bg)"/>
+  <rect width="1600" height="700" rx="34" fill="url(#grid)"/>
+  <circle cx="1325" cy="140" r="330" fill="url(#glow)"/>
+  <circle cx="580" cy="765" r="430" fill="url(#glow)" opacity="0.55"/>
+
+  <g font-family="Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif">
+    <g transform="translate(94 74)">
+      <rect width="46" height="46" rx="14" fill="#2dd4bf"/>
+      <path d="M13 27.5 20.5 20l5 5L34 16.5" fill="none" stroke="#06202b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="64" y="19" fill="#ecfeff" font-size="18" font-weight="700" letter-spacing="2.6">AI STUDY</text>
+      <text x="64" y="42" fill="#94a3b8" font-size="13" font-weight="600" letter-spacing="2">SUPERVISION SYSTEM</text>
+    </g>
+
+    <g transform="translate(94 230)">
+      <text x="0" y="0" fill="#f8fafc" font-size="84" font-weight="800" letter-spacing="-3">学习闭环</text>
+      <rect x="0" y="34" width="138" height="8" rx="4" fill="url(#accent)"/>
+      <text x="0" y="112" fill="#dbeafe" font-size="30" font-weight="650">把计划、反馈与教师跟进</text>
+      <text x="0" y="157" fill="#94a3b8" font-size="30">放进同一条学习闭环</text>
+    </g>
+
+    <g transform="translate(94 426)">
+      <g>
+        <rect width="122" height="42" rx="21" fill="#2dd4bf" fill-opacity="0.13" stroke="#2dd4bf" stroke-opacity="0.48"/>
+        <circle cx="22" cy="21" r="5" fill="#2dd4bf"/>
+        <text x="38" y="27" fill="#ccfbf1" font-size="15" font-weight="700">v721</text>
+      </g>
+      <g transform="translate(140)">
+        <rect width="166" height="42" rx="21" fill="#a3e635" fill-opacity="0.1" stroke="#a3e635" stroke-opacity="0.4"/>
+        <circle cx="22" cy="21" r="5" fill="#a3e635"/>
+        <text x="38" y="27" fill="#ecfccb" font-size="15" font-weight="700">PRIVATE BETA</text>
+      </g>
+      <g transform="translate(324)">
+        <rect width="126" height="42" rx="21" fill="#60a5fa" fill-opacity="0.1" stroke="#60a5fa" stroke-opacity="0.4"/>
+        <circle cx="22" cy="21" r="5" fill="#60a5fa"/>
+        <text x="38" y="27" fill="#dbeafe" font-size="15" font-weight="700">数学二</text>
+      </g>
+    </g>
+
+    <g transform="translate(94 548)">
+      <text x="0" y="0" fill="#64748b" font-size="13" font-weight="700" letter-spacing="2">LEARNING LOOP</text>
+      <g transform="translate(0 24)">
+        <circle cx="10" cy="10" r="10" fill="#2dd4bf"/>
+        <text x="31" y="16" fill="#e2e8f0" font-size="18" font-weight="650">今日计划</text>
+        <path d="M128 10h52" stroke="#475569" stroke-width="2" stroke-dasharray="5 7"/>
+        <path d="m175 5 8 5-8 5" fill="none" stroke="#64748b" stroke-width="2"/>
+        <circle cx="208" cy="10" r="10" fill="#60a5fa"/>
+        <text x="229" y="16" fill="#e2e8f0" font-size="18" font-weight="650">逐题反馈</text>
+        <path d="M326 10h52" stroke="#475569" stroke-width="2" stroke-dasharray="5 7"/>
+        <path d="m373 5 8 5-8 5" fill="none" stroke="#64748b" stroke-width="2"/>
+        <circle cx="406" cy="10" r="10" fill="#a3e635"/>
+        <text x="427" y="16" fill="#e2e8f0" font-size="18" font-weight="650">教师跟进</text>
+      </g>
+    </g>
+
+    <g transform="translate(830 96)" filter="url(#shadow)">
+      <rect width="668" height="508" rx="30" fill="#0a1e2c" stroke="#5eead4" stroke-opacity="0.16"/>
+      <g transform="translate(34 31)">
+        <circle cx="7" cy="7" r="7" fill="#fb7185"/>
+        <circle cx="31" cy="7" r="7" fill="#fbbf24"/>
+        <circle cx="55" cy="7" r="7" fill="#4ade80"/>
+        <text x="420" y="13" fill="#64748b" font-size="13" font-weight="700" letter-spacing="1.2">TODAY · JUL 21</text>
+      </g>
+
+      <g transform="translate(34 82)">
+        <rect width="286" height="172" rx="22" fill="url(#panel)" stroke="#5eead4" stroke-opacity="0.16"/>
+        <text x="24" y="38" fill="#94a3b8" font-size="13" font-weight="700" letter-spacing="1.5">STUDENT</text>
+        <text x="24" y="75" fill="#f8fafc" font-size="24" font-weight="750">今日计划</text>
+        <text x="24" y="105" fill="#94a3b8" font-size="15">高数 · 第一章 · 18 题</text>
+        <rect x="24" y="132" width="238" height="8" rx="4" fill="#071521"/>
+        <rect x="24" y="132" width="164" height="8" rx="4" fill="url(#accent)"/>
+
+        <g transform="translate(310)">
+          <rect width="290" height="172" rx="22" fill="url(#panel)" stroke="#60a5fa" stroke-opacity="0.18"/>
+          <text x="24" y="38" fill="#94a3b8" font-size="13" font-weight="700" letter-spacing="1.5">FEEDBACK</text>
+          <text x="24" y="75" fill="#f8fafc" font-size="24" font-weight="750">学习反馈</text>
+          <g transform="translate(24 100)">
+            <rect width="58" height="38" rx="11" fill="#2dd4bf" fill-opacity="0.14"/>
+            <text x="16" y="25" fill="#99f6e4" font-size="14" font-weight="700">掌握</text>
+            <rect x="70" width="58" height="38" rx="11" fill="#fbbf24" fill-opacity="0.12"/>
+            <text x="86" y="25" fill="#fde68a" font-size="14" font-weight="700">模糊</text>
+            <rect x="140" width="58" height="38" rx="11" fill="#fb7185" fill-opacity="0.12"/>
+            <text x="156" y="25" fill="#fecdd3" font-size="14" font-weight="700">错题</text>
+          </g>
+        </g>
+      </g>
+
+      <g transform="translate(34 278)">
+        <rect width="600" height="194" rx="22" fill="url(#panel)" stroke="#a3e635" stroke-opacity="0.16"/>
+        <text x="24" y="38" fill="#94a3b8" font-size="13" font-weight="700" letter-spacing="1.5">TEACHER CONSOLE</text>
+        <text x="24" y="74" fill="#f8fafc" font-size="24" font-weight="750">需要跟进的学习信号</text>
+        <g transform="translate(24 99)">
+          <rect width="552" height="54" rx="15" fill="#071521" fill-opacity="0.75"/>
+          <circle cx="27" cy="27" r="11" fill="#fbbf24" fill-opacity="0.2"/>
+          <path d="M27 19v9m0 7h.01" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round"/>
+          <text x="52" y="24" fill="#e2e8f0" font-size="15" font-weight="700">章节掌握度连续下降</text>
+          <text x="52" y="43" fill="#64748b" font-size="12">从逐题反馈定位问题，进入教师只读跟进</text>
+          <rect x="436" y="13" width="94" height="28" rx="14" fill="#a3e635" fill-opacity="0.12"/>
+          <text x="458" y="32" fill="#d9f99d" font-size="12" font-weight="700">待处理</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
