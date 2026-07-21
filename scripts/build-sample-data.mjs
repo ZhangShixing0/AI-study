@@ -83,7 +83,45 @@ const usersRows = [
   ["90002", "admin01", "$2b$12$sample_hash_for_admin01", "admin", "运营管理员", "/avatars/admin01.png", "724810002", "active", "S-90002-20260610-A", "2026-06-10 09:30:00", "2026-05-18 09:00:00", now],
 ];
 
-const usersRowsWithLoginPasswords = usersRows.map((row) => [
+const userAvatarPool = [
+  "assets/images/avatars/user/B_kaoyan_avatar_01.webp",
+  "assets/images/avatars/user/G_kaoyan_avatar_02.webp",
+  "assets/images/avatars/user/B_kaoyan_avatar_03.webp",
+  "assets/images/avatars/user/G_kaoyan_avatar_04.webp",
+  "assets/images/avatars/user/B_kaoyan_avatar_05.webp",
+  "assets/images/avatars/user/G_kaoyan_avatar_06.webp",
+  "assets/images/avatars/user/B_kaoyan_avatar_07.webp",
+  "assets/images/avatars/user/G_kaoyan_avatar_08.webp",
+  "assets/images/avatars/user/G_kaoyan_avatar_10.webp",
+  "assets/images/avatars/user/G_kaoyan_avatar_11.webp",
+  "assets/images/avatars/user/G_kaoyan_avatar_12.webp",
+  "assets/images/avatars/user/B_kaoyan_avatar_13.webp",
+  "assets/images/avatars/user/G_kaoyan_avatar_15.webp",
+  "assets/images/avatars/user/B_kaoyan_avatar_16.webp",
+  "assets/images/avatars/user/G_kaoyan_avatar_17.webp",
+  "assets/images/avatars/user/B_kaoyan_avatar_18.webp",
+  "assets/images/avatars/user/G_kaoyan_avatar_19.webp",
+  "assets/images/avatars/user/B_kaoyan_avatar_24.webp",
+  "assets/images/avatars/user/G_kaoyan_avatar_25.webp",
+  "assets/images/avatars/user/B_kaoyan_avatar_26.webp",
+  "assets/images/avatars/user/G_kaoyan_avatar_27.webp",
+  "assets/images/avatars/user/B_kaoyan_avatar_28.webp",
+];
+
+function avatarIndexForUserId(userId) {
+  return String(userId)
+    .split("")
+    .reduce((total, char) => total + char.charCodeAt(0), 0) % userAvatarPool.length;
+}
+
+const usersRowsWithAvatars = usersRows.map((row) => {
+  if (row[3] !== "student") return row;
+  const nextRow = [...row];
+  nextRow[5] = userAvatarPool[avatarIndexForUserId(row[0])];
+  return nextRow;
+});
+
+const usersRowsWithLoginPasswords = usersRowsWithAvatars.map((row) => [
   row[0],
   row[1],
   row[2],
@@ -507,6 +545,61 @@ const studyRoomMembersRows = [
   ["RM-SR-M2-10006", "SR-M2-2026", "10006", "online", "正在做高数", "28", "2026-06-10 14:52:00", "2026-06-10 08:03:00", now],
 ];
 
+const studentChapterCompletionsHeaders = [
+  "completion_id",
+  "user_id",
+  "raw_chapter_id",
+  "chapter_name",
+  "math_type",
+  "plan_stage",
+  "started_at",
+  "completed_at",
+  "spent_days",
+  "completed_type_count",
+  "total_type_count",
+  "submitted_question_count",
+  "wrong_question_count",
+  "accuracy_rate",
+  "main_loss_reasons",
+  "review_type_ids",
+  "review_type_names",
+  "summary_template_id",
+  "created_at",
+  "updated_at",
+];
+
+const studentChapterCompletionsRows = [
+  ["SCC-10001-G01", "10001", "G-01", "第一章 极限", "数学二", "强化", "2026-06-08", "2026-06-10 21:30:00", "3", "8", "8", "36", "8", "0.78", "计算失误、概念混淆", "G-01-Z-01,G-01-Z-02", "函数极限、无穷小比较", "CST-M2-G01-QH", "2026-06-10 21:30:00", now],
+  ["SCC-10002-G01", "10002", "G-01", "第一章 极限", "数学二", "强化", "2026-06-07", "2026-06-09 22:10:00", "3", "8", "8", "40", "6", "0.85", "边界条件漏看、计算失误", "G-01-Z-02", "分左右讨论的极限", "CST-M2-G01-QH", "2026-06-09 22:10:00", now],
+  ["SCC-10004-G02", "10004", "G-02", "第二章 一元函数微分学", "数学二", "强化", "2026-06-06", "2026-06-10 20:50:00", "5", "7", "7", "42", "10", "0.76", "公式套用错误、计算失误", "G-02-Z-01,G-02-Z-02", "导数定义辨析、复合函数求导", "CST-M2-G02-QH", "2026-06-10 20:50:00", now],
+];
+
+const chapterSummaryTemplatesHeaders = [
+  "summary_template_id",
+  "raw_chapter_id",
+  "chapter_name",
+  "math_type",
+  "plan_stage",
+  "summary_title",
+  "summary_text",
+  "key_points",
+  "common_mistakes",
+  "review_suggestions",
+  "next_step_text",
+  "is_active",
+  "created_at",
+  "updated_at",
+];
+
+const chapterSummaryTemplatesRows = [
+  ["CST-M2-G01-QH", "G-01", "第一章 极限", "数学二", "强化", "极限章节小结", "极限是高等数学的入口章节，核心是理解函数趋近过程中的稳定趋势，并能把定义、等价无穷小、左右极限和连续性判断连接起来。完成本章后，后续导数、积分和级数相关内容都会建立在这个基础上。", "函数极限、数列极限、无穷小比较、连续性判断", "忽略左右极限、等价无穷小使用条件不清、代入前没有先判断定义域", "优先复盘错题中的条件判断步骤，把每道题先写出趋近方向和可替换条件。", "下一章进入一元函数微分学，重点从极限思想过渡到导数定义和求导规则。", "1", "2026-06-10 14:00:00", now],
+  ["CST-M2-G02-QH", "G-02", "第二章 一元函数微分学", "数学二", "强化", "一元函数微分学小结", "本章的核心是把导数定义、求导法则和函数局部变化联系起来。学完本章后，应能判断可导性，熟练处理复合函数、隐函数和参数方程求导，并能解释导数在几何意义和变化率问题中的作用。", "导数定义、可导与连续、复合函数求导、隐函数求导", "把连续误认为必然可导、链式法则漏乘内层导数、隐函数求导忘记把 y 看作函数", "复盘时先区分题目考定义还是考运算，再按函数结构选择求导方法。", "后续微分应用会大量使用本章结论，建议保留一页常用求导结构清单。", "1", "2026-06-10 14:00:00", now],
+  ["CST-M2-G03-QH", "G-03", "第三章 微分应用（一）函数性态", "数学二", "强化", "函数性态小结", "本章重点是用导数研究函数单调性、极值、凹凸性和渐近线，把计算结果转化为函数图像与性质判断。", "单调性、极值、凹凸性、渐近线", "驻点和不可导点漏列、区间端点讨论不完整、二阶导判断条件混淆", "整理每类函数性态题的固定步骤，尤其注意列表讨论区间符号。", "下一步继续处理中值定理和证明题，为综合应用打基础。", "1", "2026-06-10 14:00:00", now],
+  ["CST-M2-G04-QH", "G-04", "第四章 微分应用（二）中值定理", "数学二", "强化", "中值定理小结", "本章把导数工具推进到证明和构造层面，关键是识别题目需要使用罗尔定理、拉格朗日中值定理还是柯西中值定理。", "罗尔定理、拉格朗日中值定理、柯西中值定理、辅助函数构造", "定理条件验证不完整、辅助函数构造方向不清、区间端点没有对应", "做证明题时先写出要证明的目标形式，再反推需要构造的函数。", "一元微分三个原始章节都完成后，成长页的一元微分展示卡可以作为整体模块复盘。", "1", "2026-06-10 14:00:00", now],
+  ["CST-M2-G05-QH", "G-05", "第五章 一元函数积分学", "数学二", "强化", "一元积分小结", "本章核心是理解不定积分和定积分的计算方法，熟练选择换元、分部积分和常见公式。", "不定积分、定积分、换元积分、分部积分", "换元后上下限未同步、分部积分对象选择不当、常见积分公式记忆不牢", "按题型整理常用换元形式，遇到乘积结构先判断是否适合分部积分。", "下一章会把积分用于面积、体积和应用问题。", "1", "2026-06-10 14:00:00", now],
+  ["CST-M2-G06-QH", "G-06", "第六章 一元函数积分学应用", "数学二", "强化", "一元积分应用小结", "本章重点是把积分计算转化为几何量和应用量，关键在于建立正确的积分表达式。", "面积、体积、变限积分、积分应用建模", "积分区间取错、图像边界判断不清、旋转体半径写反", "先画简图或写出上下边界，再建立积分式，最后再计算。", "G-05 和 G-06 都完成后，成长页的一元积分展示卡可以作为整体模块复盘。", "1", "2026-06-10 14:00:00", now],
+];
+
 await fs.mkdir(sampleDir, { recursive: true });
 
 await writeWorkbook("users.xlsx", usersHeaders, usersRowsWithLoginPasswords, "Users");
@@ -525,5 +618,7 @@ await writeWorkbook("priority_recommendations.xlsx", priorityRecommendationsHead
 await writeWorkbook("study_rooms.xlsx", studyRoomsHeaders, studyRoomsRows, "StudyRooms");
 await writeWorkbook("student_study_goals.xlsx", studentStudyGoalsHeaders, studentStudyGoalsRows, "StudentStudyGoals");
 await writeWorkbook("study_room_members.xlsx", studyRoomMembersHeaders, studyRoomMembersRows, "StudyRoomMembers");
+await writeWorkbook("student_chapter_completions.xlsx", studentChapterCompletionsHeaders, studentChapterCompletionsRows, "StudentChapterCompletions");
+await writeWorkbook("chapter_summary_templates.xlsx", chapterSummaryTemplatesHeaders, chapterSummaryTemplatesRows, "ChapterSummaryTemplates");
 
 console.log("Sample data workbooks generated in", sampleDir);

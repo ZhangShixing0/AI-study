@@ -1,16 +1,17 @@
 [Unit]
-Description=AI Tutor MVP FastAPI service
-After=network.target
+Description=AI Tutor v3.3 FastAPI service
+After=network.target postgresql.service
 
 [Service]
 Type=simple
-WorkingDirectory=/opt/ai-tutor
-ExecStart=/opt/ai-tutor/.venv/bin/python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000
+WorkingDirectory=/opt/ai-tutor-current
+EnvironmentFile=/opt/ai-tutor-current/.env.production
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/ai-tutor-current/.venv/bin/python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000
 Restart=always
 RestartSec=3
 User=ubuntu
 Group=ubuntu
-Environment=PYTHONUNBUFFERED=1
 
 [Install]
 WantedBy=multi-user.target

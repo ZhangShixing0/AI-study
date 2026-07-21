@@ -1,8 +1,15 @@
 .git/
 .agents/
 .codex/
+.codex-remote-attachments/
+.tmp/
 .venv/
+.env.production
 dist/
+standalone/
+outputs/
+tmp/
+deploy-package-backups/
 __pycache__/
 *.pyc
 *.pyo
@@ -13,3 +20,32 @@ backend/__pycache__/
 backend/**/*.pyc
 scripts/__pycache__/
 docs/superpowers/
+
+# Root-level design/debug screenshots and local preview logs.
+/*.png
+/*.jpg
+/*.jpeg
+/*.webp
+/.codex-*.log
+
+# Process documentation is kept in git, but not needed in the runtime package.
+docs/
+deploy/*.md
+data/production-seed/*.md
+data/production-seed/review/
+data/production-seed/*.inspect.ndjson
+data/samples/*.inspect.ndjson
+
+# Frontend mock/static test data and local tests are not served in production.
+prototypes/student-mobile-v3.3/data/*
+!prototypes/student-mobile-v3.3/data/experience-data.js
+prototypes/student-mobile-v3.3/tests/
+prototypes/student-mobile-v3.3/_screenshots/
+
+# Local browser verification and screenshot helpers.
+scripts/*.test.mjs
+scripts/capture-*.mjs
+scripts/verify-*.mjs
+scripts/verify-*.py
+scripts/run-admin-teacher-browser-acceptance.mjs
+scripts/build-question-type-intro-mapping-review.mjs

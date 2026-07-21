@@ -1,0 +1,7 @@
+<svg width="148" height="44" viewBox="0 0 148 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="148" height="44" rx="22" fill="#E7F8F4"/>
+  <rect x="18" y="12" width="16" height="20" rx="2" stroke="#009A84" stroke-width="2.5"/>
+  <path d="M22 17H30M22 22H30M22 27H28" stroke="#009A84" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="35" cy="28" r="3.5" fill="#009A84"/>
+  <text x="48" y="29" font-family="Arial,'Microsoft YaHei',sans-serif" font-size="20" font-weight="700" fill="#007D72">章节小结</text>
+</svg>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+  <defs>
+    <filter id="shadow" x="0" y="1" width="20" height="18.5" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="0.45" stdDeviation="0.35" flood-color="#0A6F78" flood-opacity="0.26"></feDropShadow>
+    </filter>
+    <linearGradient id="cover" x1="2.6" y1="7.4" x2="16.6" y2="16.8" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#16C6BD"></stop>
+      <stop offset="1" stop-color="#0B9FA0"></stop>
+    </linearGradient>
+    <linearGradient id="bookmark" x1="7" y1="3.4" x2="7" y2="6.7" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFA22E"></stop>
+      <stop offset="1" stop-color="#FF8617"></stop>
+    </linearGradient>
+    <linearGradient id="pencilGradient" x1="13.65" y1="8.45" x2="15.95" y2="15.5" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF9A1F"></stop>
+      <stop offset="1" stop-color="#FF6B00"></stop>
+    </linearGradient>
+  </defs>
+
+  <g transform="matrix(1.18 0 0 1.18 -2.3 -1.8)" filter="url(#shadow)">
+    <path d="M2.95 5.95c0-.58.47-1.05 1.05-1.05h4.36c.78 0 1.34.22 1.64.72.3-.5.86-.72 1.64-.72H16c.58 0 1.05.47 1.05 1.05v8.02c0 .58-.47 1.05-1.05 1.05h-4.4c-.72 0-1.23.19-1.6.6-.37-.41-.88-.6-1.6-.6H4c-.58 0-1.05-.47-1.05-1.05V5.95Z" fill="url(#cover)"></path>
+
+    <path d="M4.05 4.3c0-.43.35-.78.78-.78H8.4c.94 0 1.37.34 1.6.86v9.12c-.49-.43-1.01-.63-1.71-.63H4.83c-.43 0-.78-.35-.78-.78V4.3Z" fill="#FFFDFB"></path>
+    <path d="M10 4.38c.23-.52.66-.86 1.6-.86h3.57c.43 0 .78.35.78.78v7.79c0 .43-.35.78-.78.78h-3.46c-.7 0-1.22.2-1.71.63V4.38Z" fill="#FFFDFB"></path>
+
+    <path d="M4.05 4.3c0-.43.35-.78.78-.78H8.4c.94 0 1.37.34 1.6.86v9.12c-.49-.43-1.01-.63-1.71-.63H4.83c-.43 0-.78-.35-.78-.78V4.3Z" stroke="#7CA2AF" stroke-width="0.34"></path>
+    <path d="M10 4.38c.23-.52.66-.86 1.6-.86h3.57c.43 0 .78.35.78.78v7.79c0 .43-.35.78-.78.78h-3.46c-.7 0-1.22.2-1.71.63V4.38Z" stroke="#7CA2AF" stroke-width="0.34"></path>
+    <path d="M10 4.15v9.4" stroke="#7CA2AF" stroke-width="0.34" stroke-linecap="round"></path>
+
+    <path d="M5.55 7.1h2.9M5.55 8.7h2.9M5.55 10.3h2.7" stroke="#5B6678" stroke-width="0.52" stroke-linecap="round"></path>
+    <path d="M11.55 7.1h2.95M11.55 8.7h2.95M11.55 10.3h2.5" stroke="#5B6678" stroke-width="0.52" stroke-linecap="round"></path>
+
+    <path d="M6.15 3.65c0-.15.12-.27.27-.27H7.8c.15 0 .27.12.27.27v2.32c0 .19-.21.32-.39.23L7.11 5.9l-.57.3c-.18.09-.39-.04-.39-.23V3.65Z" fill="url(#bookmark)"></path>
+
+    <g transform="rotate(42 14.7 12.2)">
+      <rect x="13.65" y="8.45" width="2.1" height="7.05" rx="0.55" fill="url(#pencilGradient)"></rect>
+      <path d="M14.08 9.1V14.65" stroke="#FFB75E" stroke-width="0.35" stroke-linecap="round"></path>
+      <rect x="13.65" y="8.1" width="2.1" height="0.9" rx="0.25" fill="#F5F8FA"></rect>
+      <rect x="13.65" y="7.3" width="2.1" height="0.95" rx="0.45" fill="#FFA33B"></rect>
+      <path d="M13.65 15.3H15.75L14.7 17.05L13.65 15.3Z" fill="#FFD9B2"></path>
+      <path d="M14.7 17.05L14.18 16.18H15.22L14.7 17.05Z" fill="#FF6B00"></path>
+    </g>
+  </g>
+</svg>

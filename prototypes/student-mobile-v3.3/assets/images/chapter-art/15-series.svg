@@ -1,0 +1,21 @@
+<svg width="300" height="185" viewBox="0 0 300 185" xmlns="http://www.w3.org/2000/svg">
+  <style>:root{--accent:#2f6fdf;--ink:#273142;}</style>
+  <rect x="6" y="6" width="288" height="173" rx="18" fill="var(--accent,#2f6fdf)" fill-opacity="0.06"/>
+  <text x="150" y="31" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="800" fill="var(--accent,#2f6fdf)">部分和收敛</text>
+  <g transform="translate(0 13)">
+    <g stroke="var(--accent,#2f6fdf)" stroke-width="2" stroke-linecap="round" fill="none">
+      <path d="M50 139H247"/><path d="M238 134L247 139L238 144"/>
+      <path d="M50 139V56"/><path d="M45 65L50 56L55 65"/>
+    </g>
+    <text x="253" y="144" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="15" fill="var(--ink,#273142)">n</text>
+    <text x="34" y="62" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="15" fill="var(--ink,#273142)">Sₙ</text>
+    <path d="M50 82H242" stroke="var(--accent,#2f6fdf)" stroke-width="1.35" stroke-dasharray="5 6"/>
+    <text x="37" y="87" font-family="Cambria Math, Times New Roman, Georgia, serif" font-size="15" fill="var(--ink,#273142)">S</text>
+    <path d="M56 129C79 96 105 87 137 83C172 79 207 80 235 81" fill="none" stroke="var(--accent,#2f6fdf)" stroke-width="2.8"/>
+    <g fill="var(--accent,#2f6fdf)" stroke="#fff" stroke-width="1.5"><circle cx="79" cy="106" r="5"/><circle cx="107" cy="91" r="5"/><circle cx="138" cy="84" r="5"/><circle cx="174" cy="81" r="5"/><circle cx="217" cy="81" r="5"/></g>
+    <g font-family="Cambria Math, Times New Roman, Georgia, serif" fill="var(--accent,#2f6fdf)">
+      <text x="72" y="51" font-size="17" fill="var(--ink,#273142)">Sₙ =</text><text x="120" y="52" text-anchor="middle" font-size="26" fill="var(--ink,#273142)">∑</text><text x="120" y="35" text-anchor="middle" font-size="10.5" fill="var(--ink,#273142)">n</text><text x="120" y="64" text-anchor="middle" font-size="10.5" fill="var(--ink,#273142)">k=1</text><text x="145" y="51" font-size="17" fill="var(--ink,#273142)">aₖ</text>
+      <text x="160" y="124" font-size="17" fill="var(--ink,#273142)">lim<tspan baseline-shift="sub" font-size="10">n→∞</tspan> Sₙ = S</text>
+    </g>
+  </g>
+</svg>

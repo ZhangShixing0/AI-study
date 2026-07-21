@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+  <defs>
+    <linearGradient id="silverBody" x1="10" y1="4.6" x2="10" y2="15.2" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F5F8FC"/>
+      <stop offset="0.48" stop-color="#DCE3EC"/>
+      <stop offset="1" stop-color="#B5C0D0"/>
+    </linearGradient>
+    <linearGradient id="silverBand" x1="10" y1="15.1" x2="10" y2="17.1" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#DCE3EC"/>
+      <stop offset="1" stop-color="#9CA8BA"/>
+    </linearGradient>
+    <linearGradient id="silverOutline" x1="10" y1="6.2" x2="10" y2="17.2" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9EEF5"/>
+      <stop offset="1" stop-color="#93A0B3"/>
+    </linearGradient>
+    <filter id="shadow2" x="1.5" y="3" width="17" height="15.5" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="0.45" stdDeviation="0.45" flood-color="#97A4B6" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow2)">
+    <path d="M4.3 15.05L3.2 8.7C3.12 8.25 3.61 7.97 3.97 8.25L6.48 10.13C6.73 10.32 7.08 10.28 7.27 10.03L9.45 7.1C9.73 6.73 10.27 6.73 10.55 7.1L12.73 10.03C12.92 10.28 13.27 10.32 13.52 10.13L16.03 8.25C16.39 7.97 16.88 8.25 16.8 8.7L15.7 15.05H4.3Z" fill="url(#silverBody)" stroke="url(#silverOutline)" stroke-width="0.34"/>
+    <circle cx="3.55" cy="7.85" r="1.16" fill="url(#silverBody)" stroke="#CDD6E2" stroke-width="0.28"/>
+    <circle cx="10" cy="5.3" r="1.24" fill="url(#silverBody)" stroke="#CDD6E2" stroke-width="0.28"/>
+    <circle cx="16.45" cy="7.85" r="1.16" fill="url(#silverBody)" stroke="#CDD6E2" stroke-width="0.28"/>
+    <rect x="3.1" y="15.02" width="13.8" height="2.05" rx="1.02" fill="url(#silverBand)" stroke="#A5B1C2" stroke-width="0.25"/>
+    <path d="M4.35 8.75L5.02 12.2" stroke="#FFFFFF" stroke-width="0.56" stroke-linecap="round" opacity="0.86"/>
+    <path d="M8.15 9.35C8.85 8.75 9.48 7.98 9.95 7.32" stroke="#FFFFFF" stroke-width="0.52" stroke-linecap="round" opacity="0.82"/>
+    <path d="M13.65 15.65H6.35" stroke="#EDF2F8" stroke-width="0.4" stroke-linecap="round" opacity="0.8"/>
+  </g>
+  <!-- subtle 2nd-rank marker: two small center gems -->
+  <circle cx="9.05" cy="13.1" r="0.62" fill="#FFFFFF" fill-opacity="0.95" stroke="#B3BECE" stroke-width="0.14"/>
+  <circle cx="10.95" cy="13.1" r="0.62" fill="#FFFFFF" fill-opacity="0.95" stroke="#B3BECE" stroke-width="0.14"/>
+</svg>

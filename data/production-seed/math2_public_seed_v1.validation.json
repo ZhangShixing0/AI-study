@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-06-28T10:43:33.476Z",
+  "output": "data/production-seed/math2_public_seed_v1.xlsx",
+  "chapter_summary_source": "data/samples/chapter_summary_templates.xlsx",
+  "question_type_intro_source": "external-sources/type_mapping.xlsx",
+  "table_counts": {
+    "plan_variants": 2,
+    "chapters": 15,
+    "display_chapters": 12,
+    "chapter_display_mappings": 15,
+    "chapter_orders": 30,
+    "question_types": 87,
+    "question_type_orders": 174,
+    "questions": 2730,
+    "chapter_summary_templates": 15,
+    "exercise_books": 5,
+    "institutions": 242,
+    "classes": 4,
+    "class_intake_settings": 4
+  },
+  "errors": [],
+  "warnings": []
+}

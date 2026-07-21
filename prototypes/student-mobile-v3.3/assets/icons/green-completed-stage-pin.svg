@@ -1,0 +1,33 @@
+<svg width="30" height="38" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="已完成阶段目标点">
+  <defs>
+    <filter id="pinShadow" x="0" y="0" width="64" height="80" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#073B34" flood-opacity="0.22"/>
+    </filter>
+    <linearGradient id="pinGradient" x1="32" y1="4" x2="32" y2="72" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#20BFA4"/>
+      <stop offset="1" stop-color="#12A68A"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ground shadow -->
+  <ellipse cx="32" cy="74" rx="14" ry="4" fill="#073B34" opacity="0.18"/>
+
+  <!-- pin body -->
+  <path
+    d="M32 4C17.64 4 6 15.58 6 29.86C6 49.46 32 73 32 73C32 73 58 49.46 58 29.86C58 15.58 46.36 4 32 4Z"
+    fill="url(#pinGradient)"
+    stroke="white"
+    stroke-width="4"
+    stroke-linejoin="round"
+    filter="url(#pinShadow)"
+  />
+
+  <!-- check mark -->
+  <path
+    d="M20.5 30.8L28.3 38.6L44.5 22.4"
+    stroke="white"
+    stroke-width="7"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
