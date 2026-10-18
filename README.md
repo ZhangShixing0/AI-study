@@ -47,7 +47,14 @@ https://github.com/user-attachments/assets/df4f9160-ce2e-4735-9acc-44d51d8e8a73
 
 从每天做什么，到做完后发现什么。以下为学生端内置体验模式的实际界面，图中数值为合成演示数据。
 
-[![学生端实际体验界面：今日计划、逐题反馈与成长曲线](docs/assets/student-experience-tour.png)](docs/assets/student-experience-tour.png)
+<a href="docs/assets/student-experience-tour.png">
+  <picture>
+    <source media="(max-width: 640px)" srcset="docs/assets/student-experience-mobile.png">
+    <img src="docs/assets/student-experience-tour.png" alt="学生端实际体验：计划、反馈与成长，点击查看完整展示" width="100%">
+  </picture>
+</a>
+
+<sub>点击图片查看完整展示。</sub>
 
 **学生端**查看计划、提交反馈、回看薄弱点；**教师端**查询学习情况并跟进。教师后台与任务图工具的画面可在上方视频的 **01:00** 起查看。
 
