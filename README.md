@@ -6,7 +6,7 @@
 
 **面向考研数学二督学场景，把学生每日执行、逐题反馈和教师运营放进一套可验证的系统。**
 
-[版本中心](#版本中心) · [产品闭环](#项目解决什么问题) · [快速开始](#快速开始) · [系统架构](docs/architecture.md) · [安全说明](SECURITY.md)
+[介绍视频](#项目介绍视频) · [版本中心](#版本中心) · [产品闭环](#项目解决什么问题) · [快速开始](#快速开始) · [系统架构](docs/architecture.md) · [安全说明](SECURITY.md)
 
 [![CI](https://github.com/ZhangShixing0/AI-study/actions/workflows/ci.yml/badge.svg)](https://github.com/ZhangShixing0/AI-study/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/badge/release-v2026.07.21-14b8a6)](https://github.com/ZhangShixing0/AI-study/releases/tag/v2026.07.21)
@@ -18,6 +18,27 @@
 
 > [!IMPORTANT]
 > 当前项目是**私有内测版本**，不是通用 SaaS。仓库不包含真实学生数据库、生产环境变量、日志、部署备份或截图缓存；生产部署必须使用 PostgreSQL，并在首次启动前设置独立的管理员初始口令。
+
+## 项目介绍视频
+
+约 **2 分钟**了解 AI 督学的学习闭环、学生端 v3.3、管理 / 教师后台 v0.11，以及本地运行方式。视频中的产品画面使用仓库内合成样例。
+
+https://github.com/user-attachments/assets/df4f9160-ce2e-4735-9acc-44d51d8e8a73
+
+[1080p 完整原片（MP4，约 23 MB）](docs/assets/ai-duxue-intro.mp4)
+
+<details>
+<summary>查看视频章节</summary>
+
+| 时间 | 内容 |
+| --- | --- |
+| 00:00 | 备考困扰与项目介绍 |
+| 00:20 | 计划、反馈与教师跟进的学习闭环 |
+| 00:33 | 学生端：今日计划、逐题反馈、成长与薄弱点 |
+| 01:00 | 管理 / 教师后台与教师任务图工具 |
+| 01:20 | 系统架构、本地启动与发布检查 |
+
+</details>
 
 ## 版本中心
 
