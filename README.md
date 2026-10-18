@@ -23,6 +23,8 @@
 
 约 **2 分钟**了解 AI 督学的学习闭环、学生端 v3.3、管理 / 教师后台 v0.11，以及本地运行方式。视频中的产品画面使用仓库内合成样例。
 
+https://github.com/user-attachments/assets/df4f9160-ce2e-4735-9acc-44d51d8e8a73
+
 [1080p 完整原片（MP4，约 23 MB）](docs/assets/ai-duxue-intro.mp4)
 
 <details>
