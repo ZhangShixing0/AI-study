@@ -2,6 +2,8 @@
 
 # AI 督学
 
+**[简体中文](README.md)** · [English](README.en.md)
+
 <picture>
   <source media="(max-width: 640px)" srcset="docs/assets/readme-hero-mobile.svg">
   <img src="docs/assets/readme-hero.svg" alt="AI 督学 v721：连接学生计划、学习反馈与教师跟进的学习闭环" width="100%">
